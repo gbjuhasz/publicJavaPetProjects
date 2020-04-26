@@ -15,7 +15,6 @@ public class Board extends JComponent implements KeyListener {
     testBoxX = 300;
     testBoxY = 300;
 
-    // set the size of your draw board
     setPreferredSize(new Dimension(720, 720));
     setVisible(true);
   }
@@ -23,11 +22,27 @@ public class Board extends JComponent implements KeyListener {
   @Override
   public void paint(Graphics graphics) {
     super.paint(graphics);
-    graphics.fillRect(testBoxX, testBoxY, 100, 100);
-    // here you have a 720x720 canvas
-    // you can create and draw an image using the class below e.g.
-    PositionedImage image = new PositionedImage("yourimage.png", 300, 300);
-    image.draw(graphics);
+    graphics.fillRect(testBoxX, testBoxY, 720, 720);
+
+    int rowNumber = 1;
+    int columnNumber = 1;
+    for (int i = 0; i < 720; i = i + 72) {
+      for (int j = 0; j < 720; j = j + 72) {
+        String fileLocationName = "/Users/BenceJuhasz/Desktop/" +
+                "publicJavaPetProjects/publicJavaPetProjects/MidOrFeedMechWarrior2000/images/board/row-" +
+                +rowNumber + "-col-" + columnNumber + ".jpg";
+        BoardTiles floor = new BoardTiles(fileLocationName, i, j);
+        floor.draw(graphics);
+        rowNumber = rowNumber + 1;
+        if (rowNumber > 10) {
+          rowNumber = 1;
+        }
+      }
+      columnNumber = columnNumber + 1;
+      if (columnNumber > 10) {
+        columnNumber = 1;
+      }
+    }
   }
 
   public static void main(String[] args) {
