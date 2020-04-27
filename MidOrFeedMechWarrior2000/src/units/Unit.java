@@ -9,6 +9,7 @@ public abstract class Unit {
   private int imageMiddleX;
   private int imageMiddleY;
   private String facingDirection;
+  private String unitTypeForImage;
   //fields for fighting
   private int healthPoints;
   private int armorRating;
@@ -19,6 +20,10 @@ public abstract class Unit {
 
   public boolean isThreatToHeroUnit() {
     return isThreatToHeroUnit;
+  }
+
+  public String getUnitTypeForImage() {
+    return unitTypeForImage;
   }
 
   public int getArmorRating() {
@@ -111,5 +116,9 @@ public abstract class Unit {
 
   public void setThreatToHeroUnit(boolean threatToHeroUnit) {
     this.isThreatToHeroUnit = threatToHeroUnit;
+  }
+
+  public void setUnitTypeForImage(String unitTypeForImage) {
+    this.unitTypeForImage = unitTypeForImage;
   }
 }
