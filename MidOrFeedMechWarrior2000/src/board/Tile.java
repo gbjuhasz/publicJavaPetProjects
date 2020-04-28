@@ -6,16 +6,16 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class BoardTiles {
+public class Tile {
 
   BufferedImage image;
   int x;
   int y;
 
-  public BoardTiles(){
+  public Tile(){
   }
 
-  public BoardTiles(String fileLocationName,Integer x,Integer y) {
+  public Tile(String fileLocationName, Integer x, Integer y) {
 
     this.x = x;
     this.y = y;

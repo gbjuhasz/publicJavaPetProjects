@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import units.PositionedImage;
 
 public class Board extends JComponent implements KeyListener {
 
@@ -26,7 +25,7 @@ public class Board extends JComponent implements KeyListener {
         String fileLocationName = "/Users/BenceJuhasz/Desktop/" +
                 "publicJavaPetProjects/publicJavaPetProjects/MidOrFeedMechWarrior2000/images/board/row-" +
                 +rowNumber + "-col-" + columnNumber + ".jpg";
-        BoardTiles floor = new BoardTiles(fileLocationName, i, j);
+        Tile floor = new Tile(fileLocationName, i, j);
         floor.draw(graphics);
         rowNumber = rowNumber + 1;
         if (rowNumber > 10) {
@@ -74,7 +73,7 @@ public class Board extends JComponent implements KeyListener {
     if (e.getKeyCode() == KeyEvent.VK_UP) {
 
     } else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
-      
+
     }
     // and redraw to have a new picture with the new coordinates
     repaint();
