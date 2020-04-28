@@ -1,5 +1,7 @@
 package units;
 
+import java.awt.image.BufferedImage;
+
 public abstract class Unit {
   //fields for positioning on board, image picking and drawing effects
   private int posX;
@@ -10,6 +12,7 @@ public abstract class Unit {
   private int imageMiddleY;
   private String facingDirection;
   private String unitTypeForImage;
+  private BufferedImage image;
   //fields for fighting
   private int healthPoints;
   private int armorRating;
@@ -20,6 +23,10 @@ public abstract class Unit {
 
   public boolean isThreatToHeroUnit() {
     return isThreatToHeroUnit;
+  }
+
+  public BufferedImage getImage() {
+    return image;
   }
 
   public String getUnitTypeForImage() {
@@ -120,5 +127,9 @@ public abstract class Unit {
 
   public void setUnitTypeForImage(String unitTypeForImage) {
     this.unitTypeForImage = unitTypeForImage;
+  }
+
+  public void setImage(BufferedImage image) {
+    this.image = image;
   }
 }
