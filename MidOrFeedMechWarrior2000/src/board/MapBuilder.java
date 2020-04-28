@@ -6,10 +6,10 @@ import units.Tile;
 
 public class MapBuilder {
 
-  public List<Tile> buildMap(){
+  public ArrayList<Tile> buildMap(){
     int rowNumber = 1;
     int columnNumber = 1;
-    List<Tile> listOfMapTiles = new ArrayList<>();
+    ArrayList<Tile> listOfMapTiles = new ArrayList<>();
     for (int i = 0; i < 720; i = i + 72) {
       for (int j = 0; j < 720; j = j + 72) {
         String fileLocationName = "/Users/BenceJuhasz/Desktop/" +

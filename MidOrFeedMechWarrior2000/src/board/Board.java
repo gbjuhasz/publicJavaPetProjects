@@ -1,5 +1,7 @@
 package board;
 
+import com.sun.javafx.collections.MappingChange;
+import java.util.ArrayList;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -7,6 +9,9 @@ import java.awt.event.KeyListener;
 import units.Tile;
 
 public class Board extends JComponent implements KeyListener {
+
+  MapBuilder mapBuilder = new MapBuilder();
+  ArrayList<Tile> cityMap = mapBuilder.buildMap();
 
   public Board() {
 
@@ -17,7 +22,9 @@ public class Board extends JComponent implements KeyListener {
   @Override
   public void paint(Graphics graphics) {
     super.paint(graphics);
-
+    for (Tile tile: cityMap){
+      tile.draw(graphics);
+    }
   }
 
   public static void main(String[] args) {
