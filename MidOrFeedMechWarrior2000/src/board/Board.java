@@ -8,7 +8,6 @@ import units.Tile;
 
 public class Board extends JComponent implements KeyListener {
 
-
   public Board() {
 
     setPreferredSize(new Dimension(720, 720));
@@ -19,25 +18,6 @@ public class Board extends JComponent implements KeyListener {
   public void paint(Graphics graphics) {
     super.paint(graphics);
 
-    int rowNumber = 1;
-    int columnNumber = 1;
-    for (int i = 0; i < 720; i = i + 72) {
-      for (int j = 0; j < 720; j = j + 72) {
-        String fileLocationName = "/Users/BenceJuhasz/Desktop/" +
-                "publicJavaPetProjects/publicJavaPetProjects/MidOrFeedMechWarrior2000/images/board/row-" +
-                +rowNumber + "-col-" + columnNumber + ".jpg";
-        Tile floor = new Tile(fileLocationName, i, j);
-        floor.draw(graphics);
-        rowNumber = rowNumber + 1;
-        if (rowNumber > 10) {
-          rowNumber = 1;
-        }
-      }
-      columnNumber = columnNumber + 1;
-      if (columnNumber > 10) {
-        columnNumber = 1;
-      }
-    }
   }
 
   public static void main(String[] args) {
