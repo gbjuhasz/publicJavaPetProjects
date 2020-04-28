@@ -8,12 +8,8 @@ import units.PositionedImage;
 
 public class Board extends JComponent implements KeyListener {
 
-  int testBoxX;
-  int testBoxY;
 
   public Board() {
-    testBoxX = 300;
-    testBoxY = 300;
 
     setPreferredSize(new Dimension(720, 720));
     setVisible(true);
@@ -22,7 +18,6 @@ public class Board extends JComponent implements KeyListener {
   @Override
   public void paint(Graphics graphics) {
     super.paint(graphics);
-    graphics.fillRect(testBoxX, testBoxY, 720, 720);
 
     int rowNumber = 1;
     int columnNumber = 1;
@@ -47,7 +42,7 @@ public class Board extends JComponent implements KeyListener {
 
   public static void main(String[] args) {
     // Here is how you set up a new window and adding our board to it
-    JFrame frame = new JFrame("RPG Game");
+    JFrame frame = new JFrame("MidOrFeed:MechWarrior2000");
     Board board = new Board();
     frame.add(board);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,9 +72,9 @@ public class Board extends JComponent implements KeyListener {
   public void keyReleased(KeyEvent e) {
     // When the up or down keys hit, we change the position of our box
     if (e.getKeyCode() == KeyEvent.VK_UP) {
-      testBoxY -= 100;
+
     } else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
-      testBoxY += 100;
+      
     }
     // and redraw to have a new picture with the new coordinates
     repaint();
