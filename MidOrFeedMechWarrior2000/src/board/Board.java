@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import units.Tile;
 
 public class Board extends JComponent implements KeyListener {
 
