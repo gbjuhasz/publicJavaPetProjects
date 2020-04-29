@@ -8,17 +8,26 @@ import units.MechHero;
 
 public class MechHeroMovementManager {
 
-  public void moveMechHeroWithKeys(MechHero mechHero, int changeInX, int changeInY, int roundCounter){
+  IllegalMoveChecker illegalMoveChecker = new IllegalMoveChecker();
 
+  public void moveMechHeroWithKeys(MechHero mechHero, int changeInX, int changeInY, int roundCounter){
+    int oldX = mechHero.getPosX();
+    int oldY = mechHero.getPosY();
     int newX = mechHero.getPosX() + changeInX;
     int newY = mechHero.getPosY() + changeInY;
 
-    mechHero.setPosX(newX);
-    mechHero.setPosY(newY);
-    setFacingDirection(mechHero, changeInX,changeInY);
-    BufferedImage newImage = pickImage(findImageFileLocation(mechHero.getFacingDirection(),
-            isRoundNumberEven(roundCounter)));
-    mechHero.setImage(newImage);
+    if (illegalMoveChecker.isMoveLegal(newX,newY) == false){
+      return;
+    } else {
+
+      mechHero.setPosX(newX);
+      mechHero.setPosY(newY);
+
+      setFacingDirection(mechHero, changeInX, changeInY);
+      BufferedImage newImage = pickImage(findImageFileLocation(mechHero.getFacingDirection(),
+              isRoundNumberEven(roundCounter)));
+      mechHero.setImage(newImage);
+    }
   }
 
   public void setFacingDirection(MechHero mechHero, int changeInX, int changeInY){
