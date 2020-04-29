@@ -1,5 +1,6 @@
 package units;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public abstract class Unit {
@@ -131,5 +132,11 @@ public abstract class Unit {
 
   public void setImage(BufferedImage image) {
     this.image = image;
+  }
+
+  public void draw(Graphics graphics) {
+    if (image != null) {
+      graphics.drawImage(image, posX, posY, null);
+    }
   }
 }

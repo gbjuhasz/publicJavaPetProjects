@@ -12,6 +12,7 @@ public class Board extends JComponent implements KeyListener {
 
   MapBuilder mapBuilder = new MapBuilder();
   ArrayList<Tile> cityMap = mapBuilder.buildMap();
+  UnitLayout unitLayout = new UnitLayout();
 
   public Board() {
 
@@ -25,6 +26,8 @@ public class Board extends JComponent implements KeyListener {
     for (Tile tile: cityMap){
       tile.draw(graphics);
     }
+    unitLayout.placeUnitsOnMap();
+    unitLayout.getHeroMech().draw(graphics);
   }
 
   public static void main(String[] args) {

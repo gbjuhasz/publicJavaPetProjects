@@ -8,22 +8,16 @@ import javax.imageio.ImageIO;
 
 public class Tile extends Unit {
 
-  public Tile(String filename, Integer x, Integer y) {
+  public Tile(String fileName, Integer x, Integer y) {
 
     super.setPosX(x);
     super.setPosY(y);
 
     try {
-      BufferedImage tileImage = ImageIO.read(new File(filename));
+      BufferedImage tileImage = ImageIO.read(new File(fileName));
       super.setImage(tileImage);
     } catch (IOException e) {
       e.printStackTrace();
-    }
-  }
-
-  public void draw(Graphics graphics) {
-    if (super.getImage() != null) {
-      graphics.drawImage(super.getImage(), super.getPosX(), super.getPosY(), null);
     }
   }
 }
