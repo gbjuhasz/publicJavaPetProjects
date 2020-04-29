@@ -6,9 +6,9 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class HeroMech extends Mech {
+public class MechHero extends Mech {
 
-  public HeroMech(String fileName, int x, int y){
+  public MechHero(String fileName, int x, int y){
 
     super.setPosX(x);
     super.setPosY(y);

@@ -1,6 +1,5 @@
 package board;
 
-import com.sun.javafx.collections.MappingChange;
 import java.util.ArrayList;
 import javax.swing.*;
 import java.awt.*;
@@ -27,7 +26,7 @@ public class Board extends JComponent implements KeyListener {
       tile.draw(graphics);
     }
     unitLayout.placeUnitsOnMap();
-    unitLayout.getHeroMech().draw(graphics);
+    unitLayout.getMechHero().draw(graphics);
   }
 
   public static void main(String[] args) {
@@ -60,11 +59,18 @@ public class Board extends JComponent implements KeyListener {
   // But actually we can use just this one for our goals here
   @Override
   public void keyReleased(KeyEvent e) {
+
     // When the up or down keys hit, we change the position of our box
     if (e.getKeyCode() == KeyEvent.VK_UP) {
 
     } else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
 
+    } else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+
+    } else if(e.getKeyCode() == KeyEvent.VK_LEFT) {
+
+    } else {
+      repaint();
     }
     // and redraw to have a new picture with the new coordinates
     repaint();

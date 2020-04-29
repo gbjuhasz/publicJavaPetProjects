@@ -1,16 +1,16 @@
 package board;
 
-import units.HeroMech;
+import units.MechHero;
 
 public class UnitLayout {
 
-  private HeroMech heroMech;
+  private MechHero mechHero;
 
   public void placeUnitsOnMap(){
-    heroMech = new HeroMech("/Users/BenceJuhasz/Desktop/publicJavaPetProjects/publicJavaPetProjects/MidOrFeedMechWarrior2000/images/mechHero/MechHeroDownEven.png", 360, 360);
+    mechHero = new MechHero("/Users/BenceJuhasz/Desktop/publicJavaPetProjects/publicJavaPetProjects/MidOrFeedMechWarrior2000/images/mechHero/MechHeroDownEven.png", 360, 360);
   }
 
-  public HeroMech getHeroMech() {
-    return heroMech;
+  public MechHero getMechHero() {
+    return mechHero;
   }
 }

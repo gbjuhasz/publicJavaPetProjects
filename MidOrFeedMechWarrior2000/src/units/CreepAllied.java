@@ -1,8 +1,8 @@
 package units;
 
-public class AlliedCreep extends Creep {
+public class CreepAllied extends Creep {
   //fields for positioning on board, image picking and drawing effects
   private String facingDirection = "Up";
-  private String unitTypeForImage = "AlliedCreep";
+  private String unitTypeForImage = "CreepAllied";
 
 }
