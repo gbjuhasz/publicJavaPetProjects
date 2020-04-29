@@ -13,7 +13,7 @@ public class MapBuilder {
     for (int i = 0; i < 720; i = i + 72) {
       for (int j = 0; j < 720; j = j + 72) {
         String fileLocationName = "/Users/BenceJuhasz/Desktop/" +
-                "publicJavaPetProjects/publicJavaPetProjects/MidOrFeedMechWarrior2000/images/board/row-" +
+                "publicJavaPetProjects/publicJavaPetProjects/MidOrFeedMechWarrior2000/images/map/row-" +
                 +rowNumber + "-col-" + columnNumber + ".jpg";
         Tile tile = new Tile(fileLocationName, i, j);
         listOfMapTiles.add(tile);
