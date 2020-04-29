@@ -11,12 +11,15 @@ public class MechHeroMovementManager {
   IllegalMoveChecker illegalMoveChecker = new IllegalMoveChecker();
 
   public void moveMechHeroWithKeys(MechHero mechHero, int changeInX, int changeInY, int roundCounter){
-    int oldX = mechHero.getPosX();
-    int oldY = mechHero.getPosY();
+
     int newX = mechHero.getPosX() + changeInX;
     int newY = mechHero.getPosY() + changeInY;
 
     if (illegalMoveChecker.isMoveLegal(newX,newY) == false){
+      setFacingDirection(mechHero, changeInX, changeInY);
+      BufferedImage newImage = pickImage(findImageFileLocation(mechHero.getFacingDirection(),
+              isRoundNumberEven(roundCounter)));
+      mechHero.setImage(newImage);
       return;
     } else {
 
