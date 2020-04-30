@@ -82,7 +82,7 @@ public class IllegalMoveChecker {
 
   public Boolean checkBuildingBottomRight(int x, int y) {
 
-    if (x > 612) {
+    if (x > 594) {
       if (y > 414 && y < 612) {
         return false;
       }
