@@ -34,6 +34,9 @@ public class Board extends JComponent implements KeyListener {
     }
 
     unitLayout.getMechHero().draw(graphics);
+    unitLayout.getTurretAllied().draw(graphics);
+    unitLayout.getTurretEnemy().draw(graphics);
+    
     graphics.setColor(Color.WHITE);
     graphics.drawString("X:" + unitLayout.getMechHero().getPosX(),
             72,
