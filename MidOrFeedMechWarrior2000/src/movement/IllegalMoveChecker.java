@@ -7,7 +7,9 @@ public class IllegalMoveChecker {
     if (!checkMapBorders(x, y) ||
             !checkRiverUpperHalf(x, y) ||
             !checkRiverLowerHalf(x, y) ||
-            !checkBuildingOnTheLeft(x, y)) {
+            !checkBuildingOnTheLeft(x, y) ||
+            !checkBuildingBottomRight(x, y) ||
+            !checkBuildingTopRight(x, y)) {
       return false;
     }
     return true;
@@ -72,6 +74,30 @@ public class IllegalMoveChecker {
       }
     } else if (x <= 54) {
       if (y > 198 && y < 468) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public Boolean checkBuildingBottomRight(int x, int y) {
+
+    if (x > 612) {
+      if (y > 414 && y < 612) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public Boolean checkBuildingTopRight(int x, int y) {
+
+    if (x > 612) {
+      if (y < 270 && y > 72) {
+        return false;
+      }
+    } else if (x == 594 || x == 612) {
+      if (y <= 72) {
         return false;
       }
     }
