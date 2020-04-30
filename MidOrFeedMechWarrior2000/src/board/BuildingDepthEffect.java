@@ -9,7 +9,7 @@ public class BuildingDepthEffect {
 
   public void placeBuildingEffectOnMap(){
     buildingLeftSide = new Tile ("images/buildingdeptheffect/BuildingTopLeft.png",2,269);
-    buildingBottomRightSide = new Tile("images/buildingdeptheffect/BuildingTopBottomRight.png", 666, 468);
+    buildingBottomRightSide = new Tile("images/buildingdeptheffect/BuildingTopBottomRight.png", 666, 422);
   }
 
   public Tile getBuildingBottomRightSide() {
