@@ -1,12 +1,11 @@
 package board;
 
 import java.util.ArrayList;
-import java.util.List;
 import units.Tile;
 
 public class MapBuilder {
 
-  public ArrayList<Tile> buildMap(){
+  public ArrayList<Tile> buildMap() {
     int rowNumber = 1;
     int columnNumber = 1;
     ArrayList<Tile> listOfMapTiles = new ArrayList<>();

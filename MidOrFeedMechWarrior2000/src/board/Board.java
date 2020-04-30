@@ -1,10 +1,10 @@
 package board;
 
-import java.util.ArrayList;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import javax.swing.*;
 import movement.MechHeroMovementManager;
 import units.MechHero;
 import units.Tile;
@@ -27,7 +27,7 @@ public class Board extends JComponent implements KeyListener {
   @Override
   public void paint(Graphics graphics) {
     super.paint(graphics);
-    for (Tile tile: cityMap){
+    for (Tile tile : cityMap) {
       tile.draw(graphics);
     }
 
@@ -76,19 +76,19 @@ public class Board extends JComponent implements KeyListener {
     // When the up or down keys hit, we change the position of our box
     if (e.getKeyCode() == KeyEvent.VK_UP) {
       roundCounter++;
-      mechHeroMovementManager.moveMechHeroWithKeys(mechHero,0,-18, roundCounter);
+      mechHeroMovementManager.moveMechHeroWithKeys(mechHero, 0, -18, roundCounter);
       repaint();
-    } else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
+    } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
       roundCounter++;
-      mechHeroMovementManager.moveMechHeroWithKeys(mechHero,0,18, roundCounter);
+      mechHeroMovementManager.moveMechHeroWithKeys(mechHero, 0, 18, roundCounter);
       repaint();
-    } else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+    } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
       roundCounter++;
-      mechHeroMovementManager.moveMechHeroWithKeys(mechHero,18,0, roundCounter);
+      mechHeroMovementManager.moveMechHeroWithKeys(mechHero, 18, 0, roundCounter);
       repaint();
-    } else if(e.getKeyCode() == KeyEvent.VK_LEFT) {
+    } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
       roundCounter++;
-      mechHeroMovementManager.moveMechHeroWithKeys(mechHero,-18,0, roundCounter);
+      mechHeroMovementManager.moveMechHeroWithKeys(mechHero, -18, 0, roundCounter);
       repaint();
     } else {
       repaint();

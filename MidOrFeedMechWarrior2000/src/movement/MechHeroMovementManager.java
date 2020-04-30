@@ -10,12 +10,12 @@ public class MechHeroMovementManager {
 
   IllegalMoveChecker illegalMoveChecker = new IllegalMoveChecker();
 
-  public void moveMechHeroWithKeys(MechHero mechHero, int changeInX, int changeInY, int roundCounter){
+  public void moveMechHeroWithKeys(MechHero mechHero, int changeInX, int changeInY, int roundCounter) {
 
     int newX = mechHero.getPosX() + changeInX;
     int newY = mechHero.getPosY() + changeInY;
 
-    if (illegalMoveChecker.isMoveLegal(newX,newY) == false){
+    if (illegalMoveChecker.isMoveLegal(newX, newY) == false) {
       setFacingDirection(mechHero, changeInX, changeInY);
       BufferedImage newImage = pickImage(findImageFileLocation(mechHero.getFacingDirection(),
               isRoundNumberEven(roundCounter)));
@@ -33,11 +33,11 @@ public class MechHeroMovementManager {
     }
   }
 
-  public void setFacingDirection(MechHero mechHero, int changeInX, int changeInY){
+  public void setFacingDirection(MechHero mechHero, int changeInX, int changeInY) {
 
-    if(changeInX == 0 && changeInY == -18){
+    if (changeInX == 0 && changeInY == -18) {
       mechHero.setFacingDirection("Up");
-    } else if (changeInX == 0 && changeInY == 18){
+    } else if (changeInX == 0 && changeInY == 18) {
       mechHero.setFacingDirection("Down");
     } else if (changeInX == -18 && changeInY == 0) {
       mechHero.setFacingDirection("Left");
@@ -46,22 +46,22 @@ public class MechHeroMovementManager {
     }
   }
 
-  public String isRoundNumberEven(int roundCounter){
+  public String isRoundNumberEven(int roundCounter) {
 
-    if(roundCounter % 2 == 0){
+    if (roundCounter % 2 == 0) {
       return "Even";
     } else {
       return "Odd";
     }
   }
 
-  public String findImageFileLocation(String facingDirection, String roundEvenOrOdd){
+  public String findImageFileLocation(String facingDirection, String roundEvenOrOdd) {
 
-    String fileLocation = "images/mechHero/MechHero" + facingDirection + roundEvenOrOdd +".png";
+    String fileLocation = "images/mechHero/MechHero" + facingDirection + roundEvenOrOdd + ".png";
     return fileLocation;
   }
 
-  public BufferedImage pickImage(String fileLocation){
+  public BufferedImage pickImage(String fileLocation) {
 
     BufferedImage image = null;
 
