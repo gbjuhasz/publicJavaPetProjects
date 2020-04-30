@@ -57,7 +57,7 @@ public class MechHeroMovementManager {
 
   public String findImageFileLocation(String facingDirection, String roundEvenOrOdd) {
 
-    String fileLocation = "images/mechHero/MechHero" + facingDirection + roundEvenOrOdd + ".png";
+    String fileLocation = "images/mechhero/MechHero" + facingDirection + roundEvenOrOdd + ".png";
     return fileLocation;
   }
 
