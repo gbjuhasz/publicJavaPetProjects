@@ -15,6 +15,7 @@ public class Board extends JComponent implements KeyListener {
   ArrayList<Tile> cityMap = mapBuilder.buildMap();
   UnitLayout unitLayout = new UnitLayout();
   MechHeroMovementManager mechHeroMovementManager = new MechHeroMovementManager();
+  BuildingDepthEffect buildingDepthEffect = new BuildingDepthEffect();
   int roundCounter = 1;
 
   public Board() {
@@ -22,6 +23,7 @@ public class Board extends JComponent implements KeyListener {
     setPreferredSize(new Dimension(720, 720));
     setVisible(true);
     unitLayout.placeUnitsOnMap();
+    buildingDepthEffect.placeBuildingEffectOnMap();
   }
 
   @Override
@@ -39,6 +41,8 @@ public class Board extends JComponent implements KeyListener {
     graphics.drawString("Y:" + unitLayout.getMechHero().getPosY(),
             72,
             80);
+    buildingDepthEffect.getBuildingBottomRightSide().draw(graphics);
+    buildingDepthEffect.getBuildingLeftSide().draw(graphics);
   }
 
   public static void main(String[] args) {
