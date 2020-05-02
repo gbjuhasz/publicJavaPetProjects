@@ -22,7 +22,6 @@ public abstract class Unit {
   //field for decision making
   private boolean isThreatToHeroUnit;
   private int powerScore;
-  private Unit ultimateTarget;
 
   public boolean isThreatToHeroUnit() {
     return isThreatToHeroUnit;

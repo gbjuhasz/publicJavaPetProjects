@@ -6,7 +6,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import units.MechHero;
 
-public class MechHeroMovementManager {
+public class MechHeroMovementManager extends MovementManager {
 
   IllegalMoveChecker illegalMoveChecker = new IllegalMoveChecker();
 
@@ -34,43 +34,10 @@ public class MechHeroMovementManager {
     }
   }
 
-  public void setFacingDirection(MechHero mechHero, int changeInX, int changeInY) {
-
-    if (changeInX == 0 && changeInY == -18) {
-      mechHero.setFacingDirection("Up");
-    } else if (changeInX == 0 && changeInY == 18) {
-      mechHero.setFacingDirection("Down");
-    } else if (changeInX == -18 && changeInY == 0) {
-      mechHero.setFacingDirection("Left");
-    } else {
-      mechHero.setFacingDirection("Right");
-    }
-  }
-
-  public String isRoundNumberEven(int roundCounter) {
-
-    if (roundCounter % 2 == 0) {
-      return "Even";
-    } else {
-      return "Odd";
-    }
-  }
-
+  @Override
   public String findImageFileLocation(String facingDirection, String roundEvenOrOdd) {
 
     String fileLocation = "images/mechhero/MechHero" + facingDirection + roundEvenOrOdd + ".png";
     return fileLocation;
-  }
-
-  public BufferedImage pickImage(String fileLocation) {
-
-    BufferedImage image = null;
-
-    try {
-      image = ImageIO.read(new File(fileLocation));
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    return image;
   }
 }

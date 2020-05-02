@@ -14,7 +14,7 @@ public abstract class DecisionMaker {
                                     Turret turret) {
 
     if(findTargetInAttackRange(unitMakingDecision,mech,listOfCreeps,turret) == null){
-      moveTowardsTargetOutsideAttackRange(unitMakingDecision);
+      moveTowardsDestination(unitMakingDecision, turret);
     } else {
       attackTarget(unitMakingDecision, findTargetInAttackRange(unitMakingDecision,mech,listOfCreeps,turret) );
     }
@@ -45,7 +45,7 @@ public abstract class DecisionMaker {
     return null;
   }
 
-  public void moveTowardsTargetOutsideAttackRange(Unit unitMakingMove){}
+  public void moveTowardsDestination(Unit unitMakingMove, Unit turret){}
 
   public void attackTarget(Unit unitAttacking, Unit unitTargeted){}
 
