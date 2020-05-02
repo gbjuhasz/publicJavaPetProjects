@@ -11,6 +11,7 @@ public class MechHero extends Mech {
 
     super.setPosX(x);
     super.setPosY(y);
+    super.calculateImageCenterCoordinates();
 
     try {
       BufferedImage tileImage = ImageIO.read(new File(fileName));
