@@ -13,6 +13,11 @@ public abstract class DecisionMaker {
                                     ArrayList<Creep> listOfCreeps,
                                     Turret turret) {
 
+    if(findTargetInAttackRange(unitMakingDecision,mech,listOfCreeps,turret) == null){
+      moveTowardsTargetOutsideAttackRange(unitMakingDecision);
+    } else {
+      attackTarget(unitMakingDecision, findTargetInAttackRange(unitMakingDecision,mech,listOfCreeps,turret) );
+    }
   }
 
   public Unit findTargetInAttackRange(Unit unitMakingDecision,
@@ -22,8 +27,26 @@ public abstract class DecisionMaker {
 
     int attackRange = unitMakingDecision.getAttackRange();
 
-    if(mech.isThreatToHeroUnit() && attackRange > unitMakingDecision.calculateDistanceBetweenUnits())
-
-      return null;
+    if(mech.isThreatToHeroUnit()
+            && unitMakingDecision.calculateDistanceBetweenUnits(mech) <= attackRange){
+      return mech;
+    }
+    for(Creep creep : listOfCreeps){
+      if(unitMakingDecision.calculateDistanceBetweenUnits(creep) <= attackRange) {
+        return creep;
+      }
+    }
+    if(!mech.isThreatToHeroUnit()
+            && unitMakingDecision.calculateDistanceBetweenUnits(mech) <= attackRange){
+      return mech;
+    } else if (unitMakingDecision.calculateDistanceBetweenUnits(turret)<= attackRange){
+      return turret;
+    }
+    return null;
   }
+
+  public void moveTowardsTargetOutsideAttackRange(Unit unitMakingMove){}
+
+  public void attackTarget(Unit unitAttacking, Unit unitTargeted){}
+
 }

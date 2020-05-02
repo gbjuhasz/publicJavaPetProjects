@@ -22,7 +22,7 @@ public abstract class Unit {
   //field for decision making
   private boolean isThreatToHeroUnit;
   private int powerScore;
-  private Unit target;
+  private Unit ultimateTarget;
 
   public boolean isThreatToHeroUnit() {
     return isThreatToHeroUnit;
@@ -82,10 +82,6 @@ public abstract class Unit {
 
   public int getPowerScore() {
     return powerScore;
-  }
-
-  public Unit getTarget() {
-    return target;
   }
 
   public void setArmorRating(int armorRating) {
@@ -152,10 +148,6 @@ public abstract class Unit {
 
   public void setPowerScore(int powerScore) {
     this.powerScore = powerScore;
-  }
-
-  public void setTarget(Unit target) {
-    this.target = target;
   }
 
   public void calculateImageCenterCoordinates() {
