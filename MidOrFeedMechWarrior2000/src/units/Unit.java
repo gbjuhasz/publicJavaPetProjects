@@ -139,4 +139,9 @@ public abstract class Unit {
       graphics.drawImage(image, posX, posY, null);
     }
   }
+
+  public void calculateImageCenterCoordinates() {
+    setImageMiddleX(getPosX() + 33);
+    setImageMiddleY(getPosY() + 37);
+  }
 }

@@ -19,9 +19,4 @@ public class MechHero extends Mech {
       e.printStackTrace();
     }
   }
-
-  public void calculateImageCenterCoordinates() {
-    super.setImageMiddleX(super.getPosX() + 33);
-    super.setImageMiddleY(super.getPosY() + 37);
-  }
 }
