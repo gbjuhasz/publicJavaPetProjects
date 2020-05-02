@@ -7,14 +7,14 @@ import javax.imageio.ImageIO;
 
 public class MechHero extends Mech {
 
-  public MechHero(String fileName, int x, int y) {
+  public MechHero(String fileLocation, int x, int y) {
 
     super.setPosX(x);
     super.setPosY(y);
     super.calculateImageCenterCoordinates();
 
     try {
-      BufferedImage tileImage = ImageIO.read(new File(fileName));
+      BufferedImage tileImage = ImageIO.read(new File(fileLocation));
       super.setImage(tileImage);
     } catch (IOException e) {
       e.printStackTrace();

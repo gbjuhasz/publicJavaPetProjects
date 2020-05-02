@@ -21,6 +21,7 @@ public abstract class Unit {
   private int attackDamage;
   //field for decision making
   private boolean isThreatToHeroUnit;
+  private int powerScore;
 
   public boolean isThreatToHeroUnit() {
     return isThreatToHeroUnit;
@@ -76,6 +77,10 @@ public abstract class Unit {
 
   public String getFacingDirection() {
     return facingDirection;
+  }
+
+  public int getPowerScore() {
+    return powerScore;
   }
 
   public void setArmorRating(int armorRating) {
@@ -140,8 +145,14 @@ public abstract class Unit {
     }
   }
 
+  public void setPowerScore(int powerScore) {
+    this.powerScore = powerScore;
+  }
+
   public void calculateImageCenterCoordinates() {
     setImageMiddleX(getPosX() + 36);
     setImageMiddleY(getPosY() + 36);
   }
+
+
 }
