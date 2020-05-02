@@ -141,7 +141,7 @@ public abstract class Unit {
   }
 
   public void calculateImageCenterCoordinates() {
-    setImageMiddleX(getPosX() + 33);
-    setImageMiddleY(getPosY() + 37);
+    setImageMiddleX(getPosX() + 36);
+    setImageMiddleY(getPosY() + 36);
   }
 }
