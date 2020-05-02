@@ -163,9 +163,9 @@ public abstract class Unit {
     setImageMiddleY(getPosY() + 36);
   }
 
-  public double calculateDistanceBetweenUnits(Unit unit, Unit unit2) {
-    int a = Math.abs(unit.getPosX() - unit2.getPosX());
-    int b = Math.abs(unit.getPosY() - unit2.getPosY());
+  public double calculateDistanceBetweenUnits(Unit otherUnit) {
+    int a = Math.abs(getPosX() - otherUnit.getPosX());
+    int b = Math.abs(getPosY() - otherUnit.getPosY());
     double distance = Math.sqrt(a * a + b * b);
     return distance;
   }

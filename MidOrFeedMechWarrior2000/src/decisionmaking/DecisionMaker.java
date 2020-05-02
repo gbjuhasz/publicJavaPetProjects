@@ -22,7 +22,7 @@ public abstract class DecisionMaker {
 
     int attackRange = unitMakingDecision.getAttackRange();
 
-    if(mech.isThreatToHeroUnit() && attackRange > )
+    if(mech.isThreatToHeroUnit() && attackRange > unitMakingDecision.calculateDistanceBetweenUnits())
 
       return null;
   }
