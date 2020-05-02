@@ -25,6 +25,7 @@ public class MechHeroMovementManager {
 
       mechHero.setPosX(newX);
       mechHero.setPosY(newY);
+      mechHero.calculateImageCenterCoordinates();
 
       setFacingDirection(mechHero, changeInX, changeInY);
       BufferedImage newImage = pickImage(findImageFileLocation(mechHero.getFacingDirection(),
