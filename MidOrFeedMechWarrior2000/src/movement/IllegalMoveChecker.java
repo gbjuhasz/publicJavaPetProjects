@@ -4,38 +4,27 @@ public class IllegalMoveChecker {
 
   public Boolean isMoveLegal(int x, int y) {
 
-    if (!checkMapBorders(x, y) ||
-            !checkRiverUpperHalf(x, y) ||
-            !checkRiverLowerHalf(x, y) ||
-            !checkBuildingOnTheLeft(x, y) ||
-            !checkBuildingBottomRight(x, y) ||
-            !checkBuildingTopRight(x, y)) {
-      return false;
-    }
-    return true;
+    return checkMapBorders(x, y) &&
+            checkRiverUpperHalf(x, y) &&
+            checkRiverLowerHalf(x, y) &&
+            checkBuildingOnTheLeft(x, y) &&
+            checkBuildingBottomRight(x, y) &&
+            checkBuildingTopRight(x, y);
   }
 
   public Boolean checkMapBorders(int x, int y) {
 
     if (y > 648 || y < 0) {
       return false;
-    } else if (x > 648 || x < 0) {
-      return false;
-    } else {
-      return true;
-    }
+    } else return x <= 648 && x >= 0;
   }
 
   public Boolean checkRiverUpperHalf(int x, int y) {
 
     if (x > 216 && x <= 360) {
-      if (y < 180) {
-        return false;
-      }
+      return y >= 180;
     } else if (x > 360 && x < 486) {
-      if (y < 198) {
-        return false;
-      }
+      return y >= 198;
     }
     return true;
   }
@@ -43,25 +32,15 @@ public class IllegalMoveChecker {
   public Boolean checkRiverLowerHalf(int x, int y) {
 
     if (x >= 450 && x <= 468) {
-      if (y > 378) {
-        return false;
-      }
+      return y <= 378;
     } else if (x >= 342 && x <= 432) {
-      if (y > 360) {
-        return false;
-      }
+      return y <= 360;
     } else if (x > 198 && x < 360) {
-      if (y > 342 && y < 486) {
-        return false;
-      }
+      return y <= 342 || y >= 486;
     } else if (x == 198) {
-      if (y > 468) {
-        return false;
-      }
+      return y <= 468;
     } else if (x == 180) {
-      if (y > 480) {
-        return false;
-      }
+      return y <= 480;
     }
     return true;
   }
@@ -69,13 +48,9 @@ public class IllegalMoveChecker {
   public Boolean checkBuildingOnTheLeft(int x, int y) {
 
     if (x > 54 && x < 144) {
-      if (y > 270 && y < 450) {
-        return false;
-      }
+      return y <= 270 || y >= 450;
     } else if (x <= 54) {
-      if (y > 252 && y < 468) {
-        return false;
-      }
+      return y <= 252 || y >= 468;
     }
     return true;
   }
@@ -83,9 +58,7 @@ public class IllegalMoveChecker {
   public Boolean checkBuildingBottomRight(int x, int y) {
 
     if (x > 594) {
-      if (y > 414 && y < 612) {
-        return false;
-      }
+      return y <= 414 || y >= 612;
     }
     return true;
   }
@@ -93,13 +66,9 @@ public class IllegalMoveChecker {
   public Boolean checkBuildingTopRight(int x, int y) {
 
     if (x > 612) {
-      if (y < 270 && y > 72) {
-        return false;
-      }
+      return y >= 270 || y <= 72;
     } else if (x == 594 || x == 612) {
-      if (y <= 72) {
-        return false;
-      }
+      return y > 72;
     }
     return true;
   }
