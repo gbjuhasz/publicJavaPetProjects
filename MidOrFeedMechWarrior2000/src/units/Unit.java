@@ -22,6 +22,7 @@ public abstract class Unit {
   //field for decision making
   private boolean isThreatToHeroUnit;
   private int powerScore;
+  private String targetDirection;
 
   public boolean isThreatToHeroUnit() {
     return isThreatToHeroUnit;
@@ -83,6 +84,10 @@ public abstract class Unit {
     return powerScore;
   }
 
+  public String getTargetDirection() {
+    return targetDirection;
+  }
+
   public void setArmorRating(int armorRating) {
     this.armorRating = armorRating;
   }
@@ -139,6 +144,10 @@ public abstract class Unit {
     this.image = image;
   }
 
+  public void setTargetDirection(String targetDirection) {
+    this.targetDirection = targetDirection;
+  }
+
   public void draw(Graphics graphics) {
     if (image != null) {
       graphics.drawImage(image, posX, posY, null);
@@ -159,6 +168,29 @@ public abstract class Unit {
     int b = Math.abs(getPosY() - otherUnit.getPosY());
     double distance = Math.sqrt(a * a + b * b);
     return distance;
+  }
+
+  public void calculateTargetDirection(Unit targetUnit){
+    int targetX = targetUnit.getPosX();
+    int targetY = targetUnit.getPosY();
+
+    if(posX == targetX && posY < targetY){
+      setTargetDirection("S");
+    } else if (posX == targetX && posY > targetY) {
+      setTargetDirection("N");
+    } else if (posX > targetX && posY == targetY) {
+      setTargetDirection("W");
+    } else if (posX < targetX && posY == targetY) {
+      setTargetDirection("E");
+    } else if (posX > targetX && posY < targetY ) {
+      setTargetDirection("SW");
+    } else if (posX < targetX && posY < targetY ) {
+      setTargetDirection("SE");
+    } else if (posX < targetX) {
+      setTargetDirection("NE");
+    } else if (posX > targetX) {
+      setTargetDirection("NW");
+    }
   }
 
 
