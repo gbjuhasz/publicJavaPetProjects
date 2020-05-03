@@ -45,16 +45,16 @@ public class UnitLayout {
     return turretEnemy;
   }
 
-  public ArrayList<CreepAllied> getListOfCreepAllied(){
-    ArrayList<CreepAllied> listOfCreepAllied = new ArrayList<>();
+  public ArrayList<Creep> getListOfCreepAllied(){
+    ArrayList<Creep> listOfCreepAllied = new ArrayList<>();
     listOfCreepAllied.add(creepAllied1);
     listOfCreepAllied.add(creepAllied2);
     listOfCreepAllied.add(creepAllied3);
     return listOfCreepAllied;
   }
 
-  public ArrayList<CreepEnemy> getListOfCreepEnemy(){
-    ArrayList<CreepEnemy> listOfCreepEnemy = new ArrayList<>();
+  public ArrayList<Creep> getListOfCreepEnemy(){
+    ArrayList<Creep> listOfCreepEnemy = new ArrayList<>();
     listOfCreepEnemy.add(creepEnemy1);
     listOfCreepEnemy.add(creepEnemy2);
     listOfCreepEnemy.add(creepEnemy3);

@@ -1,21 +1,20 @@
 package board;
 
+import decisionmaking.CreepAlliedDecisionMaker;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import javax.swing.*;
 import movement.MechHeroMovementManager;
-import units.CreepAllied;
-import units.CreepEnemy;
-import units.MechHero;
-import units.Tile;
+import units.*;
 
 public class Board extends JComponent implements KeyListener {
 
   MapBuilder mapBuilder = new MapBuilder();
   ArrayList<Tile> cityMap = mapBuilder.buildMap();
   UnitLayout unitLayout = new UnitLayout();
+  CreepAlliedDecisionMaker creepAlliedDecisionMaker = new CreepAlliedDecisionMaker();
   MechHeroMovementManager mechHeroMovementManager = new MechHeroMovementManager();
   BuildingDepthEffect buildingDepthEffect = new BuildingDepthEffect();
   int roundCounter = 1;
@@ -39,10 +38,10 @@ public class Board extends JComponent implements KeyListener {
     unitLayout.getMechEnemy().draw(graphics);
     unitLayout.getTurretAllied().draw(graphics);
     unitLayout.getTurretEnemy().draw(graphics);
-    for(CreepAllied creepAllied : unitLayout.getListOfCreepAllied()){
+    for(Creep creepAllied : unitLayout.getListOfCreepAllied()){
       creepAllied.draw(graphics);
     }
-    for(CreepEnemy creepEnemy : unitLayout.getListOfCreepEnemy()){
+    for(Creep creepEnemy : unitLayout.getListOfCreepEnemy()){
       creepEnemy.draw(graphics);
     }
 
@@ -88,11 +87,25 @@ public class Board extends JComponent implements KeyListener {
   @Override
   public void keyReleased(KeyEvent e) {
     MechHero mechHero = unitLayout.getMechHero();
+    MechEnemy mechEnemy = unitLayout.getMechEnemy();
+    TurretEnemy turretEnemy = unitLayout.getTurretEnemy();
+    TurretAllied turretAllied = unitLayout.getTurretAllied();
+    ArrayList<Creep> listOfCreepAllied = unitLayout.getListOfCreepAllied();
+    ArrayList<Creep> listOfCreepEnemy = unitLayout.getListOfCreepEnemy();
+
 
     // When the up or down keys hit, we change the position of our box
     if (e.getKeyCode() == KeyEvent.VK_UP) {
       roundCounter++;
       mechHeroMovementManager.moveMechHeroWithKeys(mechHero, 0, -18, roundCounter);
+      for(Creep creepAllied : listOfCreepAllied){
+        creepAlliedDecisionMaker.reactToPlayerMovement(creepAllied,
+                mechEnemy,
+                listOfCreepEnemy,
+                turretEnemy,
+                roundCounter
+                );
+      }
       repaint();
     } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
       roundCounter++;
