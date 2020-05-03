@@ -23,6 +23,7 @@ public abstract class Unit {
   private boolean isThreatToHeroUnit;
   private int powerScore;
   private String targetDirection;
+  private int detectionRange;
 
   public boolean isThreatToHeroUnit() {
     return isThreatToHeroUnit;
@@ -88,6 +89,10 @@ public abstract class Unit {
     return targetDirection;
   }
 
+  public int getDetectionRange() {
+    return detectionRange;
+  }
+
   public void setArmorRating(int armorRating) {
     this.armorRating = armorRating;
   }
@@ -146,6 +151,10 @@ public abstract class Unit {
 
   public void setTargetDirection(String targetDirection) {
     this.targetDirection = targetDirection;
+  }
+
+  public void setDetectionRange(int detectionRange) {
+    this.detectionRange = detectionRange;
   }
 
   public void draw(Graphics graphics) {

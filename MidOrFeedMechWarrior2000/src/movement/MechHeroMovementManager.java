@@ -1,9 +1,6 @@
 package movement;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import units.MechHero;
 
 public class MechHeroMovementManager extends MovementManager {
@@ -15,12 +12,11 @@ public class MechHeroMovementManager extends MovementManager {
     int newX = mechHero.getPosX() + changeInX;
     int newY = mechHero.getPosY() + changeInY;
 
-    if (illegalMoveChecker.isMoveLegal(newX, newY) == false) {
+    if (!illegalMoveChecker.isMoveLegal(newX, newY)) {
       setFacingDirection(mechHero, changeInX, changeInY);
       BufferedImage newImage = pickImage(findImageFileLocation(mechHero.getFacingDirection(),
               isRoundNumberEven(roundCounter)));
       mechHero.setImage(newImage);
-      return;
     } else {
 
       mechHero.setPosX(newX);

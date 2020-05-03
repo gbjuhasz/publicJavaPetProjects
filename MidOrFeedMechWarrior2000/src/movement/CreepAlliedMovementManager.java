@@ -1,14 +1,9 @@
 package movement;
 
+import units.Turret;
 import units.Unit;
 
-public class CreepMovementManager extends MovementManager {
-
-  public void moveCreepTowardsDestination(Unit unit){
-
-    IllegalMoveChecker illegalMoveChecker = new IllegalMoveChecker();
-
-  }
+public class CreepAlliedMovementManager extends BotMovementManager {
 
   @Override
   public String findImageFileLocation(String  facingDirection, String roundEvenOrOdd) {
@@ -16,4 +11,5 @@ public class CreepMovementManager extends MovementManager {
     String fileLocation = "images/creepallied/CreepAllied" + facingDirection + roundEvenOrOdd + ".png";
     return fileLocation;
   }
+
 }

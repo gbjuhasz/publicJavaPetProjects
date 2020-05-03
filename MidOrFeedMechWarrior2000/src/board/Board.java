@@ -6,6 +6,8 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import javax.swing.*;
 import movement.MechHeroMovementManager;
+import units.CreepAllied;
+import units.CreepEnemy;
 import units.MechHero;
 import units.Tile;
 
@@ -34,8 +36,15 @@ public class Board extends JComponent implements KeyListener {
     }
 
     unitLayout.getMechHero().draw(graphics);
+    unitLayout.getMechEnemy().draw(graphics);
     unitLayout.getTurretAllied().draw(graphics);
     unitLayout.getTurretEnemy().draw(graphics);
+    for(CreepAllied creepAllied : unitLayout.getListOfCreepAllied()){
+      creepAllied.draw(graphics);
+    }
+    for(CreepEnemy creepEnemy : unitLayout.getListOfCreepEnemy()){
+      creepEnemy.draw(graphics);
+    }
 
     graphics.setColor(Color.WHITE);
     graphics.drawString("X:" + unitLayout.getMechHero().getPosX(),

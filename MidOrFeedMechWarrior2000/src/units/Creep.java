@@ -11,5 +11,6 @@ public abstract class Creep extends Unit {
   private int attackDamage = 5 * (1 + random.nextInt(5));
   private int healthPoints = 100;
   private int armorRating = 0;
+  private int detectionRange = 108;
   //fields for decision making
 }

@@ -11,12 +11,15 @@ public abstract class DecisionMaker {
   public void reactToPlayerMovement(Unit unitMakingDecision,
                                     Mech mech,
                                     ArrayList<Creep> listOfCreeps,
-                                    Turret turret) {
+                                    Turret turret,
+                                    int roundCounter) {
 
-    if(findTargetInAttackRange(unitMakingDecision,mech,listOfCreeps,turret) == null){
-      moveTowardsDestination(unitMakingDecision, turret);
+    if(findTargetInAttackRange(unitMakingDecision,mech,listOfCreeps,turret) != null){
+      attackTarget(unitMakingDecision,findTargetInAttackRange(unitMakingDecision,mech,listOfCreeps,turret));
+    } else if (findTargetInDetectionRange(unitMakingDecision, mech, listOfCreeps, turret) != null) {
+      moveTowardsTargetUnit(unitMakingDecision,findTargetInDetectionRange(unitMakingDecision, mech, listOfCreeps, turret));
     } else {
-      attackTarget(unitMakingDecision, findTargetInAttackRange(unitMakingDecision,mech,listOfCreeps,turret) );
+      moveTowardsTargetUnit(unitMakingDecision,turret);
     }
   }
 
@@ -45,8 +48,33 @@ public abstract class DecisionMaker {
     return null;
   }
 
-  public void moveTowardsDestination(Unit unitMakingMove, Unit turret){}
+  public Unit findTargetInDetectionRange(Unit unitMakingDecision,
+                                      Mech mech,
+                                      ArrayList<Creep> listOfCreeps,
+                                      Turret turret){
 
-  public void attackTarget(Unit unitAttacking, Unit unitTargeted){}
+    int detectionkRange = unitMakingDecision.getDetectionRange();
+
+    if(mech.isThreatToHeroUnit()
+            && unitMakingDecision.calculateDistanceBetweenUnits(mech) <= detectionkRange){
+      return mech;
+    }
+    for(Creep creep : listOfCreeps){
+      if(unitMakingDecision.calculateDistanceBetweenUnits(creep) <= detectionkRange) {
+        return creep;
+      }
+    }
+    if(!mech.isThreatToHeroUnit()
+            && unitMakingDecision.calculateDistanceBetweenUnits(mech) <= detectionkRange){
+      return mech;
+    } else if (unitMakingDecision.calculateDistanceBetweenUnits(turret)<= detectionkRange){
+      return turret;
+    }
+    return null;
+  }
+
+  public void moveTowardsTargetUnit(Unit unitMakingMove, Unit unitTarget){}
+
+  public void attackTarget(Unit unitAttacking, Unit unitTarget){}
 
 }
