@@ -179,11 +179,11 @@ public abstract class Unit {
     return distance;
   }
 
-  public void calculateTargetDirection(Unit targetUnit){
+  public void calculateTargetDirection(Unit targetUnit) {
     int targetX = targetUnit.getPosX();
     int targetY = targetUnit.getPosY();
 
-    if(posX == targetX && posY < targetY){
+    if (posX == targetX && posY < targetY) {
       setTargetDirection("S");
     } else if (posX == targetX && posY > targetY) {
       setTargetDirection("N");
@@ -191,9 +191,9 @@ public abstract class Unit {
       setTargetDirection("W");
     } else if (posX < targetX && posY == targetY) {
       setTargetDirection("E");
-    } else if (posX > targetX && posY < targetY ) {
+    } else if (posX > targetX && posY < targetY) {
       setTargetDirection("SW");
-    } else if (posX < targetX && posY < targetY ) {
+    } else if (posX < targetX && posY < targetY) {
       setTargetDirection("SE");
     } else if (posX < targetX) {
       setTargetDirection("NE");

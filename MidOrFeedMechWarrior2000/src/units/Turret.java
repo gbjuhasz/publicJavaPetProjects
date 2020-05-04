@@ -1,6 +1,5 @@
 package units;
 
-import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public abstract class Turret extends Unit {

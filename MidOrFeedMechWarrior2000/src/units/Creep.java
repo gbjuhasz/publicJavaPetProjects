@@ -15,7 +15,7 @@ public abstract class Creep extends Unit {
   //fields for decision making
 
   @Override
-  public int getDetectionRange(){
+  public int getDetectionRange() {
     return detectionRange;
   }
 

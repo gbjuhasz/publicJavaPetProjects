@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 
 public class TurretEnemy extends Turret {
 
-  public TurretEnemy(){
+  public TurretEnemy() {
     super.setPosX(580);
     super.setPosY(280);
     try {

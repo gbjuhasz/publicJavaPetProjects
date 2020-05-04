@@ -10,9 +10,9 @@ public class CreepAlliedDecisionMaker extends DecisionMaker {
   @Override
   public void moveTowardsTargetUnit(Unit unitMakingMove,
                                     Unit unitTarget,
-                                    int roundCounter){
+                                    int roundCounter) {
     unitMakingMove.calculateTargetDirection(unitTarget);
-    creepAlliedMovementManager.moveUnitTowardsDestination(unitMakingMove,
+    creepAlliedMovementManager.moveUnit(unitMakingMove,
             unitTarget,
             roundCounter);
   }

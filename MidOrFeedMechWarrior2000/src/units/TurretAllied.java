@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 
 public class TurretAllied extends Turret {
 
-  public TurretAllied(){
+  public TurretAllied() {
     super.setPosX(80);
     super.setPosY(150);
     try {

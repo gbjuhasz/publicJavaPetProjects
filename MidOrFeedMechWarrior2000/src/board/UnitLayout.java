@@ -24,7 +24,7 @@ public class UnitLayout {
     creepAllied1 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 0, 72);
     creepAllied2 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 72, 72);
     creepAllied3 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 144, 72);
-    creepEnemy1 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 360, 360);
+    creepEnemy1 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 486, 576);
     creepEnemy2 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 558, 576);
     creepEnemy3 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 630, 576);
   }
@@ -45,7 +45,7 @@ public class UnitLayout {
     return turretEnemy;
   }
 
-  public ArrayList<Creep> getListOfCreepAllied(){
+  public ArrayList<Creep> getListOfCreepAllied() {
     ArrayList<Creep> listOfCreepAllied = new ArrayList<>();
     listOfCreepAllied.add(creepAllied1);
     listOfCreepAllied.add(creepAllied2);
@@ -53,7 +53,7 @@ public class UnitLayout {
     return listOfCreepAllied;
   }
 
-  public ArrayList<Creep> getListOfCreepEnemy(){
+  public ArrayList<Creep> getListOfCreepEnemy() {
     ArrayList<Creep> listOfCreepEnemy = new ArrayList<>();
     listOfCreepEnemy.add(creepEnemy1);
     listOfCreepEnemy.add(creepEnemy2);

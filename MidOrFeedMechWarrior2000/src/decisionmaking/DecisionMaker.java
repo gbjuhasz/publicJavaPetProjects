@@ -14,67 +14,69 @@ public abstract class DecisionMaker {
                                     Turret turret,
                                     int roundCounter) {
 
-    if(findTargetInAttackRange(unitMakingDecision,mech,listOfCreeps,turret) != null){
-      attackTarget(unitMakingDecision,findTargetInAttackRange(unitMakingDecision,mech,listOfCreeps,turret));
+    if (findTargetInAttackRange(unitMakingDecision, mech, listOfCreeps, turret) != null) {
+      attackTarget(unitMakingDecision, findTargetInAttackRange(unitMakingDecision, mech, listOfCreeps, turret));
     } else if (findTargetInDetectionRange(unitMakingDecision, mech, listOfCreeps, turret) != null) {
-      moveTowardsTargetUnit(unitMakingDecision,findTargetInDetectionRange(unitMakingDecision, mech, listOfCreeps, turret), roundCounter);
+      moveTowardsTargetUnit(unitMakingDecision, findTargetInDetectionRange(unitMakingDecision, mech, listOfCreeps, turret), roundCounter);
     } else {
-      moveTowardsTargetUnit(unitMakingDecision,turret, roundCounter);
+      moveTowardsTargetUnit(unitMakingDecision, turret, roundCounter);
     }
   }
 
   public Unit findTargetInAttackRange(Unit unitMakingDecision,
                                       Mech mech,
                                       ArrayList<Creep> listOfCreeps,
-                                      Turret turret){
+                                      Turret turret) {
 
     int attackRange = unitMakingDecision.getAttackRange();
 
-    if(mech.isThreatToHeroUnit()
-            && unitMakingDecision.calculateDistanceBetweenUnits(mech) <= attackRange){
+    if (mech.isThreatToHeroUnit()
+            && unitMakingDecision.calculateDistanceBetweenUnits(mech) <= attackRange) {
       return mech;
     }
-    for(Creep creep : listOfCreeps){
-      if(unitMakingDecision.calculateDistanceBetweenUnits(creep) <= attackRange) {
+    for (Creep creep : listOfCreeps) {
+      if (unitMakingDecision.calculateDistanceBetweenUnits(creep) <= attackRange) {
         return creep;
       }
     }
-    if(!mech.isThreatToHeroUnit()
-            && unitMakingDecision.calculateDistanceBetweenUnits(mech) <= attackRange){
+    if (!mech.isThreatToHeroUnit()
+            && unitMakingDecision.calculateDistanceBetweenUnits(mech) <= attackRange) {
       return mech;
-    } else if (unitMakingDecision.calculateDistanceBetweenUnits(turret)<= attackRange){
+    } else if (unitMakingDecision.calculateDistanceBetweenUnits(turret) <= attackRange) {
       return turret;
     }
     return null;
   }
 
   public Unit findTargetInDetectionRange(Unit unitMakingDecision,
-                                      Mech mech,
-                                      ArrayList<Creep> listOfCreeps,
-                                      Turret turret){
+                                         Mech mech,
+                                         ArrayList<Creep> listOfCreeps,
+                                         Turret turret) {
 
     int detectionRange = unitMakingDecision.getDetectionRange();
 
-    if(mech.isThreatToHeroUnit()
-            && unitMakingDecision.calculateDistanceBetweenUnits(mech) <= detectionRange){
+    if (mech.isThreatToHeroUnit()
+            && unitMakingDecision.calculateDistanceBetweenUnits(mech) <= detectionRange) {
       return mech;
     }
-    for(Creep creep : listOfCreeps){
-      if(unitMakingDecision.calculateDistanceBetweenUnits(creep) <= detectionRange) {
+    for (Creep creep : listOfCreeps) {
+      if (unitMakingDecision.calculateDistanceBetweenUnits(creep) <= detectionRange) {
         return creep;
       }
     }
-    if(!mech.isThreatToHeroUnit()
-            && unitMakingDecision.calculateDistanceBetweenUnits(mech) <= detectionRange){
+    if (!mech.isThreatToHeroUnit()
+            && unitMakingDecision.calculateDistanceBetweenUnits(mech) <= detectionRange) {
       return mech;
-    } else if (unitMakingDecision.calculateDistanceBetweenUnits(turret)<= detectionRange){
+    } else if (unitMakingDecision.calculateDistanceBetweenUnits(turret) <= detectionRange) {
       return turret;
     }
     return null;
   }
 
-  public void moveTowardsTargetUnit(Unit unitMakingMove, Unit unitTarget, int roundCounter){}
+  public void moveTowardsTargetUnit(Unit unitMakingMove, Unit unitTarget, int roundCounter) {
+  }
 
-  public void attackTarget(Unit unitAttacking, Unit unitTarget){}
+  public void attackTarget(Unit unitAttacking, Unit unitTarget) {
+  }
 
 }

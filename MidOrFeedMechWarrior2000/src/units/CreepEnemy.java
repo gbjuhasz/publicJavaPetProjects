@@ -7,9 +7,6 @@ import javax.imageio.ImageIO;
 
 public class CreepEnemy extends Creep {
 
-  private String facingDirection = "Up";
-  private String unitTypeForImage = "CreepEnemy";
-
   public CreepEnemy(String fileLocation, int x, int y){
 
     super.setPosX(x);

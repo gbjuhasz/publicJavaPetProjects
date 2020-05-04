@@ -7,8 +7,8 @@ public class BuildingDepthEffect {
   private Tile buildingLeftSide;
   private Tile buildingBottomRightSide;
 
-  public void placeBuildingEffectOnMap(){
-    buildingLeftSide = new Tile ("images/buildingdeptheffect/BuildingTopLeft.png",2,269);
+  public void placeBuildingEffectOnMap() {
+    buildingLeftSide = new Tile("images/buildingdeptheffect/BuildingTopLeft.png", 2, 269);
     buildingBottomRightSide = new Tile("images/buildingdeptheffect/BuildingTopBottomRight.png", 666, 422);
   }
 

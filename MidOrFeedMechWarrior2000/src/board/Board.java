@@ -109,7 +109,7 @@ public class Board extends JComponent implements KeyListener {
                 roundCounter
         );
       }
-      for(Creep creepEnemy : listOfCreepEnemy) {
+      for (Creep creepEnemy : listOfCreepEnemy) {
         creepEnemyDecisionMaker.reactToPlayerMovement(creepEnemy,
                 mechHero,
                 listOfCreepAllied,

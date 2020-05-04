@@ -5,9 +5,9 @@ import units.Unit;
 
 public abstract class BotMovementManager extends MovementManager {
 
-  public void moveUnitTowardsDestination(Unit unitMakingMove,
-                                          Unit unitDestination,
-                                          int roundCounter){
+  public void moveUnit(Unit unitMakingMove,
+                       Unit unitDestination,
+                       int roundCounter) {
 
     IllegalMoveChecker illegalMoveChecker = new IllegalMoveChecker();
     int currentX = unitMakingMove.getPosX();
@@ -23,26 +23,26 @@ public abstract class BotMovementManager extends MovementManager {
   }
 
   public void changeCoordinatesTowardsTargetDirection(Unit unitMakingMove,
-                                             int currentX,
-                                             int currentY,
-                                             String targetDirection) {
+                                                      int currentX,
+                                                      int currentY,
+                                                      String targetDirection) {
 
-    if(targetDirection.contains("N")){
+    if (targetDirection.contains("N")) {
       unitMakingMove.setPosY(currentY - 16);
-      if(targetDirection.length() == 1) {
+      if (targetDirection.length() == 1) {
         unitMakingMove.setFacingDirection("UP");
       }
-    } else if( targetDirection.contains("S")){
+    } else if (targetDirection.contains("S")) {
       unitMakingMove.setPosY(currentY + 16);
-      if(targetDirection.length() == 1) {
+      if (targetDirection.length() == 1) {
         unitMakingMove.setFacingDirection("DOWN");
       }
     }
 
-    if(targetDirection.contains("W")){
+    if (targetDirection.contains("W")) {
       unitMakingMove.setPosX(currentX - 16);
       unitMakingMove.setFacingDirection("LEFT");
-    } else if( targetDirection.contains("E")){
+    } else if (targetDirection.contains("E")) {
       unitMakingMove.setPosX(currentX + 16);
       unitMakingMove.setFacingDirection("RIGHT");
     }
