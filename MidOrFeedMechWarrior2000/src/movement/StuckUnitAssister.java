@@ -28,7 +28,7 @@ public class StuckUnitAssister {
   }
 
   public String findMapsectionWhereUnitIsStuck(int posX, int posY) {
-    if (posX <= 216 && posY <= 162) {
+    if (posX <= 234 && posY <= 162) {
       return "top left";
     } else if (posX <= 198 &&
             posY >= 270 &&
@@ -54,13 +54,13 @@ public class StuckUnitAssister {
                               int posX,
                               int posY,
                               String targetDirection) {
-/*
+
     if (targetDirection.contains("N")) {
       unit.setPosX(posX - 18);
       unit.setPosY(posY + 36);
     } else {
       unit.setPosX(posX - 18);
-    }*/
+    }
   }
 
   public void helpUnitMiddleLeft(Unit unit,

@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import javax.swing.*;
 import movement.MechHeroMovementManager;
+import movement.StuckUnitAssister;
 import units.*;
 
 public class Board extends JComponent implements KeyListener {
@@ -22,6 +23,8 @@ public class Board extends JComponent implements KeyListener {
   MechHeroMovementManager mechHeroMovementManager = new MechHeroMovementManager();
   BuildingDepthEffect buildingDepthEffect = new BuildingDepthEffect();
   int roundCounter = 1;
+  //for debugging
+  StuckUnitAssister stuckUnitAssister = new StuckUnitAssister();
 
   public Board() {
 
@@ -59,6 +62,11 @@ public class Board extends JComponent implements KeyListener {
     buildingDepthEffect.getBuildingBottomRightSide().draw(graphics);
     buildingDepthEffect.getBuildingLeftSide().draw(graphics);
     //DEBUGGING DRAWINGS
+    /*
+    graphics.drawString(String.valueOf(unitLayout.getCreepAllied3().getPosX()), 360,360);
+    graphics.drawString(String.valueOf(unitLayout.getCreepAllied3().getPosY()), 360,390);
+    graphics.drawString(stuckUnitAssister.findMapsectionWhereUnitIsStuck(unitLayout.getCreepAllied3().getPosX(),
+            unitLayout.getCreepAllied3().getPosY()), 360, 420);*/
   }
 
   public static void main(String[] args) {

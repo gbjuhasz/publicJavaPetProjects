@@ -61,8 +61,8 @@ public class UnitLayout {
     return listOfCreepEnemy;
   }
 
-  public CreepAllied getCreepAllied1() {
-    return creepAllied1;
+  public CreepAllied getCreepAllied3() {
+    return creepAllied3;
   }
 
   public CreepEnemy getCreepEnemy1() {
