@@ -18,7 +18,7 @@ public abstract class BotMovementManager extends MovementManager {
     String targetDirection = unitMakingMove.getTargetDirection();
 
     changeCoordinatesTowardsTargetDirection(unitMakingMove, currentX, currentY, targetDirection);
-    if(illegalMoveChecker.isMoveLegal(unitDestination.getPosX(), unitDestination.getPosY())) {
+    if(!illegalMoveChecker.isMoveLegal(unitMakingMove.getPosX(), unitMakingMove.getPosY())) {
       stuckUnitAssister.helpIfUnitIsStuck(unitMakingMove);
     }
     BufferedImage newImage = pickImage(findImageFileLocation(unitMakingMove.getFacingDirection(),
