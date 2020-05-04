@@ -1,11 +1,13 @@
 package movement;
 
-import units.Turret;
+import java.awt.image.BufferedImage;
 import units.Unit;
 
 public abstract class BotMovementManager extends MovementManager {
 
-  public void moveCreepTowardsDestination(Unit unitMakingMove, Unit unitDestination){
+  public void moveUnitTowardsDestination(Unit unitMakingMove,
+                                          Unit unitDestination,
+                                          int roundCounter){
 
     IllegalMoveChecker illegalMoveChecker = new IllegalMoveChecker();
     int currentX = unitMakingMove.getPosX();
@@ -13,40 +15,36 @@ public abstract class BotMovementManager extends MovementManager {
     unitMakingMove.calculateTargetDirection(unitDestination);
     String targetDirection = unitMakingMove.getTargetDirection();
 
-    makeMoveBasedOnTargetDirection(unitMakingMove, currentX, currentY, targetDirection);
+    changeCoordinatesTowardsTargetDirection(unitMakingMove, currentX, currentY, targetDirection);
+    BufferedImage newImage = pickImage(findImageFileLocation(unitMakingMove.getFacingDirection(),
+            isRoundNumberEven(roundCounter)));
+    unitMakingMove.setImage(newImage);
 
   }
 
-  public void makeMoveBasedOnTargetDirection(Unit unitMakingMove,
+  public void changeCoordinatesTowardsTargetDirection(Unit unitMakingMove,
                                              int currentX,
                                              int currentY,
                                              String targetDirection) {
 
     if(targetDirection.contains("N")){
       unitMakingMove.setPosY(currentY - 16);
+      if(targetDirection.length() == 1) {
+        unitMakingMove.setFacingDirection("UP");
+      }
     } else if( targetDirection.contains("S")){
       unitMakingMove.setPosY(currentY + 16);
+      if(targetDirection.length() == 1) {
+        unitMakingMove.setFacingDirection("DOWN");
+      }
     }
 
     if(targetDirection.contains("W")){
       unitMakingMove.setPosX(currentX - 16);
+      unitMakingMove.setFacingDirection("LEFT");
     } else if( targetDirection.contains("E")){
       unitMakingMove.setPosX(currentX + 16);
+      unitMakingMove.setFacingDirection("RIGHT");
     }
   }
-
-  @Override
-  public void setFacingDirection(Unit unit, int changeInX, int changeInY) {
-
-    if (changeInX == 0 && changeInY == -18) {
-      unit.setFacingDirection("Up");
-    } else if (changeInX == 0 && changeInY == 18) {
-      unit.setFacingDirection("Down");
-    } else if (changeInX == -18 && changeInY == 0) {
-      unit.setFacingDirection("Left");
-    } else {
-      unit.setFacingDirection("Right");
-    }
-  }
-
 }

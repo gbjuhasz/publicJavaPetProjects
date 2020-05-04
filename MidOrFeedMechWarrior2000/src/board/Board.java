@@ -38,10 +38,10 @@ public class Board extends JComponent implements KeyListener {
     unitLayout.getMechEnemy().draw(graphics);
     unitLayout.getTurretAllied().draw(graphics);
     unitLayout.getTurretEnemy().draw(graphics);
-    for(Creep creepAllied : unitLayout.getListOfCreepAllied()){
+    for (Creep creepAllied : unitLayout.getListOfCreepAllied()) {
       creepAllied.draw(graphics);
     }
-    for(Creep creepEnemy : unitLayout.getListOfCreepEnemy()){
+    for (Creep creepEnemy : unitLayout.getListOfCreepEnemy()) {
       creepEnemy.draw(graphics);
     }
 
@@ -54,6 +54,7 @@ public class Board extends JComponent implements KeyListener {
             80);
     buildingDepthEffect.getBuildingBottomRightSide().draw(graphics);
     buildingDepthEffect.getBuildingLeftSide().draw(graphics);
+    //DEBUGGING DRAWINGS
   }
 
   public static void main(String[] args) {
@@ -98,13 +99,13 @@ public class Board extends JComponent implements KeyListener {
     if (e.getKeyCode() == KeyEvent.VK_UP) {
       roundCounter++;
       mechHeroMovementManager.moveMechHeroWithKeys(mechHero, 0, -18, roundCounter);
-      for(Creep creepAllied : listOfCreepAllied){
+      for (Creep creepAllied : listOfCreepAllied) {
         creepAlliedDecisionMaker.reactToPlayerMovement(creepAllied,
                 mechEnemy,
                 listOfCreepEnemy,
                 turretEnemy,
                 roundCounter
-                );
+        );
       }
       repaint();
     } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {

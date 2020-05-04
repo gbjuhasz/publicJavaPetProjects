@@ -24,7 +24,7 @@ public class UnitLayout {
     creepAllied1 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 0, 72);
     creepAllied2 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 72, 72);
     creepAllied3 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 144, 72);
-    creepEnemy1 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 486, 576);
+    creepEnemy1 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 360, 360);
     creepEnemy2 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 558, 576);
     creepEnemy3 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 630, 576);
   }
@@ -59,5 +59,13 @@ public class UnitLayout {
     listOfCreepEnemy.add(creepEnemy2);
     listOfCreepEnemy.add(creepEnemy3);
     return listOfCreepEnemy;
+  }
+
+  public CreepAllied getCreepAllied1() {
+    return creepAllied1;
+  }
+
+  public CreepEnemy getCreepEnemy1() {
+    return creepEnemy1;
   }
 }

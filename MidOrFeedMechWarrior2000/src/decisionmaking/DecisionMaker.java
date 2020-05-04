@@ -17,9 +17,9 @@ public abstract class DecisionMaker {
     if(findTargetInAttackRange(unitMakingDecision,mech,listOfCreeps,turret) != null){
       attackTarget(unitMakingDecision,findTargetInAttackRange(unitMakingDecision,mech,listOfCreeps,turret));
     } else if (findTargetInDetectionRange(unitMakingDecision, mech, listOfCreeps, turret) != null) {
-      moveTowardsTargetUnit(unitMakingDecision,findTargetInDetectionRange(unitMakingDecision, mech, listOfCreeps, turret));
+      moveTowardsTargetUnit(unitMakingDecision,findTargetInDetectionRange(unitMakingDecision, mech, listOfCreeps, turret), roundCounter);
     } else {
-      moveTowardsTargetUnit(unitMakingDecision,turret);
+      moveTowardsTargetUnit(unitMakingDecision,turret, roundCounter);
     }
   }
 
@@ -53,27 +53,27 @@ public abstract class DecisionMaker {
                                       ArrayList<Creep> listOfCreeps,
                                       Turret turret){
 
-    int detectionkRange = unitMakingDecision.getDetectionRange();
+    int detectionRange = unitMakingDecision.getDetectionRange();
 
     if(mech.isThreatToHeroUnit()
-            && unitMakingDecision.calculateDistanceBetweenUnits(mech) <= detectionkRange){
+            && unitMakingDecision.calculateDistanceBetweenUnits(mech) <= detectionRange){
       return mech;
     }
     for(Creep creep : listOfCreeps){
-      if(unitMakingDecision.calculateDistanceBetweenUnits(creep) <= detectionkRange) {
+      if(unitMakingDecision.calculateDistanceBetweenUnits(creep) <= detectionRange) {
         return creep;
       }
     }
     if(!mech.isThreatToHeroUnit()
-            && unitMakingDecision.calculateDistanceBetweenUnits(mech) <= detectionkRange){
+            && unitMakingDecision.calculateDistanceBetweenUnits(mech) <= detectionRange){
       return mech;
-    } else if (unitMakingDecision.calculateDistanceBetweenUnits(turret)<= detectionkRange){
+    } else if (unitMakingDecision.calculateDistanceBetweenUnits(turret)<= detectionRange){
       return turret;
     }
     return null;
   }
 
-  public void moveTowardsTargetUnit(Unit unitMakingMove, Unit unitTarget){}
+  public void moveTowardsTargetUnit(Unit unitMakingMove, Unit unitTarget, int roundCounter){}
 
   public void attackTarget(Unit unitAttacking, Unit unitTarget){}
 
