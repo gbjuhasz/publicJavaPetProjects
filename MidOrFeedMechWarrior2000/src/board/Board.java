@@ -2,6 +2,7 @@ package board;
 
 import decisionmaking.CreepAlliedDecisionMaker;
 import decisionmaking.CreepEnemyDecisionMaker;
+import decisionmaking.MechEnemyDecisionMaker;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -16,6 +17,7 @@ public class Board extends JComponent implements KeyListener {
   ArrayList<Tile> cityMap = mapBuilder.buildMap();
   UnitLayout unitLayout = new UnitLayout();
   CreepAlliedDecisionMaker creepAlliedDecisionMaker = new CreepAlliedDecisionMaker();
+  MechEnemyDecisionMaker mechEnemyDecisionMaker = new MechEnemyDecisionMaker();
   CreepEnemyDecisionMaker creepEnemyDecisionMaker = new CreepEnemyDecisionMaker();
   MechHeroMovementManager mechHeroMovementManager = new MechHeroMovementManager();
   BuildingDepthEffect buildingDepthEffect = new BuildingDepthEffect();
@@ -116,6 +118,11 @@ public class Board extends JComponent implements KeyListener {
                 turretAllied,
                 roundCounter);
       }
+      mechEnemyDecisionMaker.reactToPlayerMovement(mechEnemy,
+              mechHero,
+              listOfCreepAllied,
+              turretAllied,
+              roundCounter);
       repaint();
     } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
       roundCounter++;

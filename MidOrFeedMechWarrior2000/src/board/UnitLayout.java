@@ -26,7 +26,7 @@ public class UnitLayout {
     creepAllied3 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 144, 72);
     creepEnemy1 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 486, 576);
     creepEnemy2 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 558, 576);
-    creepEnemy3 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 630, 576);
+    creepEnemy3 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 600, 576);
   }
 
   public MechHero getMechHero() {
