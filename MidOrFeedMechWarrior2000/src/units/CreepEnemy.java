@@ -7,6 +7,10 @@ import javax.imageio.ImageIO;
 
 public class CreepEnemy extends Creep {
 
+  //fields for respawning
+  private int respawnX;
+  private int respawnY;
+
   public CreepEnemy(String fileLocation, int x, int y){
 
     super.setPosX(x);

@@ -4,7 +4,6 @@ import java.util.Random;
 
 public abstract class Creep extends Unit {
   //fields for fighting
-  private Random random = new Random();
   private int attackRange = 72;
   private int attackDamage = 25;
   private int healthPoints = 550;
