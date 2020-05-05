@@ -11,9 +11,6 @@ public class RespawnManager {
                            ArrayList<Creep> lisOfCreepEnemy,
                            int roundCounter) {
 
-    if(!listOfMechs.get(0).isAlive()){
-      int round = 1;
-    }
     respawnMechsIfDead(listOfMechs, roundCounter);
   }
 

@@ -15,7 +15,7 @@ public class AttackManager {
       unitTargeted.setHealthPoints(unitTargetedHP-unitAttackingDamage+unitTargetedArmor);
       if(unitTargeted.getHealthPoints() <= 0){
         unitTargeted.setAlive(false);
-        unitAttacking.setRoundDied(roundCounter);
+        unitTargeted.setRoundDied(roundCounter);
         unitTargeted.setPosX(-100);
         unitTargeted.setPosY(-100);
       }

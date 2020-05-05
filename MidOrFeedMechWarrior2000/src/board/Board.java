@@ -156,7 +156,6 @@ public class Board extends JComponent implements KeyListener {
     } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
       roundCounter++;
       respawnManager.respawnUnits(unitLayout.getListOfMechs(),listOfCreepAllied,listOfCreepEnemy,roundCounter);
-
       mechHeroMovementManager.moveMechHeroWithKeys(mechHero, -18, 0, roundCounter);
       botReaction.makeBotsReactToPlayerAction(mechHero,
               mechEnemy,
