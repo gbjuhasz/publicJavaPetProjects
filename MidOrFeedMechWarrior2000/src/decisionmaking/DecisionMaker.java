@@ -18,7 +18,7 @@ public abstract class DecisionMaker {
                                     int roundCounter) {
 
     if (findTargetInAttackRange(unitMakingDecision, mech, listOfCreeps, turret) != null) {
-      attackTarget(unitMakingDecision, findTargetInAttackRange(unitMakingDecision, mech, listOfCreeps, turret));
+      attackTarget(unitMakingDecision, findTargetInAttackRange(unitMakingDecision, mech, listOfCreeps, turret), roundCounter);
     } else if (findTargetInDetectionRange(unitMakingDecision, mech, listOfCreeps, turret) != null) {
       moveTowardsTargetUnit(unitMakingDecision, findTargetInDetectionRange(unitMakingDecision, mech, listOfCreeps, turret), roundCounter);
     } else {
@@ -79,8 +79,8 @@ public abstract class DecisionMaker {
   public void moveTowardsTargetUnit(Unit unitMakingMove, Unit unitTarget, int roundCounter) {
   }
 
-  public void attackTarget(Unit unitAttacking, Unit unitTarget) {
-    attackManager.attackTargetUnit(unitAttacking,unitTarget);
+  public void attackTarget(Unit unitAttacking, Unit unitTarget, int roundCounter) {
+    attackManager.attackTargetUnit(unitAttacking,unitTarget, roundCounter);
   }
 
 }

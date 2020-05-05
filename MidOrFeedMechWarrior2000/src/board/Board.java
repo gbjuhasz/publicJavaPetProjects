@@ -55,6 +55,7 @@ public class Board extends JComponent implements KeyListener {
     }
 
     graphics.setColor(Color.WHITE);
+    graphics.drawString(String.valueOf(roundCounter), 72, 120);
     graphics.drawString("X:" + unitLayout.getMechHero().getPosX(),
             72,
             40);

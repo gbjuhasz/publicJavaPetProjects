@@ -7,7 +7,7 @@ public class AttackManager {
 
   Random random = new Random();
 
-  public void attackTargetUnit(Unit unitAttacking, Unit unitTargeted){
+  public void attackTargetUnit(Unit unitAttacking, Unit unitTargeted, int roundCounter){
     if(attackMissed(unitAttacking)){
       int unitTargetedHP = unitTargeted.getHealthPoints();
       int unitTargetedArmor = unitTargeted.getArmorRating();
@@ -15,6 +15,7 @@ public class AttackManager {
       unitTargeted.setHealthPoints(unitTargetedHP-unitAttackingDamage+unitTargetedArmor);
       if(unitTargeted.getHealthPoints() <= 0){
         unitTargeted.setAlive(false);
+        unitAttacking.setRoundDied(roundCounter);
         unitTargeted.setPosX(-100);
         unitTargeted.setPosY(-100);
       }

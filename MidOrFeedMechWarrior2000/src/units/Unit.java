@@ -21,6 +21,8 @@ public abstract class Unit {
   private int attackDamage;
   private int missChance;
   private boolean isAlive = true;
+  private int roundDied;
+  private int roundsToRespawn;
   //field for decision making
   private boolean isThreatToHeroUnit;
   private int powerScore;
@@ -103,6 +105,14 @@ public abstract class Unit {
     return isAlive;
   }
 
+  public int getRoundDied() {
+    return roundDied;
+  }
+
+  public int getRoundsToRespawn() {
+    return roundsToRespawn;
+  }
+
   public void setArmorRating(int armorRating) {
     this.armorRating = armorRating;
   }
@@ -179,6 +189,18 @@ public abstract class Unit {
 
   public void setPowerScore(int powerScore) {
     this.powerScore = powerScore;
+  }
+
+  public void setMissChance(int missChance) {
+    this.missChance = missChance;
+  }
+
+  public void setRoundDied(int roundDied) {
+    this.roundDied = roundDied;
+  }
+
+  public void setRoundsToRespawn(int roundsToRespawn) {
+    this.roundsToRespawn = roundsToRespawn;
   }
 
   public void calculateImageCenterCoordinates() {
