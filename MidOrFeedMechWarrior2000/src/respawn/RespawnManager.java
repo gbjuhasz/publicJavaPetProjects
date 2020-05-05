@@ -8,10 +8,12 @@ public class RespawnManager {
 
   public void respawnUnits(ArrayList<Mech> listOfMechs,
                            ArrayList<Creep> listOfCreepAllied,
-                           ArrayList<Creep> lisOfCreepEnemy,
+                           ArrayList<Creep> listOfCreepEnemy,
                            int roundCounter) {
 
     respawnMechsIfDead(listOfMechs, roundCounter);
+    respawnCreepsIfDead(listOfCreepAllied, roundCounter);
+    respawnCreepsIfDead(listOfCreepEnemy,roundCounter);
   }
 
   public void respawnMechsIfDead(ArrayList<Mech> listOfMechs, int roundCounter) {
@@ -20,6 +22,16 @@ public class RespawnManager {
         mech.setAlive(true);
         mech.setPosX(mech.getRespawnX());
         mech.setPosY(mech.getRespawnY());
+      }
+    }
+  }
+
+  public void respawnCreepsIfDead(ArrayList<Creep> listOfCreeps, int roundCounter){
+    for(Creep creep: listOfCreeps){
+      if(!creep.isAlive() && roundCounter % creep.getRoundsToRespawn() == 0){
+        creep.setAlive(true);
+        creep.setPosX(creep.getRespawnX());
+        creep.setPosY(creep.getRespawnY());
       }
     }
   }
