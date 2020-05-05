@@ -26,7 +26,7 @@ public class Board extends JComponent implements KeyListener {
   MechHeroMovementManager mechHeroMovementManager = new MechHeroMovementManager();
   BotReaction botReaction = new BotReaction();
   BuildingDepthEffect buildingDepthEffect = new BuildingDepthEffect();
-  int roundCounter = 1;
+  int roundCounter = 0;
   //for debugging
   StuckUnitAssister stuckUnitAssister = new StuckUnitAssister();
 

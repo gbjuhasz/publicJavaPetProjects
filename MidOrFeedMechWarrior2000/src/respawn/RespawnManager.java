@@ -29,8 +29,10 @@ public class RespawnManager {
 
   public void respawnCreepsIfDead(ArrayList<Creep> listOfCreeps, int roundCounter){
     for(Creep creep: listOfCreeps){
-      if(!creep.isAlive() && roundCounter % creep.getRoundsToRespawn() == 0){
+      if(!creep.isAlive() &&
+      roundCounter == creep.getRoundToRespawn()){
         creep.setAlive(true);
+        creep.setRoundToRespawn(roundCounter + creep.getWaveSpawnTimer());
         creep.setHealthPoints(creep.getRespawnHealthPoints());
         creep.setPosX(creep.getRespawnX());
         creep.setPosY(creep.getRespawnY());

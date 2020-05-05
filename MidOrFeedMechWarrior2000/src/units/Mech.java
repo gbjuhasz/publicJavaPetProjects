@@ -40,11 +40,6 @@ public abstract class Mech extends Unit {
   }
 
   @Override
-  public int getRoundsToRespawn() {
-    return roundsToRespawn;
-  }
-
-  @Override
   public int getMissChance() {
     return  missChance;
   }
@@ -52,6 +47,10 @@ public abstract class Mech extends Unit {
   @Override
   public int getRespawnHealthPoints() {
     return respawnHealthPoints;
+  }
+
+  public int getRoundsToRespawn() {
+    return roundsToRespawn;
   }
 
   @Override

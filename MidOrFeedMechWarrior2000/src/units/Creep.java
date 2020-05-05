@@ -11,7 +11,8 @@ public abstract class Creep extends Unit {
   private int armorRating = 0;
   private int detectionRange = 216;
   private int missChance = 2;
-  private int roundsToRespawn = 50;
+  private int roundToRespawn;
+  private int waveSpawnTimer;
   //fields for decision making
 
   @Override
@@ -44,9 +45,12 @@ public abstract class Creep extends Unit {
     return missChance;
   }
 
-  @Override
-  public int getRoundsToRespawn() {
-    return roundsToRespawn;
+  public int getRoundToRespawn() {
+    return roundToRespawn;
+  }
+
+  public int getWaveSpawnTimer() {
+    return waveSpawnTimer;
   }
 
   @Override
@@ -54,8 +58,16 @@ public abstract class Creep extends Unit {
     return respawnHealthPoints;
   }
 
+  public void setWaveSpawnTimer(int waveSpawnTimer) {
+    this.waveSpawnTimer = waveSpawnTimer;
+  }
+
   @Override
   public void setHealthPoints(int healthPoints) {
     this.healthPoints = healthPoints;
+  }
+
+  public void setRoundToRespawn(int roundToRespawn) {
+    this.roundToRespawn = roundToRespawn;
   }
 }

@@ -7,12 +7,20 @@ import javax.imageio.ImageIO;
 
 public class CreepEnemy extends Creep {
 
-  public CreepEnemy(String fileLocation, int x, int y){
+  public CreepEnemy(String fileLocation, int x, int y, boolean isAlive,
+                    int waveTimer) {
 
-    super.setPosX(x);
-    super.setPosY(y);
-    super.setRespawnX(x);
-    super.setRespawnY(y);
+    if (isAlive) {
+      super.setPosX(x);
+      super.setPosY(y);
+      super.setRoundToRespawn(2 * waveTimer);
+    } else {
+      super.setPosX(-100);
+      super.setPosY(-100);
+      super.setRoundToRespawn(waveTimer);
+    }
+    super.setAlive(isAlive);
+    super.setWaveSpawnTimer(waveTimer);
     super.calculateImageCenterCoordinates();
 
     try {

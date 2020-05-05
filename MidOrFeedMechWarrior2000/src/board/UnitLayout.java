@@ -12,21 +12,33 @@ public class UnitLayout {
   private CreepAllied creepAllied1;
   private CreepAllied creepAllied2;
   private CreepAllied creepAllied3;
+  private CreepAllied creepAllied4;
+  private CreepAllied creepAllied5;
+  private CreepAllied creepAllied6;
   private CreepEnemy creepEnemy1;
   private CreepEnemy creepEnemy2;
   private CreepEnemy creepEnemy3;
+  private CreepEnemy creepEnemy4;
+  private CreepEnemy creepEnemy5;
+  private CreepEnemy creepEnemy6;
 
   public void placeUnitsOnMap() {
     mechHero = new MechHero("images/mechhero/MechHeroDownEven.png", 72, 0);
     mechEnemy = new MechEnemy("images/mechenemy/MechEnemyUp.png", 558, 648);
     turretAllied = new TurretAllied();
     turretEnemy = new TurretEnemy();
-    creepAllied1 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 0, 72);
-    creepAllied2 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 72, 72);
-    creepAllied3 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 144, 72);
-    creepEnemy1 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 486, 576);
-    creepEnemy2 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 558, 576);
-    creepEnemy3 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 600, 576);
+    creepAllied1 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 0, 72, true, 50);
+    creepAllied2 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 72, 72, true, 50);
+    creepAllied3 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 144, 72, true, 50);
+    creepAllied4 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 0, 72, false, 50);
+    creepAllied5 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 72, 72, false, 50);
+    creepAllied6 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 144, 72, false, 50);
+    creepEnemy1 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 486, 576,true, 50);
+    creepEnemy2 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 558, 576,true, 50);
+    creepEnemy3 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 600, 576,true, 50);
+    creepEnemy4 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 486, 576,false, 50);
+    creepEnemy5 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 558, 576,false, 50);
+    creepEnemy6 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 600, 576,false, 50);
   }
 
   public MechHero getMechHero() {
@@ -50,6 +62,9 @@ public class UnitLayout {
     listOfCreepAllied.add(creepAllied1);
     listOfCreepAllied.add(creepAllied2);
     listOfCreepAllied.add(creepAllied3);
+    listOfCreepAllied.add(creepAllied4);
+    listOfCreepAllied.add(creepAllied5);
+    listOfCreepAllied.add(creepAllied6);
     return listOfCreepAllied;
   }
 
@@ -58,6 +73,9 @@ public class UnitLayout {
     listOfCreepEnemy.add(creepEnemy1);
     listOfCreepEnemy.add(creepEnemy2);
     listOfCreepEnemy.add(creepEnemy3);
+    listOfCreepEnemy.add(creepEnemy4);
+    listOfCreepEnemy.add(creepEnemy5);
+    listOfCreepEnemy.add(creepEnemy6);
     return listOfCreepEnemy;
   }
 

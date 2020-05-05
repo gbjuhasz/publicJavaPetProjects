@@ -24,7 +24,6 @@ public abstract class Unit {
   //fields for respawning
   private boolean isAlive = true;
   private int roundDied;
-  private int roundsToRespawn;
   private int respawnX;
   private int respawnY;
   //field for decision making
@@ -111,10 +110,6 @@ public abstract class Unit {
 
   public int getRoundDied() {
     return roundDied;
-  }
-
-  public int getRoundsToRespawn() {
-    return roundsToRespawn;
   }
 
   public int getRespawnX() {
@@ -207,10 +202,6 @@ public abstract class Unit {
 
   public void setRoundDied(int roundDied) {
     this.roundDied = roundDied;
-  }
-
-  public void setRoundsToRespawn(int roundsToRespawn) {
-    this.roundsToRespawn = roundsToRespawn;
   }
 
   public void setRespawnX(int respawnX) {
