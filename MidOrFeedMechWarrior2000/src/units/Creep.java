@@ -11,6 +11,7 @@ public abstract class Creep extends Unit {
   private int armorRating = 0;
   private int detectionRange = 216;
   private int missChance = 2;
+  private int roundsToRespawn = 50;
   //fields for decision making
 
   @Override
@@ -41,6 +42,11 @@ public abstract class Creep extends Unit {
   @Override
   public int getMissChance() {
     return missChance;
+  }
+
+  @Override
+  public int getRoundsToRespawn() {
+    return roundsToRespawn;
   }
 
   @Override
