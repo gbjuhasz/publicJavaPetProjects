@@ -6,11 +6,11 @@ public abstract class Creep extends Unit {
   //fields for fighting
   private Random random = new Random();
   private int attackRange = 72;
-  private int attackDamage = 20;
-  private int healthPoints = 100;
+  private int attackDamage = 25;
+  private int healthPoints = 550;
   private int armorRating = 0;
   private int detectionRange = 216;
-  private int missChance = 3;
+  private int missChance = 2;
   //fields for decision making
 
   @Override

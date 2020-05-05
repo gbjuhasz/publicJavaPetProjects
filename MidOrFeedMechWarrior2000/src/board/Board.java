@@ -1,5 +1,6 @@
 package board;
 
+import decisionmaking.BotReaction;
 import decisionmaking.CreepAlliedDecisionMaker;
 import decisionmaking.CreepEnemyDecisionMaker;
 import decisionmaking.MechEnemyDecisionMaker;
@@ -17,10 +18,11 @@ public class Board extends JComponent implements KeyListener {
   MapBuilder mapBuilder = new MapBuilder();
   ArrayList<Tile> cityMap = mapBuilder.buildMap();
   UnitLayout unitLayout = new UnitLayout();
-  CreepAlliedDecisionMaker creepAlliedDecisionMaker = new CreepAlliedDecisionMaker();
+ /* CreepAlliedDecisionMaker creepAlliedDecisionMaker = new CreepAlliedDecisionMaker();
   MechEnemyDecisionMaker mechEnemyDecisionMaker = new MechEnemyDecisionMaker();
-  CreepEnemyDecisionMaker creepEnemyDecisionMaker = new CreepEnemyDecisionMaker();
+  CreepEnemyDecisionMaker creepEnemyDecisionMaker = new CreepEnemyDecisionMaker();*/
   MechHeroMovementManager mechHeroMovementManager = new MechHeroMovementManager();
+  BotReaction botReaction = new BotReaction();
   BuildingDepthEffect buildingDepthEffect = new BuildingDepthEffect();
   int roundCounter = 1;
   //for debugging
@@ -112,38 +114,46 @@ public class Board extends JComponent implements KeyListener {
     if (e.getKeyCode() == KeyEvent.VK_UP) {
       roundCounter++;
       mechHeroMovementManager.moveMechHeroWithKeys(mechHero, 0, -18, roundCounter);
-      for (Creep creepAllied : listOfCreepAllied) {
-        creepAlliedDecisionMaker.reactToPlayerMovement(creepAllied,
-                mechEnemy,
-                listOfCreepEnemy,
-                turretEnemy,
-                roundCounter
-        );
-      }
-      for (Creep creepEnemy : listOfCreepEnemy) {
-        creepEnemyDecisionMaker.reactToPlayerMovement(creepEnemy,
-                mechHero,
-                listOfCreepAllied,
-                turretAllied,
-                roundCounter);
-      }
-      mechEnemyDecisionMaker.reactToPlayerMovement(mechEnemy,
-              mechHero,
+      botReaction.makeBotsReactToPlayerAction(mechHero,
+              mechEnemy,
               listOfCreepAllied,
+              listOfCreepEnemy,
               turretAllied,
+              turretEnemy,
               roundCounter);
       repaint();
     } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
       roundCounter++;
       mechHeroMovementManager.moveMechHeroWithKeys(mechHero, 0, 18, roundCounter);
+      botReaction.makeBotsReactToPlayerAction(mechHero,
+              mechEnemy,
+              listOfCreepAllied,
+              listOfCreepEnemy,
+              turretAllied,
+              turretEnemy,
+              roundCounter);
       repaint();
     } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
       roundCounter++;
       mechHeroMovementManager.moveMechHeroWithKeys(mechHero, 18, 0, roundCounter);
+      botReaction.makeBotsReactToPlayerAction(mechHero,
+              mechEnemy,
+              listOfCreepAllied,
+              listOfCreepEnemy,
+              turretAllied,
+              turretEnemy,
+              roundCounter);
       repaint();
     } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
       roundCounter++;
       mechHeroMovementManager.moveMechHeroWithKeys(mechHero, -18, 0, roundCounter);
+      botReaction.makeBotsReactToPlayerAction(mechHero,
+              mechEnemy,
+              listOfCreepAllied,
+              listOfCreepEnemy,
+              turretAllied,
+              turretEnemy,
+              roundCounter);
       repaint();
     } else {
       repaint();

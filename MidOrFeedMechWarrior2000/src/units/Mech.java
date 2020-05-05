@@ -8,10 +8,10 @@ public abstract class Mech extends Unit {
   //fields for fighting
   private Random random = new Random();
   private int attackRange = 72;
-  private int attackDamage = 25;
-  private int healthPoints = 500;
+  private int attackDamage = 50;
+  private int healthPoints = 700;
   private int armorRating = 0;
-  private int missChance = 2;
+  private int missChance = 1;
   //fields for decision making
 
 
