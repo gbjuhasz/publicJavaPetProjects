@@ -7,14 +7,12 @@ import javax.imageio.ImageIO;
 
 public class CreepAllied extends Creep {
 
-  //fields for respawning
-  private int respawnX;
-  private int respawnY;
-
   public CreepAllied(String fileLocation, int x, int y) {
 
     super.setPosX(x);
     super.setPosY(y);
+    super.setRespawnX(x);
+    super.setRespawnY(y);
     super.calculateImageCenterCoordinates();
 
     try {

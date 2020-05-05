@@ -7,13 +7,12 @@ import javax.imageio.ImageIO;
 
 public class MechEnemy extends Mech {
 
-  private int respawnX = 558;
-  private int respawnY = 648;
-
   public MechEnemy(String fileLocation, int x, int y) {
 
     super.setPosX(x);
     super.setPosY(y);
+    super.setRespawnX(x);
+    super.setRespawnY(y);
     super.calculateImageCenterCoordinates();
 
     try {
@@ -22,15 +21,5 @@ public class MechEnemy extends Mech {
     } catch (IOException e) {
       e.printStackTrace();
     }
-  }
-
-  @Override
-  public int getRespawnY() {
-    return respawnY;
-  }
-
-  @Override
-  public int getRespawnX() {
-    return respawnX;
   }
 }
