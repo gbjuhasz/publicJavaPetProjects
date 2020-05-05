@@ -7,6 +7,7 @@ public abstract class Mech extends Unit {
   private int attackRange = 72;
   private int attackDamage = 50;
   private int healthPoints = 700;
+  private int respawnHealthPoints = 700;
   private int armorRating = 0;
   private int missChance = 1;
   private int mechLevel = 1;
@@ -46,6 +47,11 @@ public abstract class Mech extends Unit {
   @Override
   public int getMissChance() {
     return  missChance;
+  }
+
+  @Override
+  public int getRespawnHealthPoints() {
+    return respawnHealthPoints;
   }
 
   @Override

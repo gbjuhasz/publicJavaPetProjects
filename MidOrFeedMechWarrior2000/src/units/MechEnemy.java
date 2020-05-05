@@ -7,6 +7,8 @@ import javax.imageio.ImageIO;
 
 public class MechEnemy extends Mech {
 
+  private int detectionRange = 720;
+
   public MechEnemy(String fileLocation, int x, int y) {
 
     super.setPosX(x);
@@ -21,5 +23,10 @@ public class MechEnemy extends Mech {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  @Override
+  public int getDetectionRange() {
+    return detectionRange;
   }
 }

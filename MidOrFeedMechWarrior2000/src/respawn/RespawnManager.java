@@ -20,6 +20,7 @@ public class RespawnManager {
     for (Mech mech : listOfMechs) {
       if (!mech.isAlive() && roundCounter - mech.getRoundDied() == mech.getRoundsToRespawn()) {
         mech.setAlive(true);
+        mech.setHealthPoints(mech.getRespawnHealthPoints());
         mech.setPosX(mech.getRespawnX());
         mech.setPosY(mech.getRespawnY());
       }
@@ -30,6 +31,7 @@ public class RespawnManager {
     for(Creep creep: listOfCreeps){
       if(!creep.isAlive() && roundCounter % creep.getRoundsToRespawn() == 0){
         creep.setAlive(true);
+        creep.setHealthPoints(creep.getRespawnHealthPoints());
         creep.setPosX(creep.getRespawnX());
         creep.setPosY(creep.getRespawnY());
       }

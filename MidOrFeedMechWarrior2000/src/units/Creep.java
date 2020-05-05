@@ -7,6 +7,7 @@ public abstract class Creep extends Unit {
   private int attackRange = 72;
   private int attackDamage = 25;
   private int healthPoints = 550;
+  private int respawnHealthPoints = 550;
   private int armorRating = 0;
   private int detectionRange = 216;
   private int missChance = 2;
@@ -46,6 +47,11 @@ public abstract class Creep extends Unit {
   @Override
   public int getRoundsToRespawn() {
     return roundsToRespawn;
+  }
+
+  @Override
+  public int getRespawnHealthPoints() {
+    return respawnHealthPoints;
   }
 
   @Override

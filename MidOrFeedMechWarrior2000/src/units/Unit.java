@@ -15,6 +15,7 @@ public abstract class Unit {
   private String unitTypeForImage;
   private BufferedImage image;
   //fields for fighting
+  private int respawnHealthPoints;
   private int healthPoints;
   private int armorRating;
   private int attackRange;
@@ -124,6 +125,10 @@ public abstract class Unit {
     return respawnY;
   }
 
+  public int getRespawnHealthPoints() {
+    return respawnHealthPoints;
+  }
+
   public void setArmorRating(int armorRating) {
     this.armorRating = armorRating;
   }
@@ -214,6 +219,10 @@ public abstract class Unit {
 
   public void setRespawnY(int respawnY) {
     this.respawnY = respawnY;
+  }
+
+  public void setRespawnHealthPoints(int respawnHealthPoints) {
+    this.respawnHealthPoints = respawnHealthPoints;
   }
 
   public void draw(Graphics graphics) {
