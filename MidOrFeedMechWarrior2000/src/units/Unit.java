@@ -19,6 +19,8 @@ public abstract class Unit {
   private int armorRating;
   private int attackRange;
   private int attackDamage;
+  private int missChance;
+  private boolean isAlive = true;
   //field for decision making
   private boolean isThreatToHeroUnit;
   private int powerScore;
@@ -93,6 +95,14 @@ public abstract class Unit {
     return detectionRange;
   }
 
+  public int getMissChance() {
+    return missChance;
+  }
+
+  public boolean isAlive() {
+    return isAlive;
+  }
+
   public void setArmorRating(int armorRating) {
     this.armorRating = armorRating;
   }
@@ -155,6 +165,10 @@ public abstract class Unit {
 
   public void setDetectionRange(int detectionRange) {
     this.detectionRange = detectionRange;
+  }
+
+  public void setAlive(boolean alive) {
+    isAlive = alive;
   }
 
   public void draw(Graphics graphics) {

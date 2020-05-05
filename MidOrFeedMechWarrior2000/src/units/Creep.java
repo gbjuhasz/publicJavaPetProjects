@@ -3,15 +3,14 @@ package units;
 import java.util.Random;
 
 public abstract class Creep extends Unit {
-  //fields for positioning on board, image picking and drawing effects
-  private boolean isAlive;
   //fields for fighting
   private Random random = new Random();
   private int attackRange = 72;
-  private int attackDamage = 5 * (1 + random.nextInt(5));
+  private int attackDamage = 20;
   private int healthPoints = 100;
   private int armorRating = 0;
   private int detectionRange = 216;
+  private int missChance = 3;
   //fields for decision making
 
   @Override
@@ -37,5 +36,15 @@ public abstract class Creep extends Unit {
   @Override
   public int getArmorRating() {
     return armorRating;
+  }
+
+  @Override
+  public int getMissChance() {
+    return missChance;
+  }
+
+  @Override
+  public void setHealthPoints(int healthPoints) {
+    this.healthPoints = healthPoints;
   }
 }

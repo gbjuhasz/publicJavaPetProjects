@@ -1,5 +1,6 @@
 package decisionmaking;
 
+import fighting.AttackManager;
 import java.util.ArrayList;
 import units.Creep;
 import units.Mech;
@@ -7,6 +8,8 @@ import units.Turret;
 import units.Unit;
 
 public abstract class DecisionMaker {
+
+  AttackManager attackManager = new AttackManager();
 
   public void reactToPlayerMovement(Unit unitMakingDecision,
                                     Mech mech,
@@ -77,6 +80,7 @@ public abstract class DecisionMaker {
   }
 
   public void attackTarget(Unit unitAttacking, Unit unitTarget) {
+    attackManager.attackTargetUnit(unitAttacking,unitTarget);
   }
 
 }

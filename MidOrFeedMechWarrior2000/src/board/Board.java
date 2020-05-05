@@ -62,6 +62,7 @@ public class Board extends JComponent implements KeyListener {
     buildingDepthEffect.getBuildingBottomRightSide().draw(graphics);
     buildingDepthEffect.getBuildingLeftSide().draw(graphics);
     //DEBUGGING DRAWINGS
+    graphics.drawString(String.valueOf(unitLayout.getCreepEnemy1().getHealthPoints()), 360, 360);
     /*
     graphics.drawString(String.valueOf(unitLayout.getCreepAllied3().getPosX()), 360,360);
     graphics.drawString(String.valueOf(unitLayout.getCreepAllied3().getPosY()), 360,390);
