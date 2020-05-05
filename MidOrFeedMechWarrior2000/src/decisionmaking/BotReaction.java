@@ -10,6 +10,7 @@ public class BotReaction {
   CreepAlliedDecisionMaker creepAlliedDecisionMaker = new CreepAlliedDecisionMaker();
   CreepEnemyDecisionMaker creepEnemyDecisionMaker = new CreepEnemyDecisionMaker();
   MechEnemyDecisionMaker mechEnemyDecisionMaker = new MechEnemyDecisionMaker();
+  TurretDecisionMaker turretDecisionMaker = new TurretDecisionMaker();
 
   public void makeBotsReactToPlayerAction(Mech mechHero,
                                           Mech mechEnemy,
@@ -45,5 +46,16 @@ public class BotReaction {
               turretAllied,
               roundCounter);
     }
+    turretDecisionMaker.reactToPlayerMovement(turretAllied,
+            mechEnemy,
+            listOfCreepEnemy,
+            turretEnemy,
+            roundCounter);
+
+    turretDecisionMaker.reactToPlayerMovement(turretEnemy,
+            mechHero,
+            listOfCreepAllied,
+            turretAllied,
+            roundCounter);
   }
 }

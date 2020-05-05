@@ -1,7 +1,5 @@
 package units;
 
-import java.util.Random;
-
 public abstract class Turret extends Unit {
   //fields for fighting
 
