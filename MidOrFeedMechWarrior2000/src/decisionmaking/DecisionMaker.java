@@ -33,17 +33,20 @@ public abstract class DecisionMaker {
 
     int attackRange = unitMakingDecision.getAttackRange();
 
-    if (mech.isThreatToHeroUnit()
-            && unitMakingDecision.calculateDistanceBetweenUnits(mech) <= attackRange) {
+    if (mech.isThreatToHeroUnit() &&
+            mech.isAlive() &&
+            unitMakingDecision.calculateDistanceBetweenUnits(mech) <= attackRange) {
       return mech;
     }
     for (Creep creep : listOfCreeps) {
-      if (unitMakingDecision.calculateDistanceBetweenUnits(creep) <= attackRange) {
+      if (unitMakingDecision.calculateDistanceBetweenUnits(creep) <= attackRange &&
+      creep.isAlive()) {
         return creep;
       }
     }
-    if (!mech.isThreatToHeroUnit()
-            && unitMakingDecision.calculateDistanceBetweenUnits(mech) <= attackRange) {
+    if (!mech.isThreatToHeroUnit() &&
+            mech.isAlive() &&
+            unitMakingDecision.calculateDistanceBetweenUnits(mech) <= attackRange) {
       return mech;
     } else if (unitMakingDecision.calculateDistanceBetweenUnits(turret) <= attackRange) {
       return turret;
