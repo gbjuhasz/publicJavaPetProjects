@@ -1,18 +1,29 @@
 package respawn;
 
 import java.util.ArrayList;
-import units.CreepAllied;
-import units.CreepEnemy;
+import units.Creep;
 import units.Mech;
 
 public class RespawnManager {
 
-  public void respawnUnits(Mech mechAllied,
-                           Mech mechEnemy,
-                           ArrayList<CreepAllied> listOfCreepAllied,
-                           ArrayList<CreepEnemy> lisOfCreepEnemy) {
+  public void respawnUnits(ArrayList<Mech> listOfMechs,
+                           ArrayList<Creep> listOfCreepAllied,
+                           ArrayList<Creep> lisOfCreepEnemy,
+                           int roundCounter) {
 
+    if(!listOfMechs.get(0).isAlive()){
+      int round = 1;
+    }
+    respawnMechsIfDead(listOfMechs, roundCounter);
+  }
 
-
+  public void respawnMechsIfDead(ArrayList<Mech> listOfMechs, int roundCounter) {
+    for (Mech mech : listOfMechs) {
+      if (!mech.isAlive() && roundCounter - mech.getRoundDied() == mech.getRoundsToRespawn()) {
+        mech.setAlive(true);
+        mech.setPosX(mech.getRespawnX());
+        mech.setPosY(mech.getRespawnY());
+      }
+    }
   }
 }

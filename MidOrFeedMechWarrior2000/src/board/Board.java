@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import movement.MechHeroMovementManager;
 import movement.StuckUnitAssister;
+import respawn.RespawnManager;
 import units.*;
 
 public class Board extends JComponent implements KeyListener {
@@ -18,6 +19,7 @@ public class Board extends JComponent implements KeyListener {
   MapBuilder mapBuilder = new MapBuilder();
   ArrayList<Tile> cityMap = mapBuilder.buildMap();
   UnitLayout unitLayout = new UnitLayout();
+  RespawnManager respawnManager = new RespawnManager();
  /* CreepAlliedDecisionMaker creepAlliedDecisionMaker = new CreepAlliedDecisionMaker();
   MechEnemyDecisionMaker mechEnemyDecisionMaker = new MechEnemyDecisionMaker();
   CreepEnemyDecisionMaker creepEnemyDecisionMaker = new CreepEnemyDecisionMaker();*/
@@ -56,6 +58,8 @@ public class Board extends JComponent implements KeyListener {
 
     graphics.setColor(Color.WHITE);
     graphics.drawString(String.valueOf(roundCounter), 72, 120);
+    graphics.drawString(String.valueOf(unitLayout.getCreepAllied3().isAlive()), 72, 150);
+
     graphics.drawString("X:" + unitLayout.getMechHero().getPosX(),
             72,
             40);
@@ -114,6 +118,7 @@ public class Board extends JComponent implements KeyListener {
     // When the up or down keys hit, we change the position of our box
     if (e.getKeyCode() == KeyEvent.VK_UP) {
       roundCounter++;
+      respawnManager.respawnUnits(unitLayout.getListOfMechs(),listOfCreepAllied,listOfCreepEnemy,roundCounter);
       mechHeroMovementManager.moveMechHeroWithKeys(mechHero, 0, -18, roundCounter);
       botReaction.makeBotsReactToPlayerAction(mechHero,
               mechEnemy,
@@ -125,6 +130,7 @@ public class Board extends JComponent implements KeyListener {
       repaint();
     } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
       roundCounter++;
+      respawnManager.respawnUnits(unitLayout.getListOfMechs(),listOfCreepAllied,listOfCreepEnemy,roundCounter);
       mechHeroMovementManager.moveMechHeroWithKeys(mechHero, 0, 18, roundCounter);
       botReaction.makeBotsReactToPlayerAction(mechHero,
               mechEnemy,
@@ -136,6 +142,8 @@ public class Board extends JComponent implements KeyListener {
       repaint();
     } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
       roundCounter++;
+      respawnManager.respawnUnits(unitLayout.getListOfMechs(),listOfCreepAllied,listOfCreepEnemy,roundCounter);
+
       mechHeroMovementManager.moveMechHeroWithKeys(mechHero, 18, 0, roundCounter);
       botReaction.makeBotsReactToPlayerAction(mechHero,
               mechEnemy,
@@ -147,6 +155,8 @@ public class Board extends JComponent implements KeyListener {
       repaint();
     } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
       roundCounter++;
+      respawnManager.respawnUnits(unitLayout.getListOfMechs(),listOfCreepAllied,listOfCreepEnemy,roundCounter);
+
       mechHeroMovementManager.moveMechHeroWithKeys(mechHero, -18, 0, roundCounter);
       botReaction.makeBotsReactToPlayerAction(mechHero,
               mechEnemy,

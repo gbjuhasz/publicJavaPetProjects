@@ -12,7 +12,7 @@ public abstract class Mech extends Unit {
   private int healthPoints = 700;
   private int armorRating = 0;
   private int missChance = 1;
-  private int mechLevel = 1
+  private int mechLevel = 1;
   private int roundsToRespawn = mechLevel * 5 ;
   //fields for decision making
 

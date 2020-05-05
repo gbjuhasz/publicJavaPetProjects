@@ -17,26 +17,32 @@ public class BotReaction {
                                           ArrayList<Creep> listOfCreepEnemy,
                                           Turret turretAllied,
                                           Turret turretEnemy,
-                                          int roundCounter){
+                                          int roundCounter) {
     for (Creep creepAllied : listOfCreepAllied) {
-      creepAlliedDecisionMaker.reactToPlayerMovement(creepAllied,
-              mechEnemy,
-              listOfCreepEnemy,
-              turretEnemy,
-              roundCounter
-      );
+      if (creepAllied.isAlive()) {
+        creepAlliedDecisionMaker.reactToPlayerMovement(creepAllied,
+                mechEnemy,
+                listOfCreepEnemy,
+                turretEnemy,
+                roundCounter
+        );
+      }
     }
     for (Creep creepEnemy : listOfCreepEnemy) {
-      creepEnemyDecisionMaker.reactToPlayerMovement(creepEnemy,
+      if (creepEnemy.isAlive()) {
+        creepEnemyDecisionMaker.reactToPlayerMovement(creepEnemy,
+                mechHero,
+                listOfCreepAllied,
+                turretAllied,
+                roundCounter);
+      }
+    }
+    if (mechEnemy.isAlive()) {
+      mechEnemyDecisionMaker.reactToPlayerMovement(mechEnemy,
               mechHero,
               listOfCreepAllied,
               turretAllied,
               roundCounter);
     }
-    mechEnemyDecisionMaker.reactToPlayerMovement(mechEnemy,
-            mechHero,
-            listOfCreepAllied,
-            turretAllied,
-            roundCounter);
   }
 }

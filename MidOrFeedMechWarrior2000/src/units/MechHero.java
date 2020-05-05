@@ -7,6 +7,9 @@ import javax.imageio.ImageIO;
 
 public class MechHero extends Mech {
 
+  private int respawnX = 72;
+  private int respawnY = 0;
+
   public MechHero(String fileLocation, int x, int y) {
 
     super.setPosX(x);
@@ -19,5 +22,15 @@ public class MechHero extends Mech {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  @Override
+  public int getRespawnX() {
+    return respawnX;
+  }
+
+  @Override
+  public int getRespawnY() {
+    return respawnY;
   }
 }

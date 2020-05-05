@@ -61,6 +61,13 @@ public class UnitLayout {
     return listOfCreepEnemy;
   }
 
+  public ArrayList<Mech> getListOfMechs(){
+    ArrayList<Mech> listOfMechs = new ArrayList<>();
+    listOfMechs.add(mechHero);
+    listOfMechs.add(mechEnemy);
+    return listOfMechs;
+  }
+
   public CreepAllied getCreepAllied3() {
     return creepAllied3;
   }

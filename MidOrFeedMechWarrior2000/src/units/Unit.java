@@ -20,9 +20,12 @@ public abstract class Unit {
   private int attackRange;
   private int attackDamage;
   private int missChance;
+  //fields for respawning
   private boolean isAlive = true;
   private int roundDied;
   private int roundsToRespawn;
+  private int respawnX;
+  private int respawnY;
   //field for decision making
   private boolean isThreatToHeroUnit;
   private int powerScore;
@@ -113,6 +116,14 @@ public abstract class Unit {
     return roundsToRespawn;
   }
 
+  public int getRespawnX() {
+    return respawnX;
+  }
+
+  public int getRespawnY() {
+    return respawnY;
+  }
+
   public void setArmorRating(int armorRating) {
     this.armorRating = armorRating;
   }
@@ -181,12 +192,6 @@ public abstract class Unit {
     isAlive = alive;
   }
 
-  public void draw(Graphics graphics) {
-    if (image != null) {
-      graphics.drawImage(image, posX, posY, null);
-    }
-  }
-
   public void setPowerScore(int powerScore) {
     this.powerScore = powerScore;
   }
@@ -201,6 +206,20 @@ public abstract class Unit {
 
   public void setRoundsToRespawn(int roundsToRespawn) {
     this.roundsToRespawn = roundsToRespawn;
+  }
+
+  public void setRespawnX(int respawnX) {
+    this.respawnX = respawnX;
+  }
+
+  public void setRespawnY(int respawnY) {
+    this.respawnY = respawnY;
+  }
+
+  public void draw(Graphics graphics) {
+    if (image != null) {
+      graphics.drawImage(image, posX, posY, null);
+    }
   }
 
   public void calculateImageCenterCoordinates() {
