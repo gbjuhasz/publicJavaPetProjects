@@ -3,10 +3,7 @@ package units;
 import java.util.Random;
 
 public abstract class Mech extends Unit {
-  //fields for positioning on board, image picking and drawing effects
-  private boolean isAlive;
   //fields for fighting
-  private Random random = new Random();
   private int attackRange = 72;
   private int attackDamage = 50;
   private int healthPoints = 700;

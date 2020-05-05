@@ -18,6 +18,7 @@ public class BotReaction {
                                           Turret turretAllied,
                                           Turret turretEnemy,
                                           int roundCounter) {
+
     for (Creep creepAllied : listOfCreepAllied) {
       if (creepAllied.isAlive()) {
         creepAlliedDecisionMaker.reactToPlayerMovement(creepAllied,

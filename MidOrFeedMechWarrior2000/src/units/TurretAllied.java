@@ -10,6 +10,7 @@ public class TurretAllied extends Turret {
   public TurretAllied() {
     super.setPosX(80);
     super.setPosY(150);
+    super.calculateImageCenterCoordinates();
     try {
       BufferedImage turretAlliedImage = ImageIO.read(new File("images/turretallied/TurretAllied.png"));
       super.setImage(turretAlliedImage);
