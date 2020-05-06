@@ -14,6 +14,8 @@ public class RespawnManager {
     respawnMechsIfDead(listOfMechs, roundCounter);
     respawnCreepsIfDead(listOfCreepAllied, roundCounter);
     respawnCreepsIfDead(listOfCreepEnemy,roundCounter);
+    setRespawnTimes(listOfCreepAllied, roundCounter);
+    setRespawnTimes(listOfCreepEnemy, roundCounter);
   }
 
   public void respawnMechsIfDead(ArrayList<Mech> listOfMechs, int roundCounter) {
@@ -32,10 +34,17 @@ public class RespawnManager {
       if(!creep.isAlive() &&
       roundCounter == creep.getRoundToRespawn()){
         creep.setAlive(true);
-        creep.setRoundToRespawn(roundCounter + creep.getWaveSpawnTimer());
         creep.setHealthPoints(creep.getRespawnHealthPoints());
         creep.setPosX(creep.getRespawnX());
         creep.setPosY(creep.getRespawnY());
+      }
+    }
+  }
+
+  public void setRespawnTimes(ArrayList<Creep> listOfCreeps, int roundcounter){
+    for (Creep creep : listOfCreeps){
+      if(roundcounter == creep.getRoundToRespawn()){
+        creep.setRoundToRespawn(creep.getRoundToRespawn()+creep.getWaveSpawnTimer()*2);
       }
     }
   }
