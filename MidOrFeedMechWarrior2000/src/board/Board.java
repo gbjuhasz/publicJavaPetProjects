@@ -22,9 +22,9 @@ public class Board extends JComponent implements KeyListener {
   UnitLayout unitLayout = new UnitLayout();
   RespawnManager respawnManager = new RespawnManager();
   HUD hud = new HUD();
- /* CreepAlliedDecisionMaker creepAlliedDecisionMaker = new CreepAlliedDecisionMaker();
-  MechEnemyDecisionMaker mechEnemyDecisionMaker = new MechEnemyDecisionMaker();
-  CreepEnemyDecisionMaker creepEnemyDecisionMaker = new CreepEnemyDecisionMaker();*/
+  /* CreepAlliedDecisionMaker creepAlliedDecisionMaker = new CreepAlliedDecisionMaker();
+   MechEnemyDecisionMaker mechEnemyDecisionMaker = new MechEnemyDecisionMaker();
+   CreepEnemyDecisionMaker creepEnemyDecisionMaker = new CreepEnemyDecisionMaker();*/
   MechHeroMovementManager mechHeroMovementManager = new MechHeroMovementManager();
   BotReaction botReaction = new BotReaction();
   BuildingDepthEffect buildingDepthEffect = new BuildingDepthEffect();
@@ -70,10 +70,18 @@ public class Board extends JComponent implements KeyListener {
             72,
             80);
     //HUD display
-    graphics.setColor(Color.GREEN);
-    List<String> listOfAttackButtons = Arrays.asList("Space","1","2","3","Q","W","E","T");
+    List<String> listOfAttackButtons = Arrays.asList("Space", "1", "2", "3", "Q", "W", "E", "T");
     Integer hudCounter = 0;
-    for(Unit unit: unitLayout.getListOfEnemyUnits()){
+    for (Unit unit : unitLayout.getListOfEnemyUnits()) {
+      if (unit.getHealthPoints() <= unitLayout.getMechHero().getAttackDamage() &&
+      unitLayout.getMechHero().getAttackRange() >= unitLayout.getMechHero().calculateDistanceBetweenUnits(unit)) {
+        graphics.setColor(Color.RED);
+      } else if (unit.getHealthPoints() > unitLayout.getMechHero().getAttackDamage() &&
+              unitLayout.getMechHero().getAttackRange() >= unitLayout.getMechHero().calculateDistanceBetweenUnits(unit)) {
+        graphics.setColor(Color.GREEN);
+      } else {
+        graphics.setColor(Color.WHITE);
+      }
       ArrayList<Integer> crosshairCoordinates = hud.findCrosshairCoordinates(unit);
       graphics.drawRect(crosshairCoordinates.get(0),
               crosshairCoordinates.get(1),
@@ -82,15 +90,15 @@ public class Board extends JComponent implements KeyListener {
       graphics.drawString(listOfAttackButtons.get(hudCounter),
               crosshairCoordinates.get(0),
               crosshairCoordinates.get(1) - 10);
-      if(unit.getHealthPoints() <= unitLayout.getMechHero().getAttackDamage()){
+      if (unit.getHealthPoints() <= unitLayout.getMechHero().getAttackDamage()) {
         graphics.setColor(Color.RED);
-        graphics.drawString(String.valueOf(unit.getHealthPoints()),crosshairCoordinates.get(0)+72, crosshairCoordinates.get(1) -10);
+        graphics.drawString(String.valueOf(unit.getHealthPoints()), crosshairCoordinates.get(0) + 72, crosshairCoordinates.get(1) - 10);
       } else {
         graphics.drawString(String.valueOf(unit.getHealthPoints()), crosshairCoordinates.get(0) + 72, crosshairCoordinates.get(1) - 10);
       }
       graphics.setColor(Color.GREEN);
       hudCounter++;
-      if(hudCounter > listOfAttackButtons.size()-1){
+      if (hudCounter > listOfAttackButtons.size() - 1) {
         hudCounter = 0;
       }
     }
@@ -99,18 +107,20 @@ public class Board extends JComponent implements KeyListener {
     //DEBUGGING DRAWINGS
     graphics.setColor(Color.BLACK);
     int posYForCoordinates = 40;
-    graphics.fillRect(720,0,400,720);
+    graphics.fillRect(720, 0, 400, 720);
     graphics.setColor(Color.RED);
-    graphics.drawString(String.valueOf(unitLayout.getMechEnemy().getHealthPoints()),720,40);
+    graphics.drawString(String.valueOf(unitLayout.getMechEnemy().getHealthPoints()), 720, 40);
     graphics.setColor(Color.WHITE);
-    for(Creep creep: unitLayout.getListOfCreepAllied()){
-      graphics.drawString("x:"+ creep.getPosX()+"y:"+ creep.getPosY()+" respawn at:"+ creep.getRoundToRespawn(), 760, posYForCoordinates);
+    for (Creep creep : unitLayout.getListOfCreepAllied()) {
+      graphics.drawString("x:" + creep.getPosX() + "y:" + creep.getPosY() + " respawn at:" + creep.getRoundToRespawn(), 760, posYForCoordinates);
       posYForCoordinates = posYForCoordinates + 40;
-    };
-    for(Creep creep: unitLayout.getListOfCreepEnemy()){
-      graphics.drawString("x:"+ creep.getPosX()+"y:"+ creep.getPosY()+" respawn at:"+ creep.getRoundToRespawn(), 760, posYForCoordinates);
+    }
+    ;
+    for (Creep creep : unitLayout.getListOfCreepEnemy()) {
+      graphics.drawString("x:" + creep.getPosX() + "y:" + creep.getPosY() + " respawn at:" + creep.getRoundToRespawn(), 760, posYForCoordinates);
       posYForCoordinates = posYForCoordinates + 40;
-    };
+    }
+    ;
     /*
     graphics.drawString(String.valueOf(unitLayout.getCreepAllied3().getPosX()), 360,360);
     graphics.drawString(String.valueOf(unitLayout.getCreepAllied3().getPosY()), 360,390);
