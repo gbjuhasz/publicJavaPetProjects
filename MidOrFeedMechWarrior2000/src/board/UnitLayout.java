@@ -1,6 +1,7 @@
 package board;
 
 import java.util.ArrayList;
+import java.util.List;
 import units.*;
 
 public class UnitLayout {
@@ -92,5 +93,15 @@ public class UnitLayout {
 
   public CreepEnemy getCreepEnemy1() {
     return creepEnemy1;
+  }
+
+  public List<Unit> getListOfEnemyUnits(){
+    List<Unit> listOfEnemy = new ArrayList<>();
+    listOfEnemy.add(mechEnemy);
+    for(Creep creep : getListOfCreepEnemy()){
+      listOfEnemy.add(creep);
+    }
+    listOfEnemy.add(turretEnemy);
+    return listOfEnemy;
   }
 }

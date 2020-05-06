@@ -6,11 +6,14 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.swing.*;
 import movement.MechHeroMovementManager;
 import respawn.RespawnManager;
 import units.*;
 import visualeffects.BuildingDepthEffect;
+import visualeffects.HUD;
 
 public class Board extends JComponent implements KeyListener {
 
@@ -18,6 +21,7 @@ public class Board extends JComponent implements KeyListener {
   ArrayList<Tile> cityMap = mapBuilder.buildMap();
   UnitLayout unitLayout = new UnitLayout();
   RespawnManager respawnManager = new RespawnManager();
+  HUD hud = new HUD();
  /* CreepAlliedDecisionMaker creepAlliedDecisionMaker = new CreepAlliedDecisionMaker();
   MechEnemyDecisionMaker mechEnemyDecisionMaker = new MechEnemyDecisionMaker();
   CreepEnemyDecisionMaker creepEnemyDecisionMaker = new CreepEnemyDecisionMaker();*/
@@ -65,6 +69,31 @@ public class Board extends JComponent implements KeyListener {
     graphics.drawString("Y:" + unitLayout.getMechHero().getPosY(),
             72,
             80);
+    //HUD display
+    graphics.setColor(Color.GREEN);
+    List<String> listOfAttackButtons = Arrays.asList("Space","1","2","3","Q","W","E","T");
+    Integer hudCounter = 0;
+    for(Unit unit: unitLayout.getListOfEnemyUnits()){
+      ArrayList<Integer> crosshairCoordinates = hud.findCrosshairCoordinates(unit);
+      graphics.drawRect(crosshairCoordinates.get(0),
+              crosshairCoordinates.get(1),
+              crosshairCoordinates.get(2),
+              crosshairCoordinates.get(2));
+      graphics.drawString(listOfAttackButtons.get(hudCounter),
+              crosshairCoordinates.get(0),
+              crosshairCoordinates.get(1) - 10);
+      if(unit.getHealthPoints() <= unitLayout.getMechHero().getAttackDamage()){
+        graphics.setColor(Color.RED);
+        graphics.drawString(String.valueOf(unit.getHealthPoints()),crosshairCoordinates.get(0)+72, crosshairCoordinates.get(1) -10);
+      } else {
+        graphics.drawString(String.valueOf(unit.getHealthPoints()), crosshairCoordinates.get(0) + 72, crosshairCoordinates.get(1) - 10);
+      }
+      graphics.setColor(Color.GREEN);
+      hudCounter++;
+      if(hudCounter > listOfAttackButtons.size()-1){
+        hudCounter = 0;
+      }
+    }
     buildingDepthEffect.getBuildingBottomRightSide().draw(graphics);
     buildingDepthEffect.getBuildingLeftSide().draw(graphics);
     //DEBUGGING DRAWINGS
@@ -73,15 +102,13 @@ public class Board extends JComponent implements KeyListener {
     graphics.fillRect(720,0,400,720);
     graphics.setColor(Color.RED);
     graphics.drawString(String.valueOf(unitLayout.getMechEnemy().getHealthPoints()),720,40);
-    graphics.setColor(Color.GREEN);
-    graphics.drawString(String.valueOf(unitLayout.getMechHero().getHealthPoints()),72,120);
     graphics.setColor(Color.WHITE);
     for(Creep creep: unitLayout.getListOfCreepAllied()){
-      graphics.drawString("x:"+ creep.getPosX()+"y:"+ creep.getPosY(), 760, posYForCoordinates);
+      graphics.drawString("x:"+ creep.getPosX()+"y:"+ creep.getPosY()+" respawn at:"+ creep.getRoundToRespawn(), 760, posYForCoordinates);
       posYForCoordinates = posYForCoordinates + 40;
     };
     for(Creep creep: unitLayout.getListOfCreepEnemy()){
-      graphics.drawString("x:"+ creep.getPosX()+"y:"+ creep.getPosY(), 760, posYForCoordinates);
+      graphics.drawString("x:"+ creep.getPosX()+"y:"+ creep.getPosY()+" respawn at:"+ creep.getRoundToRespawn(), 760, posYForCoordinates);
       posYForCoordinates = posYForCoordinates + 40;
     };
     /*
@@ -264,6 +291,18 @@ public class Board extends JComponent implements KeyListener {
               roundCounter);
       repaint();
       // and redraw to have a new picture with the new coordinates
+      repaint();
+    } else if (e.getKeyCode() == KeyEvent.VK_T) {
+      roundCounter++;
+      respawnManager.respawnUnits(unitLayout.getListOfMechs(), listOfCreepAllied, listOfCreepEnemy, roundCounter);
+      mechHeroAttackManager.attackTargetUnit(mechHero, turretEnemy, roundCounter);
+      botReaction.makeBotsReactToPlayerAction(mechHero,
+              mechEnemy,
+              listOfCreepAllied,
+              listOfCreepEnemy,
+              turretAllied,
+              turretEnemy,
+              roundCounter);
       repaint();
     } else {
       repaint();
