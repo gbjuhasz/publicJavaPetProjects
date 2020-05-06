@@ -1,4 +1,4 @@
-package board;
+package visualeffects;
 
 import units.Tile;
 
