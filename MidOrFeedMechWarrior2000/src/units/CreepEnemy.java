@@ -19,6 +19,8 @@ public class CreepEnemy extends Creep {
       super.setPosY(-100);
       super.setRoundToRespawn(waveTimer);
     }
+    super.setRespawnX(x);
+    super.setRespawnY(y);
     super.setAlive(isAlive);
     super.setWaveSpawnTimer(waveTimer);
     super.calculateImageCenterCoordinates();

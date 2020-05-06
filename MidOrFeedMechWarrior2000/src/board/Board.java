@@ -28,11 +28,10 @@ public class Board extends JComponent implements KeyListener {
   BuildingDepthEffect buildingDepthEffect = new BuildingDepthEffect();
   int roundCounter = 0;
   //for debugging
-  StuckUnitAssister stuckUnitAssister = new StuckUnitAssister();
 
   public Board() {
 
-    setPreferredSize(new Dimension(720, 720));
+    setPreferredSize(new Dimension(1120, 720));
     setVisible(true);
     unitLayout.placeUnitsOnMap();
     buildingDepthEffect.placeBuildingEffectOnMap();
@@ -41,6 +40,7 @@ public class Board extends JComponent implements KeyListener {
   @Override
   public void paint(Graphics graphics) {
     super.paint(graphics);
+
     for (Tile tile : cityMap) {
       tile.draw(graphics);
     }
@@ -69,7 +69,18 @@ public class Board extends JComponent implements KeyListener {
     buildingDepthEffect.getBuildingBottomRightSide().draw(graphics);
     buildingDepthEffect.getBuildingLeftSide().draw(graphics);
     //DEBUGGING DRAWINGS
-    graphics.drawString(String.valueOf(unitLayout.getCreepEnemy1().getHealthPoints()), 360, 360);
+    graphics.setColor(Color.BLACK);
+    int posYForCoordinates = 40;
+    graphics.fillRect(720,0,400,720);
+    graphics.setColor(Color.WHITE);
+    for(Creep creep: unitLayout.getListOfCreepAllied()){
+      graphics.drawString("x:"+ creep.getPosX()+"y:"+ creep.getPosY(), 760, posYForCoordinates);
+      posYForCoordinates = posYForCoordinates + 40;
+    };
+    for(Creep creep: unitLayout.getListOfCreepEnemy()){
+      graphics.drawString("x:"+ creep.getPosX()+"y:"+ creep.getPosY(), 760, posYForCoordinates);
+      posYForCoordinates = posYForCoordinates + 40;
+    };
     /*
     graphics.drawString(String.valueOf(unitLayout.getCreepAllied3().getPosX()), 360,360);
     graphics.drawString(String.valueOf(unitLayout.getCreepAllied3().getPosY()), 360,390);
