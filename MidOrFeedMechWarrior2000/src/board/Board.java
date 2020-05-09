@@ -5,9 +5,9 @@ import fighting.MechHeroAttackManager;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import javax.swing.*;
 import movement.MechHeroMovementManager;
 import respawn.RespawnManager;
@@ -15,7 +15,7 @@ import units.*;
 import visualeffects.BuildingDepthEffect;
 import visualeffects.HUD;
 
-public class Board extends JComponent implements KeyListener {
+public class Board extends JComponent implements KeyListener, MouseListener {
 
   MapBuilder mapBuilder = new MapBuilder();
   ArrayList<Tile> cityMap = mapBuilder.buildMap();
@@ -38,6 +38,7 @@ public class Board extends JComponent implements KeyListener {
     setVisible(true);
     unitLayout.placeUnitsOnMap();
     buildingDepthEffect.placeBuildingEffectOnMap();
+
   }
 
   @Override
@@ -70,36 +71,33 @@ public class Board extends JComponent implements KeyListener {
             72,
             80);
     //HUD display
-    List<String> listOfAttackButtons = Arrays.asList("Space", "1", "2", "3", "Q", "W", "E", "T");
-    Integer hudCounter = 0;
+
     for (Unit unit : unitLayout.getListOfEnemyUnits()) {
-      if (unit.getHealthPoints() <= unitLayout.getMechHero().getAttackDamage() &&
-      unitLayout.getMechHero().getAttackRange() >= unitLayout.getMechHero().calculateDistanceBetweenUnits(unit)) {
-        graphics.setColor(Color.RED);
-      } else if (unit.getHealthPoints() > unitLayout.getMechHero().getAttackDamage() &&
-              unitLayout.getMechHero().getAttackRange() >= unitLayout.getMechHero().calculateDistanceBetweenUnits(unit)) {
+      if (unitLayout.getMechHero().calculateDistanceBetweenUnits(unit) < unitLayout.getMechHero().getAttackRange()) {
+        if (unit.getHealthPoints() <= unitLayout.getMechHero().getAttackDamage() &&
+                unitLayout.getMechHero().getAttackRange() >= unitLayout.getMechHero().calculateDistanceBetweenUnits(unit)) {
+          graphics.setColor(Color.RED);
+        } else if (unit.getHealthPoints() > unitLayout.getMechHero().getAttackDamage() &&
+                unitLayout.getMechHero().getAttackRange() >= unitLayout.getMechHero().calculateDistanceBetweenUnits(unit)) {
+          graphics.setColor(Color.GREEN);
+        } else {
+          graphics.setColor(Color.WHITE);
+        }
+        ArrayList<Integer> crosshairCoordinates = hud.findCrosshairCoordinates(unit);
+        graphics.drawRect(crosshairCoordinates.get(0),
+                crosshairCoordinates.get(1),
+                crosshairCoordinates.get(2),
+                crosshairCoordinates.get(2));
+        graphics.drawString(unit.getCanBeAttackedWithThisButton(),
+                crosshairCoordinates.get(0),
+                crosshairCoordinates.get(1) - 10);
+        if (unit.getHealthPoints() <= unitLayout.getMechHero().getAttackDamage()) {
+          graphics.setColor(Color.RED);
+          graphics.drawString(String.valueOf(unit.getHealthPoints()), crosshairCoordinates.get(0) + 72, crosshairCoordinates.get(1) - 10);
+        } else {
+          graphics.drawString(String.valueOf(unit.getHealthPoints()), crosshairCoordinates.get(0) + 72, crosshairCoordinates.get(1) - 10);
+        }
         graphics.setColor(Color.GREEN);
-      } else {
-        graphics.setColor(Color.WHITE);
-      }
-      ArrayList<Integer> crosshairCoordinates = hud.findCrosshairCoordinates(unit);
-      graphics.drawRect(crosshairCoordinates.get(0),
-              crosshairCoordinates.get(1),
-              crosshairCoordinates.get(2),
-              crosshairCoordinates.get(2));
-      graphics.drawString(listOfAttackButtons.get(hudCounter),
-              crosshairCoordinates.get(0),
-              crosshairCoordinates.get(1) - 10);
-      if (unit.getHealthPoints() <= unitLayout.getMechHero().getAttackDamage()) {
-        graphics.setColor(Color.RED);
-        graphics.drawString(String.valueOf(unit.getHealthPoints()), crosshairCoordinates.get(0) + 72, crosshairCoordinates.get(1) - 10);
-      } else {
-        graphics.drawString(String.valueOf(unit.getHealthPoints()), crosshairCoordinates.get(0) + 72, crosshairCoordinates.get(1) - 10);
-      }
-      graphics.setColor(Color.GREEN);
-      hudCounter++;
-      if (hudCounter > listOfAttackButtons.size() - 1) {
-        hudCounter = 0;
       }
     }
     buildingDepthEffect.getBuildingBottomRightSide().draw(graphics);
@@ -140,6 +138,7 @@ public class Board extends JComponent implements KeyListener {
     // The board object will be notified when hitting any key
     // with the system calling one of the below 3 methods
     frame.addKeyListener(board);
+    frame.addMouseListener(board);
     // Notice (at the top) that we can only do this
     // because this Board class (the type of the board object) is also a KeyListener
   }
@@ -317,5 +316,33 @@ public class Board extends JComponent implements KeyListener {
     } else {
       repaint();
     }
+  }
+
+  @Override
+  public void mouseClicked(MouseEvent e) {
+
+    MechHero mechHero = unitLayout.getMechHero();
+    mechHeroMovementManager.moveMechHeroWithMouse(mechHero, e.getX(),e.getY());
+    repaint();
+  }
+
+  @Override
+  public void mousePressed(MouseEvent e) {
+
+  }
+
+  @Override
+  public void mouseReleased(MouseEvent e) {
+
+  }
+
+  @Override
+  public void mouseEntered(MouseEvent e) {
+
+  }
+
+  @Override
+  public void mouseExited(MouseEvent e) {
+
   }
 }

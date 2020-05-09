@@ -15,6 +15,7 @@ public abstract class Unit {
   private String unitTypeForImage;
   private BufferedImage image;
   //fields for fighting
+  private String canBeAttackedWithThisButton;
   private int respawnHealthPoints;
   private int healthPoints;
   private int armorRating;
@@ -124,6 +125,10 @@ public abstract class Unit {
     return respawnHealthPoints;
   }
 
+  public String getCanBeAttackedWithThisButton() {
+    return canBeAttackedWithThisButton;
+  }
+
   public void setArmorRating(int armorRating) {
     this.armorRating = armorRating;
   }
@@ -210,6 +215,10 @@ public abstract class Unit {
 
   public void setRespawnY(int respawnY) {
     this.respawnY = respawnY;
+  }
+
+  public void setCanBeAttackedWithThisButton(String canBeAttackedWithThisButton) {
+    this.canBeAttackedWithThisButton = canBeAttackedWithThisButton;
   }
 
   public void setRespawnHealthPoints(int respawnHealthPoints) {
