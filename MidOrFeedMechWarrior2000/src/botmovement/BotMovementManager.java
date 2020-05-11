@@ -1,4 +1,4 @@
-package movement;
+package botmovement;
 
 import java.awt.image.BufferedImage;
 import units.Unit;

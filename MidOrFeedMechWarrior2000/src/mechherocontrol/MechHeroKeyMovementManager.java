@@ -1,9 +1,11 @@
-package movement;
+package mechherocontrol;
 
 import java.awt.image.BufferedImage;
+import botmovement.IllegalMoveChecker;
+import botmovement.MovementManager;
 import units.MechHero;
 
-public class MechHeroMovementManager extends MovementManager {
+public class MechHeroKeyMovementManager extends MovementManager {
 
   IllegalMoveChecker illegalMoveChecker = new IllegalMoveChecker();
 
@@ -35,20 +37,5 @@ public class MechHeroMovementManager extends MovementManager {
 
     String fileLocation = "images/mechhero/MechHero" + facingDirection + roundEvenOrOdd + ".png";
     return fileLocation;
-  }
-
-  public void moveMechHeroWithMouse(MechHero mechHero, int mouseX, int mouseY){
-    int mechHeroX = mechHero.getPosX();
-    int mechHeroY = mechHero.getPosY();
-    if(mouseX > mechHeroX){
-      mechHero.setPosX(mechHeroX + 18);
-    } else if ( mouseX < mechHeroX){
-      mechHero.setPosX(mechHeroX - 18);
-    }
-    if(mouseY > mechHeroY){
-      mechHero.setPosY(mechHeroY + 18);
-    } else if ( mouseY < mechHeroY){
-      mechHero.setPosY(mechHeroY - 18);
-    }
   }
 }

@@ -1,6 +1,6 @@
 package decisionmaking;
 
-import movement.MechEnemyMovementManager;
+import botmovement.MechEnemyMovementManager;
 import units.Unit;
 
 public class MechEnemyDecisionMaker extends DecisionMaker {

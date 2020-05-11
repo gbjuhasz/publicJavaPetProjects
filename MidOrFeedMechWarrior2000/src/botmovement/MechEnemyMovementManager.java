@@ -1,4 +1,4 @@
-package movement;
+package botmovement;
 
 public class MechEnemyMovementManager extends BotMovementManager {
 

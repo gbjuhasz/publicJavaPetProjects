@@ -265,6 +265,4 @@ public abstract class Unit {
       setTargetDirection("NW");
     }
   }
-
-
 }

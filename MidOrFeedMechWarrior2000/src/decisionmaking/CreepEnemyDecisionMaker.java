@@ -1,6 +1,6 @@
 package decisionmaking;
 
-import movement.CreepEnemyMovementManager;
+import botmovement.CreepEnemyMovementManager;
 import units.Unit;
 
 public class CreepEnemyDecisionMaker extends DecisionMaker {

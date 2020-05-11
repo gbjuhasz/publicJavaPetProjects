@@ -1,7 +1,7 @@
 package board;
 
 import decisionmaking.BotReaction;
-import fighting.MechHeroAttackManager;
+import mechherocontrol.MechHeroAttackManager;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -9,7 +9,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.*;
-import movement.MechHeroMovementManager;
+import mechherocontrol.MechHeroKeyMovementManager;
+import mechherocontrol.MechHeroMouseCommandManager;
 import respawn.RespawnManager;
 import units.*;
 import visualeffects.BuildingDepthEffect;
@@ -25,7 +26,7 @@ public class Board extends JComponent implements KeyListener, MouseListener {
   /* CreepAlliedDecisionMaker creepAlliedDecisionMaker = new CreepAlliedDecisionMaker();
    MechEnemyDecisionMaker mechEnemyDecisionMaker = new MechEnemyDecisionMaker();
    CreepEnemyDecisionMaker creepEnemyDecisionMaker = new CreepEnemyDecisionMaker();*/
-  MechHeroMovementManager mechHeroMovementManager = new MechHeroMovementManager();
+  MechHeroKeyMovementManager mechHeroKeyMovementManager = new MechHeroKeyMovementManager();
   BotReaction botReaction = new BotReaction();
   BuildingDepthEffect buildingDepthEffect = new BuildingDepthEffect();
   MechHeroAttackManager mechHeroAttackManager = new MechHeroAttackManager();
@@ -169,7 +170,7 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     if (e.getKeyCode() == KeyEvent.VK_UP) {
       roundCounter++;
       respawnManager.respawnUnits(unitLayout.getListOfMechs(), listOfCreepAllied, listOfCreepEnemy, roundCounter);
-      mechHeroMovementManager.moveMechHeroWithKeys(mechHero, 0, -18, roundCounter);
+      mechHeroKeyMovementManager.moveMechHeroWithKeys(mechHero, 0, -18, roundCounter);
       botReaction.makeBotsReactToPlayerAction(mechHero,
               mechEnemy,
               listOfCreepAllied,
@@ -181,7 +182,7 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
       roundCounter++;
       respawnManager.respawnUnits(unitLayout.getListOfMechs(), listOfCreepAllied, listOfCreepEnemy, roundCounter);
-      mechHeroMovementManager.moveMechHeroWithKeys(mechHero, 0, 18, roundCounter);
+      mechHeroKeyMovementManager.moveMechHeroWithKeys(mechHero, 0, 18, roundCounter);
       botReaction.makeBotsReactToPlayerAction(mechHero,
               mechEnemy,
               listOfCreepAllied,
@@ -194,7 +195,7 @@ public class Board extends JComponent implements KeyListener, MouseListener {
       roundCounter++;
       respawnManager.respawnUnits(unitLayout.getListOfMechs(), listOfCreepAllied, listOfCreepEnemy, roundCounter);
 
-      mechHeroMovementManager.moveMechHeroWithKeys(mechHero, 18, 0, roundCounter);
+      mechHeroKeyMovementManager.moveMechHeroWithKeys(mechHero, 18, 0, roundCounter);
       botReaction.makeBotsReactToPlayerAction(mechHero,
               mechEnemy,
               listOfCreepAllied,
@@ -206,7 +207,7 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
       roundCounter++;
       respawnManager.respawnUnits(unitLayout.getListOfMechs(), listOfCreepAllied, listOfCreepEnemy, roundCounter);
-      mechHeroMovementManager.moveMechHeroWithKeys(mechHero, -18, 0, roundCounter);
+      mechHeroKeyMovementManager.moveMechHeroWithKeys(mechHero, -18, 0, roundCounter);
       botReaction.makeBotsReactToPlayerAction(mechHero,
               mechEnemy,
               listOfCreepAllied,
@@ -320,9 +321,30 @@ public class Board extends JComponent implements KeyListener, MouseListener {
 
   @Override
   public void mouseClicked(MouseEvent e) {
-
     MechHero mechHero = unitLayout.getMechHero();
-    mechHeroMovementManager.moveMechHeroWithMouse(mechHero, e.getX(),e.getY());
+    MechEnemy mechEnemy = unitLayout.getMechEnemy();
+    TurretEnemy turretEnemy = unitLayout.getTurretEnemy();
+    TurretAllied turretAllied = unitLayout.getTurretAllied();
+    ArrayList<Creep> listOfCreepAllied = unitLayout.getListOfCreepAllied();
+    ArrayList<Creep> listOfCreepEnemy = unitLayout.getListOfCreepEnemy();
+    MechHeroMouseCommandManager mechHeroMouseCommandManager = new MechHeroMouseCommandManager();
+    roundCounter++;
+    respawnManager.respawnUnits(unitLayout.getListOfMechs(), listOfCreepAllied, listOfCreepEnemy, roundCounter);
+    mechHeroMouseCommandManager.reactToMouseAction(mechHero,
+            mechEnemy,
+            listOfCreepAllied,
+            listOfCreepEnemy,
+            turretAllied,
+            turretEnemy,
+            roundCounter,
+            e);
+    botReaction.makeBotsReactToPlayerAction(mechHero,
+            mechEnemy,
+            listOfCreepAllied,
+            listOfCreepEnemy,
+            turretAllied,
+            turretEnemy,
+            roundCounter);
     repaint();
   }
 

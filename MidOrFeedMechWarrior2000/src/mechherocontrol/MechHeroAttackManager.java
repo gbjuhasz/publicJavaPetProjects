@@ -1,5 +1,6 @@
-package fighting;
+package mechherocontrol;
 
+import fighting.AttackManager;
 import units.Unit;
 
 public class MechHeroAttackManager extends AttackManager {
