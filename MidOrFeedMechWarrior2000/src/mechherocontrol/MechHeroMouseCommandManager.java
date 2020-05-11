@@ -1,13 +1,15 @@
 package mechherocontrol;
 
 import botmovement.IllegalMoveChecker;
+import botmovement.MovementManager;
 import fighting.AttackManager;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import units.*;
 
-public class MechHeroMouseCommandManager {
+public class MechHeroMouseCommandManager extends MovementManager {
 
   AttackManager attackManager = new AttackManager();
   IllegalMoveChecker illegalMoveChecker = new IllegalMoveChecker();
@@ -35,18 +37,18 @@ public class MechHeroMouseCommandManager {
     }
     listOfAllClickableUnits.add(turretEnemy);
     if (identifyClickedUnit(listOfAllClickableUnits, mouseEvent) == null) {
-      moveMechHeroTowardsMouseEventLocation(mechHero, mouseEvent);
+      moveMechHeroTowardsMouseEventLocation(mechHero, mouseEvent, roundCounter);
     } else {
       if (mechHero.calculateDistanceBetweenUnits(
               identifyClickedUnit(listOfAllClickableUnits, mouseEvent)) > mechHero.getAttackRange()) {
-        moveMechHeroTowardsMouseEventLocation(mechHero, mouseEvent);
+        moveMechHeroTowardsMouseEventLocation(mechHero, mouseEvent, roundCounter);
       } else {
         attackUnitMarkedByMouseEvent(mechHero, identifyClickedUnit(listOfAllClickableUnits, mouseEvent), roundCounter);
       }
     }
   }
 
-  public void moveMechHeroTowardsMouseEventLocation(MechHero mechHero, MouseEvent mouseEvent) {
+  public void moveMechHeroTowardsMouseEventLocation(MechHero mechHero, MouseEvent mouseEvent, Integer roundCounter) {
     int mechHeroX = mechHero.getPosX();
     int mechHeroY = mechHero.getPosY();
     int mouseEventX = mouseEvent.getX();
@@ -91,8 +93,21 @@ public class MechHeroMouseCommandManager {
       mechHero.setPosY(mechHeroY + 18);
     }
     if (!illegalMoveChecker.isMoveLegal(mechHero.getPosX(),mechHero.getPosY())){
+      setFacingDirection(mechHero,  mechHero.getPosX() - mechHeroX ,
+               mechHero.getPosY()- mechHeroY);
       mechHero.setPosX(mechHeroX);
       mechHero.setPosY(mechHeroY);
+      BufferedImage newImage = pickImage(findImageFileLocation(mechHero.getFacingDirection(),
+              isRoundNumberEven(roundCounter)));
+      mechHero.setImage(newImage);
+    } else {
+      mechHero.calculateImageCenterCoordinates();
+
+      setFacingDirection(mechHero,  mechHero.getPosX() - mechHeroX ,
+              mechHero.getPosY()- mechHeroY);
+      BufferedImage newImage = pickImage(findImageFileLocation(mechHero.getFacingDirection(),
+              isRoundNumberEven(roundCounter)));
+      mechHero.setImage(newImage);
     }
   }
 
@@ -110,5 +125,26 @@ public class MechHeroMouseCommandManager {
       }
     }
     return null;
+  }
+
+  @Override
+  public String findImageFileLocation(String facingDirection, String roundEvenOrOdd) {
+
+    String fileLocation = "images/mechhero/MechHero" + facingDirection + roundEvenOrOdd + ".png";
+    return fileLocation;
+  }
+
+  @Override
+  public void setFacingDirection(Unit unit, int changeInX, int changeInY) {
+
+    if (changeInX > 0) {
+      unit.setFacingDirection("Right");
+    } else if (changeInX < 0) {
+      unit.setFacingDirection("Left");
+    } else if (changeInX == 0 && changeInY < 0) {
+      unit.setFacingDirection("Up");
+    } else {
+      unit.setFacingDirection("Down");
+    }
   }
 }
