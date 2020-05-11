@@ -1,20 +1,20 @@
 package mechherocontrol;
 
 import java.awt.image.BufferedImage;
-import botmovement.IllegalMoveChecker;
+import botmovement.IllegalMoveCheckerMapObjects;
 import botmovement.MovementManager;
 import units.MechHero;
 
 public class MechHeroKeyMovementManager extends MovementManager {
 
-  IllegalMoveChecker illegalMoveChecker = new IllegalMoveChecker();
+  IllegalMoveCheckerMapObjects illegalMoveCheckerMapObjects = new IllegalMoveCheckerMapObjects();
 
   public void moveMechHeroWithKeys(MechHero mechHero, int changeInX, int changeInY, int roundCounter) {
 
     int newX = mechHero.getPosX() + changeInX;
     int newY = mechHero.getPosY() + changeInY;
 
-    if (!illegalMoveChecker.isMoveLegal(newX, newY)) {
+    if (!illegalMoveCheckerMapObjects.isMoveLegal(newX, newY)) {
       setFacingDirection(mechHero, changeInX, changeInY);
       BufferedImage newImage = pickImage(findImageFileLocation(mechHero.getFacingDirection(),
               isRoundNumberEven(roundCounter)));

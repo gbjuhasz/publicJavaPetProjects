@@ -1,9 +1,11 @@
 package decisionmaking;
 
 import java.util.ArrayList;
+import java.util.List;
 import units.Creep;
 import units.Mech;
 import units.Turret;
+import units.Unit;
 
 public class BotReaction {
 
@@ -18,6 +20,7 @@ public class BotReaction {
                                           ArrayList<Creep> listOfCreepEnemy,
                                           Turret turretAllied,
                                           Turret turretEnemy,
+                                          List<Unit> listOfAllUnits,
                                           int roundCounter) {
 
     for (Creep creepAllied : listOfCreepAllied) {
@@ -26,6 +29,7 @@ public class BotReaction {
                 mechEnemy,
                 listOfCreepEnemy,
                 turretEnemy,
+                listOfAllUnits,
                 roundCounter
         );
       }
@@ -36,6 +40,7 @@ public class BotReaction {
                 mechHero,
                 listOfCreepAllied,
                 turretAllied,
+                listOfAllUnits,
                 roundCounter);
       }
     }
@@ -44,18 +49,21 @@ public class BotReaction {
               mechHero,
               listOfCreepAllied,
               turretAllied,
+              listOfAllUnits,
               roundCounter);
     }
     turretDecisionMaker.reactToPlayerMovement(turretAllied,
             mechEnemy,
             listOfCreepEnemy,
             turretEnemy,
+            listOfAllUnits,
             roundCounter);
 
     turretDecisionMaker.reactToPlayerMovement(turretEnemy,
             mechHero,
             listOfCreepAllied,
             turretAllied,
+            listOfAllUnits,
             roundCounter);
   }
 }

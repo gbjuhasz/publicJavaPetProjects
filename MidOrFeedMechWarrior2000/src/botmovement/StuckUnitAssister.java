@@ -4,7 +4,7 @@ import units.Unit;
 
 public class StuckUnitAssister {
 
-  IllegalMoveChecker illegalMoveChecker = new IllegalMoveChecker();
+  IllegalMoveCheckerMapObjects illegalMoveCheckerMapObjects = new IllegalMoveCheckerMapObjects();
 
   public void helpIfUnitIsStuck(Unit unit) {
     String targetDirection = unit.getTargetDirection();

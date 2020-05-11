@@ -1,6 +1,6 @@
 package botmovement;
 
-public class IllegalMoveChecker {
+public class IllegalMoveCheckerMapObjects {
 
   public Boolean isMoveLegal(int x, int y) {
 

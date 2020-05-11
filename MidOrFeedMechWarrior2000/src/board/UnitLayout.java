@@ -106,10 +106,16 @@ public class UnitLayout {
   public List<Unit> getListOfEnemyUnits(){
     List<Unit> listOfEnemy = new ArrayList<>();
     listOfEnemy.add(mechEnemy);
-    for(Creep creep : getListOfCreepEnemy()){
-      listOfEnemy.add(creep);
-    }
+    listOfEnemy.addAll(getListOfCreepEnemy());
     listOfEnemy.add(turretEnemy);
     return listOfEnemy;
+  }
+
+  public List<Unit> getAllUnits(){
+    List<Unit> listOfAllUnits = new ArrayList<>();
+    listOfAllUnits.addAll(getListOfEnemyUnits());
+    listOfAllUnits.addAll(getListOfCreepAllied());
+    listOfAllUnits.add(mechHero);
+    return listOfAllUnits;
   }
 }

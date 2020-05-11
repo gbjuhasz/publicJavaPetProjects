@@ -1,6 +1,7 @@
 package board;
 
 import decisionmaking.BotReaction;
+import java.util.List;
 import mechherocontrol.MechHeroAttackManager;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -165,7 +166,7 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     ArrayList<Creep> listOfCreepAllied = unitLayout.getListOfCreepAllied();
     ArrayList<Creep> listOfCreepEnemy = unitLayout.getListOfCreepEnemy();
 
-
+/*
     // When the up or down keys hit, we change the position of our box
     if (e.getKeyCode() == KeyEvent.VK_UP) {
       roundCounter++;
@@ -312,11 +313,13 @@ public class Board extends JComponent implements KeyListener, MouseListener {
               listOfCreepEnemy,
               turretAllied,
               turretEnemy,
+
               roundCounter);
       repaint();
     } else {
       repaint();
     }
+    */
   }
 
   @Override
@@ -327,6 +330,7 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     TurretAllied turretAllied = unitLayout.getTurretAllied();
     ArrayList<Creep> listOfCreepAllied = unitLayout.getListOfCreepAllied();
     ArrayList<Creep> listOfCreepEnemy = unitLayout.getListOfCreepEnemy();
+    List<Unit> listOfAllUnits = unitLayout.getAllUnits();
     MechHeroMouseCommandManager mechHeroMouseCommandManager = new MechHeroMouseCommandManager();
     roundCounter++;
     respawnManager.respawnUnits(unitLayout.getListOfMechs(), listOfCreepAllied, listOfCreepEnemy, roundCounter);
@@ -344,6 +348,7 @@ public class Board extends JComponent implements KeyListener, MouseListener {
             listOfCreepEnemy,
             turretAllied,
             turretEnemy,
+            listOfAllUnits,
             roundCounter);
     repaint();
   }

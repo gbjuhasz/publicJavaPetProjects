@@ -1,6 +1,7 @@
 package decisionmaking;
 
 import botmovement.CreepEnemyMovementManager;
+import java.util.List;
 import units.Unit;
 
 public class CreepEnemyDecisionMaker extends DecisionMaker {
@@ -10,10 +11,12 @@ public class CreepEnemyDecisionMaker extends DecisionMaker {
   @Override
   public void moveTowardsTargetUnit(Unit unitMakingMove,
                                     Unit unitTarget,
+                                    List<Unit> listOfAllUnits,
                                     int roundCounter) {
     unitMakingMove.calculateTargetDirection(unitTarget);
     creepEnemyMovementManager.moveUnit(unitMakingMove,
             unitTarget,
+            listOfAllUnits,
             roundCounter);
   }
 }

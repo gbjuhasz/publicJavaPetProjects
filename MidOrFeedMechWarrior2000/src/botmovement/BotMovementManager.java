@@ -1,24 +1,27 @@
 package botmovement;
 
 import java.awt.image.BufferedImage;
+import java.util.List;
 import units.Unit;
 
 public abstract class BotMovementManager extends MovementManager {
 
   StuckUnitAssister stuckUnitAssister = new StuckUnitAssister();
+  IllegalMoveCheckerUnits illegalMoveCheckerUnits = new IllegalMoveCheckerUnits();
+
 
   public void moveUnit(Unit unitMakingMove,
                        Unit unitDestination,
+                       List<Unit> listOfAllUnits,
                        int roundCounter) {
 
-    IllegalMoveChecker illegalMoveChecker = new IllegalMoveChecker();
+    IllegalMoveCheckerMapObjects illegalMoveCheckerMapObjects = new IllegalMoveCheckerMapObjects();
     int currentX = unitMakingMove.getPosX();
     int currentY = unitMakingMove.getPosY();
     unitMakingMove.calculateTargetDirection(unitDestination);
     String targetDirection = unitMakingMove.getTargetDirection();
-
-    changeCoordinatesTowardsTargetDirection(unitMakingMove, currentX, currentY, targetDirection);
-    if(!illegalMoveChecker.isMoveLegal(unitMakingMove.getPosX(), unitMakingMove.getPosY())) {
+    changeCoordinatesTowardsTargetDirection(unitMakingMove, currentX, currentY, listOfAllUnits, targetDirection);
+    if(!illegalMoveCheckerMapObjects.isMoveLegal(unitMakingMove.getPosX(), unitMakingMove.getPosY())) {
       stuckUnitAssister.helpIfUnitIsStuck(unitMakingMove);
     }
     BufferedImage newImage = pickImage(findImageFileLocation(unitMakingMove.getFacingDirection(),
@@ -30,26 +33,37 @@ public abstract class BotMovementManager extends MovementManager {
   public void changeCoordinatesTowardsTargetDirection(Unit unitMakingMove,
                                                       int currentX,
                                                       int currentY,
+                                                      List<Unit> listOfAllUnits,
                                                       String targetDirection) {
 
+    int futureX = currentX;
+    int futureY = currentY;
+
     if (targetDirection.contains("N")) {
-      unitMakingMove.setPosY(currentY - 18);
+      futureY = futureY - 18;
       if (targetDirection.length() == 1) {
         unitMakingMove.setFacingDirection("UP");
       }
     } else if (targetDirection.contains("S")) {
-      unitMakingMove.setPosY(currentY + 18);
+      futureY = futureY + 18;
       if (targetDirection.length() == 1) {
         unitMakingMove.setFacingDirection("DOWN");
       }
     }
 
     if (targetDirection.contains("W")) {
-      unitMakingMove.setPosX(currentX - 18);
+      futureX = futureX - 18;
       unitMakingMove.setFacingDirection("LEFT");
     } else if (targetDirection.contains("E")) {
-      unitMakingMove.setPosX(currentX + 18);
+      futureX = futureX + 18;
       unitMakingMove.setFacingDirection("RIGHT");
+    }
+    if(!illegalMoveCheckerUnits.isMoveLegal(futureX,futureY,listOfAllUnits)){
+      unitMakingMove.setPosX(currentX);
+      unitMakingMove.setPosY(currentY);
+    } else {
+      unitMakingMove.setPosX(futureX);
+      unitMakingMove.setPosY(futureY);
     }
   }
 }

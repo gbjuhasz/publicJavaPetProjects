@@ -2,6 +2,7 @@ package decisionmaking;
 
 import fighting.AttackManager;
 import java.util.ArrayList;
+import java.util.List;
 import units.Creep;
 import units.Mech;
 import units.Turret;
@@ -15,14 +16,15 @@ public abstract class DecisionMaker {
                                     Mech mech,
                                     ArrayList<Creep> listOfCreeps,
                                     Turret turret,
+                                    List<Unit> listOfAllUnits,
                                     int roundCounter) {
 
     if (findTargetInAttackRange(unitMakingDecision, mech, listOfCreeps, turret) != null) {
       attackTarget(unitMakingDecision, findTargetInAttackRange(unitMakingDecision, mech, listOfCreeps, turret), roundCounter);
     } else if (findTargetInDetectionRange(unitMakingDecision, mech, listOfCreeps, turret) != null) {
-      moveTowardsTargetUnit(unitMakingDecision, findTargetInDetectionRange(unitMakingDecision, mech, listOfCreeps, turret), roundCounter);
+      moveTowardsTargetUnit(unitMakingDecision, findTargetInDetectionRange(unitMakingDecision, mech, listOfCreeps, turret), listOfAllUnits, roundCounter);
     } else {
-      moveTowardsTargetUnit(unitMakingDecision, turret, roundCounter);
+      moveTowardsTargetUnit(unitMakingDecision, turret, listOfAllUnits, roundCounter);
     }
   }
 
@@ -82,7 +84,7 @@ public abstract class DecisionMaker {
     return null;
   }
 
-  public void moveTowardsTargetUnit(Unit unitMakingMove, Unit unitTarget, int roundCounter) {
+  public void moveTowardsTargetUnit(Unit unitMakingMove, Unit unitTarget, List<Unit> listOfAllUnit, int roundCounter) {
   }
 
   public void attackTarget(Unit unitAttacking, Unit unitTarget, int roundCounter) {

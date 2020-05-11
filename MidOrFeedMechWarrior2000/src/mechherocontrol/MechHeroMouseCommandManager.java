@@ -1,8 +1,7 @@
 package mechherocontrol;
 
-import botmovement.IllegalMoveChecker;
+import botmovement.IllegalMoveCheckerMapObjects;
 import botmovement.MovementManager;
-import fighting.AttackManager;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ import units.*;
 public class MechHeroMouseCommandManager extends MovementManager {
 
   MechHeroAttackManager mechHeroAttackManager = new MechHeroAttackManager();
-  IllegalMoveChecker illegalMoveChecker = new IllegalMoveChecker();
+  IllegalMoveCheckerMapObjects illegalMoveCheckerMapObjects = new IllegalMoveCheckerMapObjects();
 
 
   public void reactToMouseAction(MechHero mechHero,
@@ -27,7 +26,6 @@ public class MechHeroMouseCommandManager extends MovementManager {
 
     List<Unit> listOfAllClickableUnits = new ArrayList<>();
     listOfAllClickableUnits.add(mechEnemy);
-    listOfAllClickableUnits.addAll(listOfCreepAllied);
     listOfAllClickableUnits.addAll(listOfCreepEnemy);
     listOfAllClickableUnits.add(turretEnemy);
     if (identifyClickedUnit(listOfAllClickableUnits, mouseEvent) == null) {
@@ -86,7 +84,7 @@ public class MechHeroMouseCommandManager extends MovementManager {
       mechHero.setPosX(mechHeroX - 18);
       mechHero.setPosY(mechHeroY + 18);
     }
-    if (!illegalMoveChecker.isMoveLegal(mechHero.getPosX(),mechHero.getPosY())){
+    if (!illegalMoveCheckerMapObjects.isMoveLegal(mechHero.getPosX(),mechHero.getPosY())){
       setFacingDirection(mechHero,  mechHero.getPosX() - mechHeroX ,
                mechHero.getPosY()- mechHeroY);
       mechHero.setPosX(mechHeroX);
