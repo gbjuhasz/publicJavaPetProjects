@@ -26,4 +26,32 @@ public class AttackManager {
     int randomNumber = random.nextInt(10);
     return randomNumber > unitAttacking.getMissChance();
   }
+
+  public void setImageForAttacks(Unit unitAttacking, Integer roundCounter){
+
+  }
+
+  public String findImageFileLocation(String facingDirection, String roundEvenOrOdd) {
+
+    String fileLocation = "images/";
+    return fileLocation;
+  }
+
+  public void setFacingDirection(Unit unitAttacking, Unit unitTargeted) {
+    Integer unitAttackingX = unitAttacking.getPosX();
+    Integer unitAttackingY = unitAttacking.getPosY();
+    Integer unitTargetedX =unitTargeted.getPosX();
+    Integer unitTargetedY = unitTargeted.getPosY();
+    if (unitAttackingX > unitTargetedX){
+      unitAttacking.setFacingDirection("Left");
+    } else if (unitAttackingX < unitTargetedX) {
+      unitAttacking.setFacingDirection("Right");
+    } else if ( unitAttackingX - unitTargetedX == 0) {
+      if(unitAttackingY < unitTargetedY){
+        unitAttacking.setFacingDirection("Down");
+      } else {
+        unitAttacking.setFacingDirection("Up");
+      }
+    }
+  }
 }

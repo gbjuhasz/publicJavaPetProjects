@@ -11,7 +11,7 @@ import units.*;
 
 public class MechHeroMouseCommandManager extends MovementManager {
 
-  AttackManager attackManager = new AttackManager();
+  MechHeroAttackManager mechHeroAttackManager = new MechHeroAttackManager();
   IllegalMoveChecker illegalMoveChecker = new IllegalMoveChecker();
 
 
@@ -27,14 +27,8 @@ public class MechHeroMouseCommandManager extends MovementManager {
 
     List<Unit> listOfAllClickableUnits = new ArrayList<>();
     listOfAllClickableUnits.add(mechEnemy);
-    for (Creep creep :
-            listOfCreepAllied) {
-      listOfAllClickableUnits.add(creep);
-    }
-    for (Creep creep : listOfCreepEnemy
-    ) {
-      listOfAllClickableUnits.add(creep);
-    }
+    listOfAllClickableUnits.addAll(listOfCreepAllied);
+    listOfAllClickableUnits.addAll(listOfCreepEnemy);
     listOfAllClickableUnits.add(turretEnemy);
     if (identifyClickedUnit(listOfAllClickableUnits, mouseEvent) == null) {
       moveMechHeroTowardsMouseEventLocation(mechHero, mouseEvent, roundCounter);
@@ -112,7 +106,7 @@ public class MechHeroMouseCommandManager extends MovementManager {
   }
 
   public void attackUnitMarkedByMouseEvent(MechHero mechHero, Unit unitTargeted, int roundCounter) {
-    attackManager.attackTargetUnit(mechHero, unitTargeted, roundCounter);
+    mechHeroAttackManager.attackTargetUnit(mechHero, unitTargeted, roundCounter);
   }
 
   public Unit identifyClickedUnit(List<Unit> listOfClickableUnits, MouseEvent mouseEvent) {
