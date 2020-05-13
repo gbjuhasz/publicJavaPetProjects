@@ -59,10 +59,10 @@ public abstract class BotMovementManager extends MovementManager {
       futureX = futureX + 18;
       unitMakingMove.setFacingDirection("RIGHT");
     }
-    for(Unit unit: listOfAllUnits){
-      if(unit.getPosX() == currentX &&
-      unit.getPosY() == currentY){
-        listOfAllUnits.remove(unit);
+    for (int i = 0; i < listOfAllUnits.size() ; i++) {
+      if(listOfAllUnits.get(i).getPosX() == currentX &&
+      listOfAllUnits.get(i).getPosY() == currentY){
+        listOfAllUnits.remove(i);
       }
     }
     if(!illegalMoveCheckerUnits.isMoveLegal(futureX,futureY,listOfAllUnits)){
