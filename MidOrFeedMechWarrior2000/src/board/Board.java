@@ -1,16 +1,14 @@
 package board;
 
 import decisionmaking.BotReaction;
-import java.util.List;
-import mechherocontrol.MechHeroAttackManager;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.*;
-import mechherocontrol.MechHeroKeyMovementManager;
 import mechherocontrol.MechHeroMouseCommandManager;
 import respawn.RespawnManager;
 import units.*;
@@ -67,7 +65,7 @@ public class Board extends JComponent implements KeyListener, MouseListener {
             72,
             80);
     //HUD display
-    hud.drawHUD(unitLayout.getMechHero(), unitLayout.getListOfEnemyUnits(),graphics);
+    hud.drawHUD(unitLayout.getMechHero(), unitLayout.getListOfEnemyUnits(), graphics);
     //Building depth effects
     buildingDepthEffect.getBuildingBottomRightSide().draw(graphics);
     buildingDepthEffect.getBuildingLeftSide().draw(graphics);
@@ -141,8 +139,8 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     MechHeroMouseCommandManager mechHeroMouseCommandManager = new MechHeroMouseCommandManager();
     roundCounter++;
     respawnManager.respawnUnits(unitLayout.getListOfMechs(), listOfCreepAllied, listOfCreepEnemy, roundCounter);
-    if(SwingUtilities.isRightMouseButton(e)) {
-      mechHeroMouseCommandManager.reactToMouseAction(mechHero,
+    if (SwingUtilities.isRightMouseButton(e)) {
+      mechHeroMouseCommandManager.reactToRightClick(mechHero,
               mechEnemy,
               listOfCreepAllied,
               listOfCreepEnemy,
@@ -158,6 +156,9 @@ public class Board extends JComponent implements KeyListener, MouseListener {
               turretEnemy,
               listOfAllUnits,
               roundCounter);
+      repaint();
+    } else {
+      mechHeroMouseCommandManager.reactToLeftClick(listOfAllUnits, e);
       repaint();
     }
   }

@@ -29,16 +29,16 @@ public class UnitLayout {
     turretAllied = new TurretAllied();
     turretEnemy = new TurretEnemy();
     creepAllied1 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 0, 72, true, 50);
-    creepAllied2 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 72, 72, true, 50);
-    creepAllied3 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 144, 72, true, 50);
+    creepAllied2 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 108, 90, true, 50);
+    creepAllied3 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 216, 72, true, 50);
     creepAllied4 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 0, 72, false, 50);
-    creepAllied5 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 72, 72, false, 50);
+    creepAllied5 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 72, 90, false, 50);
     creepAllied6 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 144, 72, false, 50);
     creepEnemy1 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 486, 576,true, 50);
-    creepEnemy2 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 558, 576,true, 50);
+    creepEnemy2 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 558, 558,true, 50);
     creepEnemy3 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 600, 576,true, 50);
     creepEnemy4 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 486, 576,false, 50);
-    creepEnemy5 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 558, 576,false, 50);
+    creepEnemy5 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 558, 558,false, 50);
     creepEnemy6 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 600, 576,false, 50);
   }
 
@@ -105,8 +105,9 @@ public class UnitLayout {
 
   public List<Unit> getAllUnits(){
     List<Unit> listOfAllUnits = new ArrayList<>();
-    listOfAllUnits.addAll(getListOfEnemyUnits());
+    listOfAllUnits.addAll(getListOfCreepEnemy());
     listOfAllUnits.addAll(getListOfCreepAllied());
+    listOfAllUnits.add(mechEnemy);
     listOfAllUnits.add(mechHero);
     return listOfAllUnits;
   }

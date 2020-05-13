@@ -14,14 +14,14 @@ public class MechHeroMouseCommandManager extends MovementManager {
   IllegalMoveCheckerMapObjects illegalMoveCheckerMapObjects = new IllegalMoveCheckerMapObjects();
 
 
-  public void reactToMouseAction(MechHero mechHero,
-                                 MechEnemy mechEnemy,
-                                 ArrayList<Creep> listOfCreepAllied,
-                                 ArrayList<Creep> listOfCreepEnemy,
-                                 Turret turretAllied,
-                                 Turret turretEnemy,
-                                 int roundCounter,
-                                 MouseEvent mouseEvent
+  public void reactToRightClick(MechHero mechHero,
+                                MechEnemy mechEnemy,
+                                ArrayList<Creep> listOfCreepAllied,
+                                ArrayList<Creep> listOfCreepEnemy,
+                                Turret turretAllied,
+                                Turret turretEnemy,
+                                int roundCounter,
+                                MouseEvent mouseEvent
   ) {
 
     List<Unit> listOfAllClickableUnits = new ArrayList<>();
@@ -84,9 +84,9 @@ public class MechHeroMouseCommandManager extends MovementManager {
       mechHero.setPosX(mechHeroX - 18);
       mechHero.setPosY(mechHeroY + 18);
     }
-    if (!illegalMoveCheckerMapObjects.isMoveLegal(mechHero.getPosX(),mechHero.getPosY())){
-      setFacingDirection(mechHero,  mechHero.getPosX() - mechHeroX ,
-               mechHero.getPosY()- mechHeroY);
+    if (!illegalMoveCheckerMapObjects.isMoveLegal(mechHero.getPosX(), mechHero.getPosY())) {
+      setFacingDirection(mechHero, mechHero.getPosX() - mechHeroX,
+              mechHero.getPosY() - mechHeroY);
       mechHero.setPosX(mechHeroX);
       mechHero.setPosY(mechHeroY);
       BufferedImage newImage = pickImage(findImageFileLocation(mechHero.getFacingDirection(),
@@ -95,8 +95,8 @@ public class MechHeroMouseCommandManager extends MovementManager {
     } else {
       mechHero.calculateImageCenterCoordinates();
 
-      setFacingDirection(mechHero,  mechHero.getPosX() - mechHeroX ,
-              mechHero.getPosY()- mechHeroY);
+      setFacingDirection(mechHero, mechHero.getPosX() - mechHeroX,
+              mechHero.getPosY() - mechHeroY);
       BufferedImage newImage = pickImage(findImageFileLocation(mechHero.getFacingDirection(),
               isRoundNumberEven(roundCounter)));
       mechHero.setImage(newImage);
@@ -117,6 +117,28 @@ public class MechHeroMouseCommandManager extends MovementManager {
       }
     }
     return null;
+  }
+
+  public void reactToLeftClick(List<Unit> listOfAllUnits, MouseEvent e
+  ) {
+    for (Unit unit : listOfAllUnits) {
+      unit.setHighlighted(false);
+      if (unit.getUnitType().equals("turret")) {
+        if (e.getX() >= unit.getPosX() &&
+                e.getX() <= unit.getPosX() + 144 &&
+                e.getY() >= unit.getPosY() &&
+                e.getY() <= unit.getPosY() + 144) {
+          unit.setHighlighted(true);
+        }
+      } else {
+        if (e.getX() >= unit.getPosX() &&
+                e.getX() <= unit.getPosX() + 72 &&
+                e.getY() >= unit.getPosY() &&
+                e.getY() <= unit.getPosY() + 72) {
+          unit.setHighlighted(true);
+        }
+      }
+    }
   }
 
   @Override

@@ -14,6 +14,7 @@ public abstract class Unit {
   private String facingDirection;
   private BufferedImage image;
   private String unitType;
+  private boolean isHighlighted = false;
   //fields for fighting
   private int respawnHealthPoints;
   private int healthPoints;
@@ -124,6 +125,10 @@ public abstract class Unit {
     return unitType;
   }
 
+  public boolean isHighlighted() {
+    return isHighlighted;
+  }
+
   public void setArmorRating(int armorRating) {
     this.armorRating = armorRating;
   }
@@ -214,6 +219,10 @@ public abstract class Unit {
 
   public void setUnitType(String unitType) {
     this.unitType = unitType;
+  }
+
+  public void setHighlighted(boolean highlighted) {
+    isHighlighted = highlighted;
   }
 
   public void draw(Graphics graphics) {

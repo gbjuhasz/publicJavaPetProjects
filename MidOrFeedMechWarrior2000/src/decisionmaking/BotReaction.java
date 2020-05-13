@@ -30,8 +30,7 @@ public class BotReaction {
                 listOfCreepEnemy,
                 turretEnemy,
                 listOfAllUnits,
-                roundCounter
-        );
+                roundCounter);
       }
     }
     for (Creep creepEnemy : listOfCreepEnemy) {

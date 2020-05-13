@@ -24,6 +24,7 @@ public abstract class BotMovementManager extends MovementManager {
     if(!illegalMoveCheckerMapObjects.isMoveLegal(unitMakingMove.getPosX(), unitMakingMove.getPosY())) {
       stuckUnitAssister.helpIfUnitIsStuck(unitMakingMove);
     }
+    unitMakingMove.calculateImageCenterCoordinates();
     BufferedImage newImage = pickImage(findImageFileLocation(unitMakingMove.getFacingDirection(),
             isRoundNumberEven(roundCounter)));
     unitMakingMove.setImage(newImage);
@@ -57,6 +58,12 @@ public abstract class BotMovementManager extends MovementManager {
     } else if (targetDirection.contains("E")) {
       futureX = futureX + 18;
       unitMakingMove.setFacingDirection("RIGHT");
+    }
+    for(Unit unit: listOfAllUnits){
+      if(unit.getPosX() == currentX &&
+      unit.getPosY() == currentY){
+        listOfAllUnits.remove(unit);
+      }
     }
     if(!illegalMoveCheckerUnits.isMoveLegal(futureX,futureY,listOfAllUnits)){
       unitMakingMove.setPosX(currentX);

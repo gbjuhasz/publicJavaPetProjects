@@ -46,8 +46,25 @@ public class HUD extends JComponent {
           graphics.drawString(String.valueOf(unit.getHealthPoints()), crosshairCoordinates.get(0) + 72, crosshairCoordinates.get(1) - 10);
         }
         graphics.setColor(Color.GREEN);
+      } else if (unit.isHighlighted()){
+        ArrayList<Integer> crosshairCoordinates = findCrosshairCoordinates(unit);
+        graphics.drawRect(crosshairCoordinates.get(0),
+                crosshairCoordinates.get(1),
+                crosshairCoordinates.get(2),
+                crosshairCoordinates.get(2));
+        graphics.drawLine(unit.getImageMiddleX(),
+        unit.getImageMiddleY()+10, unit.getImageMiddleX(),
+                unit.getImageMiddleY() + 72);
+        graphics.drawLine(unit.getImageMiddleX(),
+                unit.getImageMiddleY()-10, unit.getImageMiddleX(),
+                unit.getImageMiddleY() - 72);
+        graphics.drawLine(unit.getImageMiddleX() +10,
+                unit.getImageMiddleY(), unit.getImageMiddleX() + 72,
+                unit.getImageMiddleY());
+        graphics.drawLine(unit.getImageMiddleX() -10,
+                unit.getImageMiddleY(), unit.getImageMiddleX() - 72,
+                unit.getImageMiddleY());
       }
     }
-
   }
 }
