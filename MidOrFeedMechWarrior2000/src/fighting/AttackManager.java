@@ -46,7 +46,7 @@ public class AttackManager {
       unitAttacking.setFacingDirection("Left");
     } else if (unitAttackingX < unitTargetedX) {
       unitAttacking.setFacingDirection("Right");
-    } else if ( unitAttackingX - unitTargetedX == 0) {
+    } else {
       if(unitAttackingY < unitTargetedY){
         unitAttacking.setFacingDirection("Down");
       } else {

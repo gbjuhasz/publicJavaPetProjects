@@ -14,7 +14,11 @@ public class HUD extends JComponent {
     ArrayList<Integer> crosshairCoordinates = new ArrayList<>();
     crosshairCoordinates.add(unit.getPosX());
     crosshairCoordinates.add(unit.getPosY());
-    crosshairCoordinates.add(72);
+    if(unit.getUnitType().equals("turret")){
+      crosshairCoordinates.add(144);
+    } else {
+      crosshairCoordinates.add(72);
+    }
     return crosshairCoordinates;
   }
 
@@ -35,9 +39,6 @@ public class HUD extends JComponent {
                 crosshairCoordinates.get(1),
                 crosshairCoordinates.get(2),
                 crosshairCoordinates.get(2));
-        graphics.drawString(unit.getCanBeAttackedWithThisButton(),
-                crosshairCoordinates.get(0),
-                crosshairCoordinates.get(1) - 10);
         if (unit.getHealthPoints() <= mechHero.getAttackDamage()) {
           graphics.setColor(Color.RED);
           graphics.drawString(String.valueOf(unit.getHealthPoints()), crosshairCoordinates.get(0) + 72, crosshairCoordinates.get(1) - 10);

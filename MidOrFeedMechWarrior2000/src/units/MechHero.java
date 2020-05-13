@@ -14,6 +14,7 @@ public class MechHero extends Mech {
     super.setRespawnX(x);
     super.setRespawnY(y);
     super.calculateImageCenterCoordinates();
+    super.setUnitType("mech");
 
     try {
       BufferedImage tileImage = ImageIO.read(new File(fileLocation));

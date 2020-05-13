@@ -25,6 +25,7 @@ public class CreepAllied extends Creep {
     super.calculateImageCenterCoordinates();
     super.setAlive(isAlive);
     super.setWaveSpawnTimer(waveTimer);
+    super.setUnitType("creep");
 
     try {
       BufferedImage tileImage = ImageIO.read(new File(fileLocation));

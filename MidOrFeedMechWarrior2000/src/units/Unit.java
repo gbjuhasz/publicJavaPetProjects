@@ -12,10 +12,9 @@ public abstract class Unit {
   private int imageMiddleX;
   private int imageMiddleY;
   private String facingDirection;
-  private String unitTypeForImage;
   private BufferedImage image;
+  private String unitType;
   //fields for fighting
-  private String canBeAttackedWithThisButton;
   private int respawnHealthPoints;
   private int healthPoints;
   private int armorRating;
@@ -39,10 +38,6 @@ public abstract class Unit {
 
   public BufferedImage getImage() {
     return image;
-  }
-
-  public String getUnitTypeForImage() {
-    return unitTypeForImage;
   }
 
   public int getArmorRating() {
@@ -125,8 +120,8 @@ public abstract class Unit {
     return respawnHealthPoints;
   }
 
-  public String getCanBeAttackedWithThisButton() {
-    return canBeAttackedWithThisButton;
+  public String getUnitType() {
+    return unitType;
   }
 
   public void setArmorRating(int armorRating) {
@@ -177,10 +172,6 @@ public abstract class Unit {
     this.isThreatToHeroUnit = threatToHeroUnit;
   }
 
-  public void setUnitTypeForImage(String unitTypeForImage) {
-    this.unitTypeForImage = unitTypeForImage;
-  }
-
   public void setImage(BufferedImage image) {
     this.image = image;
   }
@@ -217,12 +208,12 @@ public abstract class Unit {
     this.respawnY = respawnY;
   }
 
-  public void setCanBeAttackedWithThisButton(String canBeAttackedWithThisButton) {
-    this.canBeAttackedWithThisButton = canBeAttackedWithThisButton;
-  }
-
   public void setRespawnHealthPoints(int respawnHealthPoints) {
     this.respawnHealthPoints = respawnHealthPoints;
+  }
+
+  public void setUnitType(String unitType) {
+    this.unitType = unitType;
   }
 
   public void draw(Graphics graphics) {
