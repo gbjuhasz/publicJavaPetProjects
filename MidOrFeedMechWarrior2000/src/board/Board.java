@@ -73,37 +73,11 @@ public class Board extends JComponent implements KeyListener, MouseListener {
             72,
             80);
     //HUD display
-
-    for (Unit unit : unitLayout.getListOfEnemyUnits()) {
-      if (unitLayout.getMechHero().calculateDistanceBetweenUnits(unit) < unitLayout.getMechHero().getAttackRange()) {
-        if (unit.getHealthPoints() <= unitLayout.getMechHero().getAttackDamage() &&
-                unitLayout.getMechHero().getAttackRange() >= unitLayout.getMechHero().calculateDistanceBetweenUnits(unit)) {
-          graphics.setColor(Color.RED);
-        } else if (unit.getHealthPoints() > unitLayout.getMechHero().getAttackDamage() &&
-                unitLayout.getMechHero().getAttackRange() >= unitLayout.getMechHero().calculateDistanceBetweenUnits(unit)) {
-          graphics.setColor(Color.GREEN);
-        } else {
-          graphics.setColor(Color.WHITE);
-        }
-        ArrayList<Integer> crosshairCoordinates = hud.findCrosshairCoordinates(unit);
-        graphics.drawRect(crosshairCoordinates.get(0),
-                crosshairCoordinates.get(1),
-                crosshairCoordinates.get(2),
-                crosshairCoordinates.get(2));
-        graphics.drawString(unit.getCanBeAttackedWithThisButton(),
-                crosshairCoordinates.get(0),
-                crosshairCoordinates.get(1) - 10);
-        if (unit.getHealthPoints() <= unitLayout.getMechHero().getAttackDamage()) {
-          graphics.setColor(Color.RED);
-          graphics.drawString(String.valueOf(unit.getHealthPoints()), crosshairCoordinates.get(0) + 72, crosshairCoordinates.get(1) - 10);
-        } else {
-          graphics.drawString(String.valueOf(unit.getHealthPoints()), crosshairCoordinates.get(0) + 72, crosshairCoordinates.get(1) - 10);
-        }
-        graphics.setColor(Color.GREEN);
-      }
-    }
+    hud.drawHUD(unitLayout.getMechHero(), unitLayout.getListOfEnemyUnits(),graphics);
+    //Building depth effects
     buildingDepthEffect.getBuildingBottomRightSide().draw(graphics);
     buildingDepthEffect.getBuildingLeftSide().draw(graphics);
+    
     //DEBUGGING DRAWINGS
     graphics.setColor(Color.BLACK);
     int posYForCoordinates = 40;
@@ -130,7 +104,7 @@ public class Board extends JComponent implements KeyListener, MouseListener {
 
   public static void main(String[] args) {
     // Here is how you set up a new window and adding our board to it
-    JFrame frame = new JFrame("MidOrFeed:MechWarrior2000");
+    JFrame frame = new JFrame("Mid Or Feed: MechWarrior 2000");
     Board board = new Board();
     frame.add(board);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
