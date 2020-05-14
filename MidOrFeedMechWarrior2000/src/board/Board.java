@@ -66,10 +66,11 @@ public class Board extends JComponent implements KeyListener, MouseListener {
             80);
     //HUD display
     hud.drawHUD(unitLayout.getMechHero(), unitLayout.getListOfEnemyUnits(), graphics);
+    hud.drawHealthBars(unitLayout.getAllUnits(),graphics);
+
     //Building depth effects
     buildingDepthEffect.getBuildingBottomRightSide().draw(graphics);
     buildingDepthEffect.getBuildingLeftSide().draw(graphics);
-
     //DEBUGGING DRAWINGS
     graphics.setColor(Color.BLACK);
     int posYForCoordinates = 40;
