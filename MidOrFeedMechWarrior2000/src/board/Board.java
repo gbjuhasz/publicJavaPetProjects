@@ -2,10 +2,7 @@ package board;
 
 import decisionmaking.BotReaction;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
@@ -126,6 +123,31 @@ public class Board extends JComponent implements KeyListener, MouseListener {
   // But actually we can use just this one for our goals here
   @Override
   public void keyReleased(KeyEvent e) {
+    if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+      MechHero mechHero = unitLayout.getMechHero();
+      MechEnemy mechEnemy = unitLayout.getMechEnemy();
+      TurretEnemy turretEnemy = unitLayout.getTurretEnemy();
+      TurretAllied turretAllied = unitLayout.getTurretAllied();
+      ArrayList<Creep> listOfCreepAllied = unitLayout.getListOfCreepAllied();
+      ArrayList<Creep> listOfCreepEnemy = unitLayout.getListOfCreepEnemy();
+      List<Unit> listOfAllUnits = unitLayout.getAllUnits();
+      ActionListener al = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          botReaction.makeBotsReactToPlayerAction(mechHero,
+                  mechEnemy,
+                  listOfCreepAllied,
+                  listOfCreepEnemy,
+                  turretAllied,
+                  turretEnemy,
+                  listOfAllUnits,
+                  roundCounter);
+          repaint();
+        }
+      };
+      Timer timer = new Timer(250, al);
+      timer.start();
+    }
   }
 
   @Override
@@ -149,15 +171,6 @@ public class Board extends JComponent implements KeyListener, MouseListener {
               turretEnemy,
               roundCounter,
               e);
-      botReaction.makeBotsReactToPlayerAction(mechHero,
-              mechEnemy,
-              listOfCreepAllied,
-              listOfCreepEnemy,
-              turretAllied,
-              turretEnemy,
-              listOfAllUnits,
-              roundCounter);
-      repaint();
     } else {
       mechHeroMouseCommandManager.reactToLeftClick(listOfAllUnits, e);
       repaint();
