@@ -1,4 +1,4 @@
-package botmovement;
+package movement;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

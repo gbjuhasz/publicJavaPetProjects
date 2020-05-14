@@ -1,4 +1,4 @@
-package botmovement;
+package movement;
 
 import java.awt.image.BufferedImage;
 import java.util.List;
@@ -28,7 +28,6 @@ public abstract class BotMovementManager extends MovementManager {
     BufferedImage newImage = pickImage(findImageFileLocation(unitMakingMove.getFacingDirection(),
             isRoundNumberEven(roundCounter)));
     unitMakingMove.setImage(newImage);
-
   }
 
   public void changeCoordinatesTowardsTargetDirection(Unit unitMakingMove,
@@ -41,22 +40,22 @@ public abstract class BotMovementManager extends MovementManager {
     int futureY = currentY;
 
     if (targetDirection.contains("N")) {
-      futureY = futureY - 18;
+      futureY = futureY - 1;
       if (targetDirection.length() == 1) {
         unitMakingMove.setFacingDirection("UP");
       }
     } else if (targetDirection.contains("S")) {
-      futureY = futureY + 18;
+      futureY = futureY + 1;
       if (targetDirection.length() == 1) {
         unitMakingMove.setFacingDirection("DOWN");
       }
     }
 
     if (targetDirection.contains("W")) {
-      futureX = futureX - 18;
+      futureX = futureX - 1;
       unitMakingMove.setFacingDirection("LEFT");
     } else if (targetDirection.contains("E")) {
-      futureX = futureX + 18;
+      futureX = futureX + 1;
       unitMakingMove.setFacingDirection("RIGHT");
     }
     for (int i = 0; i < listOfAllUnits.size() ; i++) {

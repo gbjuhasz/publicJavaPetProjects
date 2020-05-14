@@ -1,8 +1,8 @@
 package mechherocontrol;
 
 import java.awt.image.BufferedImage;
-import botmovement.IllegalMoveCheckerMapObjects;
-import botmovement.MovementManager;
+import movement.IllegalMoveCheckerMapObjects;
+import movement.MovementManager;
 import units.MechHero;
 
 public class MechHeroKeyMovementManager extends MovementManager {

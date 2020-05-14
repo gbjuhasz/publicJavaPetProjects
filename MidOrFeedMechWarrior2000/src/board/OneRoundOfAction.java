@@ -1,27 +1,35 @@
-package decisionmaking;
+package board;
 
+import decisionmaking.*;
 import java.util.ArrayList;
 import java.util.List;
-import units.Creep;
-import units.Mech;
-import units.Turret;
-import units.Unit;
+import units.*;
 
-public class BotReaction {
+public class OneRoundOfAction {
 
   CreepAlliedDecisionMaker creepAlliedDecisionMaker = new CreepAlliedDecisionMaker();
   CreepEnemyDecisionMaker creepEnemyDecisionMaker = new CreepEnemyDecisionMaker();
   MechEnemyDecisionMaker mechEnemyDecisionMaker = new MechEnemyDecisionMaker();
   TurretDecisionMaker turretDecisionMaker = new TurretDecisionMaker();
+  MechHeroDecisionMaker mechHeroDecisionMaker = new MechHeroDecisionMaker();
 
-  public void makeBotsReactToPlayerAction(Mech mechHero,
-                                          Mech mechEnemy,
-                                          ArrayList<Creep> listOfCreepAllied,
-                                          ArrayList<Creep> listOfCreepEnemy,
-                                          Turret turretAllied,
-                                          Turret turretEnemy,
-                                          List<Unit> listOfAllUnits,
-                                          int roundCounter) {
+  public void performOneRoundOfAction(MechHero mechHero,
+                                      Mech mechEnemy,
+                                      ArrayList<Creep> listOfCreepAllied,
+                                      ArrayList<Creep> listOfCreepEnemy,
+                                      Turret turretAllied,
+                                      Turret turretEnemy,
+                                      List<Unit> listOfAllUnits,
+                                      int roundCounter) {
+
+    if(mechHero.isAlive()){
+      mechHeroDecisionMaker.reactToMouseCommand(mechHero,
+              mechEnemy,
+              listOfCreepEnemy,
+              turretEnemy,
+              listOfAllUnits,
+              roundCounter);
+    }
 
     for (Creep creepAllied : listOfCreepAllied) {
       if (creepAllied.isAlive()) {

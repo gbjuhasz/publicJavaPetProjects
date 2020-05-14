@@ -1,6 +1,6 @@
 package decisionmaking;
 
-import botmovement.MechEnemyMovementManager;
+import movement.MechEnemyMovementManager;
 import java.util.List;
 import units.Unit;
 

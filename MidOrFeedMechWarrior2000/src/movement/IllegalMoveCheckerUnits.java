@@ -1,4 +1,4 @@
-package botmovement;
+package movement;
 
 import java.util.List;
 import units.Unit;

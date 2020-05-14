@@ -1,6 +1,6 @@
 package decisionmaking;
 
-import botmovement.CreepEnemyMovementManager;
+import movement.CreepEnemyMovementManager;
 import java.util.List;
 import units.Unit;
 

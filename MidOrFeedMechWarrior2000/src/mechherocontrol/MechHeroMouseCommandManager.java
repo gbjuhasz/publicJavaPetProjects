@@ -1,7 +1,7 @@
 package mechherocontrol;
 
-import botmovement.IllegalMoveCheckerMapObjects;
-import botmovement.MovementManager;
+import movement.IllegalMoveCheckerMapObjects;
+import movement.MovementManager;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;

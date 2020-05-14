@@ -5,7 +5,7 @@ import java.util.Random;
 public abstract class Creep extends Unit {
   //fields for fighting
   private int attackRange = 72;
-  private int attackDamage = 25;
+  private int attackDamage = 5;
   private int healthPoints = 550;
   private int respawnHealthPoints = 550;
   private int armorRating = 0;

@@ -1,4 +1,4 @@
-package botmovement;
+package movement;
 
 public class IllegalMoveCheckerMapObjects {
 
