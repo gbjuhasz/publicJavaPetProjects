@@ -18,10 +18,11 @@ public class MechHeroMovementManager extends BotMovementManager {
       mechHero.calculateMouseEventDirection();
       String targetDirection = mechHero.getTargetDirection();
 
-      changeCoordinatesTowardsTargetDirection(mechHero, currentX, currentY, listOfAllUnits, targetDirection);
-/*      if (!illegalMoveCheckerMapObjects.isMoveLegal(mechHero.getPosX(), mechHero.getPosY())) {
-        stuckUnitAssister.helpIfUnitIsStuck(mechHero);
-      }*/
+      changeCoordinatesTowardsTargetDirection(mechHero, listOfAllUnits, targetDirection);
+      if(!illegalMoveCheckerMapObjects.isMoveLegal(mechHero.getPosX(),mechHero.getPosY())){
+        mechHero.setPosX(mechHero.getPreviousX());
+        mechHero.setPosY(mechHero.getPreviousY());
+      }
       mechHero.calculateImageCenterCoordinates();
       BufferedImage newImage = pickImage(findImageFileLocation(mechHero.getFacingDirection(),
               isRoundNumberEven(roundCounter)));

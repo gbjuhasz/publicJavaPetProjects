@@ -2,7 +2,7 @@ package movement;
 
 import units.Unit;
 
-public class StuckUnitAssister {
+public class StuckUnitManager {
 
   IllegalMoveCheckerMapObjects illegalMoveCheckerMapObjects = new IllegalMoveCheckerMapObjects();
 

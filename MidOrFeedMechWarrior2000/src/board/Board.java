@@ -71,7 +71,10 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     graphics.setColor(Color.RED);
     graphics.drawString(String.valueOf(unitLayout.getMechEnemy().getHealthPoints()), 720, 40);
     graphics.setColor(Color.WHITE);
-   if(unitLayout.getMechHero().getUnitTargeted() != null) {
+    graphics.drawString(String.valueOf(unitLayout.getMechHero().getPreviousX()), 720, 120);
+    graphics.drawString(String.valueOf(unitLayout.getMechHero().getPreviousY()), 720, 160);
+
+    if(unitLayout.getMechHero().getUnitTargeted() != null) {
      graphics.drawString(unitLayout.getMechHero().getUnitTargeted().getUnitType(), 760, 80);
    } else if ( unitLayout.getMechHero().getMouseEventMarkingLocation()!=null) {
      graphics.drawString(String.valueOf("X:" + unitLayout.getMechHero().getMouseEventMarkingLocation().getX())

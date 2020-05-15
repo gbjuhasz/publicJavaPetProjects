@@ -6,7 +6,7 @@ import units.Unit;
 
 public abstract class BotMovementManager extends MovementManager {
 
-  StuckUnitAssister stuckUnitAssister = new StuckUnitAssister();
+  StuckUnitManager stuckUnitManager = new StuckUnitManager();
   IllegalMoveCheckerUnits illegalMoveCheckerUnits = new IllegalMoveCheckerUnits();
   IllegalMoveCheckerMapObjects illegalMoveCheckerMapObjects = new IllegalMoveCheckerMapObjects();
 
@@ -22,10 +22,11 @@ public abstract class BotMovementManager extends MovementManager {
     unitMakingMove.calculateTargetDirection(unitDestination);
     String targetDirection = unitMakingMove.getTargetDirection();
 
-    changeCoordinatesTowardsTargetDirection(unitMakingMove, currentX, currentY, listOfAllUnits, targetDirection);
+    changeCoordinatesTowardsTargetDirection(unitMakingMove, listOfAllUnits, targetDirection);
 
     if(!illegalMoveCheckerMapObjects.isMoveLegal(unitMakingMove.getPosX(), unitMakingMove.getPosY())) {
-      stuckUnitAssister.helpIfUnitIsStuck(unitMakingMove);
+      unitMakingMove.setPosX(unitMakingMove.getPreviousX());
+      unitMakingMove.setPosY(unitMakingMove.getPreviousY());
     }
     unitMakingMove.calculateImageCenterCoordinates();
     BufferedImage newImage = pickImage(findImageFileLocation(unitMakingMove.getFacingDirection(),
@@ -34,13 +35,13 @@ public abstract class BotMovementManager extends MovementManager {
   }
 
   public void changeCoordinatesTowardsTargetDirection(Unit unitMakingMove,
-                                                      int currentX,
-                                                      int currentY,
                                                       List<Unit> listOfAllUnits,
                                                       String targetDirection) {
 
-    int futureX = currentX;
-    int futureY = currentY;
+    int currentX = unitMakingMove.getPosX();
+    int currentY = unitMakingMove.getPosY();
+    int futureX = unitMakingMove.getPosX();
+    int futureY = unitMakingMove.getPosY();
 
     if (targetDirection.contains("N")) {
       futureY = futureY - 1;
@@ -68,9 +69,11 @@ public abstract class BotMovementManager extends MovementManager {
       }
     }
     if(!illegalMoveCheckerUnits.isMoveLegal(futureX,futureY,listOfAllUnits)){
-      unitMakingMove.setPosX(currentX);
-      unitMakingMove.setPosY(currentY);
+      unitMakingMove.setPreviousX(currentX);
+      unitMakingMove.setPreviousY(currentY);
     } else {
+      unitMakingMove.setPreviousX(currentX);
+      unitMakingMove.setPreviousY(currentY);
       unitMakingMove.setPosX(futureX);
       unitMakingMove.setPosY(futureY);
     }
