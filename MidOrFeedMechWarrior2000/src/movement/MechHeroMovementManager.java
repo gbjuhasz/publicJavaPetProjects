@@ -12,15 +12,16 @@ public class MechHeroMovementManager extends BotMovementManager {
                                         int roundCounter) {
 
     if (mechHero.getUnitTargeted() != null || mechHero.getMouseEventMarkingLocation() != null) {
-      IllegalMoveCheckerMapObjects illegalMoveCheckerMapObjects = new IllegalMoveCheckerMapObjects();
       int currentX = mechHero.getPosX();
       int currentY = mechHero.getPosY();
+
       mechHero.calculateMouseEventDirection();
       String targetDirection = mechHero.getTargetDirection();
+
       changeCoordinatesTowardsTargetDirection(mechHero, currentX, currentY, listOfAllUnits, targetDirection);
-      if (!illegalMoveCheckerMapObjects.isMoveLegal(mechHero.getPosX(), mechHero.getPosY())) {
+/*      if (!illegalMoveCheckerMapObjects.isMoveLegal(mechHero.getPosX(), mechHero.getPosY())) {
         stuckUnitAssister.helpIfUnitIsStuck(mechHero);
-      }
+      }*/
       mechHero.calculateImageCenterCoordinates();
       BufferedImage newImage = pickImage(findImageFileLocation(mechHero.getFacingDirection(),
               isRoundNumberEven(roundCounter)));

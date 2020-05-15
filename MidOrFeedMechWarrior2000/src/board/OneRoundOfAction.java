@@ -14,7 +14,7 @@ public class OneRoundOfAction {
   MechHeroDecisionMaker mechHeroDecisionMaker = new MechHeroDecisionMaker();
 
   public void performOneRoundOfAction(MechHero mechHero,
-                                      Mech mechEnemy,
+                                      MechEnemy mechEnemy,
                                       ArrayList<Creep> listOfCreepAllied,
                                       ArrayList<Creep> listOfCreepEnemy,
                                       Turret turretAllied,

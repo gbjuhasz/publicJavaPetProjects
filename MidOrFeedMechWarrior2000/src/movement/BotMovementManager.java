@@ -8,6 +8,7 @@ public abstract class BotMovementManager extends MovementManager {
 
   StuckUnitAssister stuckUnitAssister = new StuckUnitAssister();
   IllegalMoveCheckerUnits illegalMoveCheckerUnits = new IllegalMoveCheckerUnits();
+  IllegalMoveCheckerMapObjects illegalMoveCheckerMapObjects = new IllegalMoveCheckerMapObjects();
 
 
   public void moveUnit(Unit unitMakingMove,
@@ -15,12 +16,14 @@ public abstract class BotMovementManager extends MovementManager {
                        List<Unit> listOfAllUnits,
                        int roundCounter) {
 
-    IllegalMoveCheckerMapObjects illegalMoveCheckerMapObjects = new IllegalMoveCheckerMapObjects();
     int currentX = unitMakingMove.getPosX();
     int currentY = unitMakingMove.getPosY();
+
     unitMakingMove.calculateTargetDirection(unitDestination);
     String targetDirection = unitMakingMove.getTargetDirection();
+
     changeCoordinatesTowardsTargetDirection(unitMakingMove, currentX, currentY, listOfAllUnits, targetDirection);
+
     if(!illegalMoveCheckerMapObjects.isMoveLegal(unitMakingMove.getPosX(), unitMakingMove.getPosY())) {
       stuckUnitAssister.helpIfUnitIsStuck(unitMakingMove);
     }
@@ -40,22 +43,22 @@ public abstract class BotMovementManager extends MovementManager {
     int futureY = currentY;
 
     if (targetDirection.contains("N")) {
-      futureY = futureY - 9;
+      futureY = futureY - 1;
       if (targetDirection.length() == 1) {
         unitMakingMove.setFacingDirection("UP");
       }
     } else if (targetDirection.contains("S")) {
-      futureY = futureY + 9;
+      futureY = futureY + 1;
       if (targetDirection.length() == 1) {
         unitMakingMove.setFacingDirection("DOWN");
       }
     }
 
     if (targetDirection.contains("W")) {
-      futureX = futureX - 9;
+      futureX = futureX - 1;
       unitMakingMove.setFacingDirection("LEFT");
     } else if (targetDirection.contains("E")) {
-      futureX = futureX + 9;
+      futureX = futureX + 1;
       unitMakingMove.setFacingDirection("RIGHT");
     }
     for (int i = 0; i < listOfAllUnits.size() ; i++) {

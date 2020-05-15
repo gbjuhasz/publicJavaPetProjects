@@ -1,6 +1,5 @@
 package decisionmaking;
 
-import fighting.AttackManager;
 import fighting.MechHeroAttackManager;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +25,13 @@ public class MechHeroDecisionMaker extends DecisionMaker {
         mechHeroMovementManager.moveUnit(mechHero, mechHero.getUnitTargeted(),listOfAllUnits, roundCounter);
       }
     }
-    if(mechHero.getUnitTargeted() == null){
+    if(mechHero.getUnitTargeted() == null &&
+    mechHero.getMouseEventMarkingLocation() != null){
       mechHeroMovementManager.moveUnitTowardsMouseEvent(mechHero, listOfAllUnits,roundCounter);
+      if (mechHero.getPosX() == mechHero.getMouseEventMarkingLocation().getX() &&
+              mechHero.getPosY() == mechHero.getMouseEventMarkingLocation().getY()){
+        mechHero.setMouseEventMarkingLocation(null);
+      }
     }
   }
 }

@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 
 public class MechEnemy extends Mech {
 
-  private int detectionRange = 720;
+  private int detectionRange = 0;
 
   public MechEnemy(String fileLocation, int x, int y) {
 

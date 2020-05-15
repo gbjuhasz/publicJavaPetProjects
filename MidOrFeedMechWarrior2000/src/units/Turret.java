@@ -6,7 +6,7 @@ public abstract class Turret extends Unit {
   private int healthPoints = 1800;
   private int armorRating = 12;
   private int attackRange = 90;
-  private int attackDamage = 110;
+  private int attackDamage = 0;
 
   @Override
   public int getAttackRange() {

@@ -48,8 +48,8 @@ public class MechHero extends Mech {
     if (mouseEventMarkingLocation != null) {
       int posX = super.getPosX();
       int posY = super.getPosY();
-      int targetX = mouseEventMarkingLocation.getX();
-      int targetY = mouseEventMarkingLocation.getY();
+      int targetX = mouseEventMarkingLocation.getX() - 36;
+      int targetY = mouseEventMarkingLocation.getY() - 72;
 
       if (posX == targetX && posY < targetY) {
         setTargetDirection("S");

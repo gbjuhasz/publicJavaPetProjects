@@ -7,28 +7,39 @@ public class StuckUnitAssister {
   IllegalMoveCheckerMapObjects illegalMoveCheckerMapObjects = new IllegalMoveCheckerMapObjects();
 
   public void helpIfUnitIsStuck(Unit unit) {
-    String targetDirection = unit.getTargetDirection();
+/*    String targetDirection = unit.getTargetDirection();
     int posX = unit.getPosX();
     int posY = unit.getPosY();
-    String section = findMapsectionWhereUnitIsStuck(posX, posY);
 
-    if(section.equals("top left")){
-      helpUnitTopLeft(unit,posX,posY, targetDirection);
-    } else if (section.equals("middle left")){
+    //Assistance around river upper half
+    if (posX >= 216 && posX < 220 &&
+            posY <= 180) {
+      unit.setPosX(216);
+      unit.setPosY(posY + 2);
+    } else if (posX >= 515 &&
+    posY <= 198){
+      unit.setPosX(510);
+      unit.setPosY(posY +2);
+    }
+/*    String section = findMapsectionWhereUnitIsStuck(posX, posY);
+
+    if (section.equals("top left")) {
+      helpUnitTopLeft(unit, posX, posY, targetDirection);
+    } else if (section.equals("middle left")) {
       helpUnitMiddleLeft(unit, posX, posY, targetDirection);
-    } else if (section.equals("bottom left")){
-      helpUnitBottomLeft(unit,posX,posY, targetDirection);
-    } else if (section.equals("bridge")){
-      helpUnitBridge(unit, posX,posY,targetDirection);
-    } else if(section.equals("top right")){
+    } else if (section.equals("bottom left")) {
+      helpUnitBottomLeft(unit, posX, posY, targetDirection);
+    } else if (section.equals("bridge")) {
+      helpUnitBridge(unit, posX, posY, targetDirection);
+    } else if (section.equals("top right")) {
       helpUnitTopRight(unit, posX, posY, targetDirection);
     } else {
-      helpUnitBottomRight(unit,posX,posY,targetDirection);
+      helpUnitBottomRight(unit, posX, posY, targetDirection);
     }
   }
 
   public String findMapsectionWhereUnitIsStuck(int posX, int posY) {
-    if (posX <= 234 && posY <= 162) {
+    if (posX <= 234 && posY < 162) {
       return "top left";
     } else if (posX <= 198 &&
             posY >= 270 &&
@@ -54,26 +65,22 @@ public class StuckUnitAssister {
                               int posX,
                               int posY,
                               String targetDirection) {
-
-    if (targetDirection.contains("N")) {
-      unit.setPosX(posX - 18);
-      unit.setPosY(posY + 36);
-    } else {
-      unit.setPosX(posX - 18);
-    }
+    unit.setPosX(posX - 1);
+    unit.setPosY(unit.getPosY() + 1);
+    illegalMoveCheckerMapObjects.isMoveLegal(unit.getPosX(), unit.getPosY());
   }
+
 
   public void helpUnitMiddleLeft(Unit unit,
                                  int posX,
                                  int posY,
                                  String targetDirection) {
-    if (targetDirection.contains("W")) {
-      unit.setPosX(posX - 18);
-    } else if (targetDirection.contains("E")) {
-      unit.setPosX(posX + 18);
-    } else if (targetDirection.equals("W")) {
-      unit.setPosX(posX + 18);
-      unit.setPosY(posY - 18);
+    if (targetDirection.contains("N")) {
+      unit.setPosX(posX);
+      unit.setPosY(posY - 1);
+    } else if (targetDirection.contains("S")) {
+      unit.setPosX(posX);
+      unit.setPosY(posY + 1);
     }
   }
 
@@ -81,12 +88,9 @@ public class StuckUnitAssister {
                                  int posX,
                                  int posY,
                                  String targetDirection) {
-
-    if (targetDirection.contains("S")) {
-      unit.setPosX(posX - 18);
-      unit.setPosY(posY - 36);
-    } else {
-      unit.setPosX(posX - 18);
+    if (posX < 144) {
+      unit.setPosX(posX);
+      unit.setPosY(posY - 1);
     }
   }
 
@@ -94,9 +98,9 @@ public class StuckUnitAssister {
                              int posX,
                              int posY,
                              String targetDirection) {
-    if(targetDirection.contains("N")){
+    if (targetDirection.contains("N")) {
       unit.setPosY(posY + 18);
-    } else if (targetDirection.contains("S")){
+    } else if (targetDirection.contains("S")) {
       unit.setPosY(posY - 18);
     }
   }
@@ -104,7 +108,7 @@ public class StuckUnitAssister {
   public void helpUnitTopRight(Unit unit,
                                int posX,
                                int posY,
-                               String targetDirection){
+                               String targetDirection) {
     if (targetDirection.contains("N")) {
       unit.setPosX(posX + 18);
       unit.setPosY(posY + 36);
@@ -116,12 +120,13 @@ public class StuckUnitAssister {
   public void helpUnitBottomRight(Unit unit,
                                   int posX,
                                   int posY,
-                                  String targetDirection){
+                                  String targetDirection) {
     if (targetDirection.contains("S")) {
       unit.setPosX(posX + 18);
       unit.setPosY(posY - 36);
     } else {
       unit.setPosX(posX + 18);
     }
+  }*/
   }
 }
