@@ -11,7 +11,7 @@ public class TurretEnemy extends Turret {
     super.setPosX(580);
     super.setPosY(280);
     super.calculateImageCenterCoordinates();
-    super.setUnitType("turret");
+    super.setUnitType("turretEnemy");
 
     try {
       BufferedImage turretAlliedImage = ImageIO.read(new File("images/turretenemy/TurretEnemy.png"));

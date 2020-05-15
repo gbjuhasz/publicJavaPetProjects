@@ -28,8 +28,8 @@ public class MechHeroDecisionMaker extends DecisionMaker {
     if(mechHero.getUnitTargeted() == null &&
     mechHero.getMouseEventMarkingLocation() != null){
       mechHeroMovementManager.moveUnitTowardsMouseEvent(mechHero, listOfAllUnits,roundCounter);
-      if (mechHero.getPosX() == mechHero.getMouseEventMarkingLocation().getX() &&
-              mechHero.getPosY() == mechHero.getMouseEventMarkingLocation().getY()){
+      if (mechHero.getPosX() == mechHero.getMouseEventMarkingLocation().getX() - 36 &&
+              mechHero.getPosY() == mechHero.getMouseEventMarkingLocation().getY() - 72){
         mechHero.setMouseEventMarkingLocation(null);
       }
     }

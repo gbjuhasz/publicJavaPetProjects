@@ -60,10 +60,14 @@ public class HUD extends JComponent {
                         calculateLengthOfGreenBar(unit, 72),unit.getPosY() -10,
                 unit.getPosX() + 144, unit.getPosY() -10);
       } else {
-        graphics.setColor(Color.GREEN);
+        if(unit.getUnitType().substring(unit.getUnitType().length()-5, unit.getUnitType().length()).equals("Enemy")){
+          graphics.setColor(Color.RED);
+        } else {
+          graphics.setColor(Color.GREEN);
+        }
         graphics.drawLine(unit.getPosX(), unit.getPosY() - 10, unit.getPosX() +
                 calculateLengthOfGreenBar(unit, 72), unit.getPosY() - 10);
-        graphics.setColor(Color.RED);
+        graphics.setColor(Color.BLACK);
         graphics.drawLine(unit.getPosX() +
                         calculateLengthOfGreenBar(unit, 72),unit.getPosY() -10,
                 unit.getPosX() + 72, unit.getPosY() -10);
