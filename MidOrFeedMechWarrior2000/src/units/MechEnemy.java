@@ -16,7 +16,7 @@ public class MechEnemy extends Mech {
     super.setRespawnX(x);
     super.setRespawnY(y);
     super.calculateImageCenterCoordinates();
-    super.setUnitType("mech");
+    super.setUnitType("mechEnemy");
 
     try {
       BufferedImage tileImage = ImageIO.read(new File(fileLocation));

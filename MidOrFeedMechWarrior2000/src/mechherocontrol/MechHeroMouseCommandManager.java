@@ -1,5 +1,6 @@
 package mechherocontrol;
 
+import fighting.MechHeroAttackManager;
 import movement.IllegalMoveCheckerMapObjects;
 import movement.MovementManager;
 import java.awt.event.MouseEvent;

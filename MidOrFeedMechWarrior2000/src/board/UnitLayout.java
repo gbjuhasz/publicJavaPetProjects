@@ -1,6 +1,7 @@
 package board;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import units.*;
 
@@ -110,5 +111,24 @@ public class UnitLayout {
     listOfAllUnits.add(mechEnemy);
     listOfAllUnits.add(mechHero);
     return listOfAllUnits;
+  }
+
+  public List<Unit> getAllUnitsOrderedByYCoordinate(){
+    List<Unit> listOfAllUnits = getAllUnits();
+    List<Unit> listOfAllUnitsOrderedByYCoordinate = new ArrayList<>();
+    List<Integer> listOfYCoordinates = new ArrayList<>();
+    for (Unit unit: listOfAllUnits) {
+      listOfYCoordinates.add(unit.getPosY());
+    }
+    Collections.sort(listOfYCoordinates, Collections.reverseOrder());
+    for (int i = 0; i < listOfYCoordinates.size(); i++) {
+      for (int j = 0; j < listOfAllUnits.size() ; j++) {
+        if(listOfAllUnits.get(j).getPosY() == listOfYCoordinates.get(i)){
+          listOfAllUnitsOrderedByYCoordinate.add(listOfAllUnits.get(j));
+          listOfAllUnits.remove(j);
+        }
+      }
+    }
+    return listOfAllUnitsOrderedByYCoordinate;
   }
 }

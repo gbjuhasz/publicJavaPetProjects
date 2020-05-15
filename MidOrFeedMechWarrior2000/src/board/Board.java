@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 import mechherocontrol.MechHeroMouseClickReactionManager;
-import mechherocontrol.MechHeroMouseCommandManager;
 import respawn.RespawnManager;
 import units.*;
 import visualeffects.BuildingDepthEffect;
@@ -40,16 +39,13 @@ public class Board extends JComponent implements KeyListener, MouseListener {
       tile.draw(graphics);
     }
     //Unit placement
-    unitLayout.getMechHero().draw(graphics);
-    unitLayout.getMechEnemy().draw(graphics);
+
+    for (Unit unit: unitLayout.getAllUnitsOrderedByYCoordinate()) {
+      unit.draw(graphics);
+    }
     unitLayout.getTurretAllied().draw(graphics);
     unitLayout.getTurretEnemy().draw(graphics);
-    for (Creep creepAllied : unitLayout.getListOfCreepAllied()) {
-      creepAllied.draw(graphics);
-    }
-    for (Creep creepEnemy : unitLayout.getListOfCreepEnemy()) {
-      creepEnemy.draw(graphics);
-    }
+
     //Information
     graphics.setColor(Color.WHITE);
     graphics.drawString(String.valueOf(roundCounter), 72, 120);
@@ -63,7 +59,7 @@ public class Board extends JComponent implements KeyListener, MouseListener {
             80);
     //HUD display
     hud.drawHUD(unitLayout.getMechHero(), unitLayout.getListOfEnemyUnits(), graphics);
-    hud.drawHealthBars(unitLayout.getAllUnits(),graphics);
+    hud.drawHealthBars(unitLayout.getAllUnits(), graphics);
 
     //Building depth effects
     buildingDepthEffect.getBuildingBottomRightSide().draw(graphics);
@@ -75,7 +71,13 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     graphics.setColor(Color.RED);
     graphics.drawString(String.valueOf(unitLayout.getMechEnemy().getHealthPoints()), 720, 40);
     graphics.setColor(Color.WHITE);
-    for (Creep creep : unitLayout.getListOfCreepAllied()) {
+   if(unitLayout.getMechHero().getUnitTargeted() != null) {
+     graphics.drawString(unitLayout.getMechHero().getUnitTargeted().getUnitType(), 760, 80);
+   } else if ( unitLayout.getMechHero().getMouseEventMarkingLocation()!=null) {
+     graphics.drawString(String.valueOf("X:" + unitLayout.getMechHero().getMouseEventMarkingLocation().getX())
+             + "Y:" + String.valueOf(unitLayout.getMechHero().getMouseEventMarkingLocation().getY()), 760, 80);
+   }
+  /*  for (Creep creep : unitLayout.getListOfCreepAllied()) {
       graphics.drawString("x:" + creep.getPosX() + "y:" + creep.getPosY() + " respawn at:" + creep.getRoundToRespawn(), 760, posYForCoordinates);
       posYForCoordinates = posYForCoordinates + 40;
     }
@@ -144,12 +146,12 @@ public class Board extends JComponent implements KeyListener, MouseListener {
                   turretEnemy,
                   listOfAllUnits,
                   roundCounter);
-          respawnManager.respawnUnits(unitLayout.getListOfMechs(), listOfCreepAllied, listOfCreepEnemy, roundCounter);
+          respawnManager.respawnUnits(mechHero, mechEnemy, listOfCreepAllied, listOfCreepEnemy, roundCounter);
           roundCounter++;
           repaint();
         }
       };
-      Timer timer = new Timer(50, al);
+      Timer timer = new Timer(120, al);
       timer.start();
     }
   }

@@ -24,7 +24,7 @@ public class CreepEnemy extends Creep {
     super.setAlive(isAlive);
     super.setWaveSpawnTimer(waveTimer);
     super.calculateImageCenterCoordinates();
-    super.setUnitType("creep");
+    super.setUnitType("creepEnemy");
 
     try {
       BufferedImage tileImage = ImageIO.read(new File(fileLocation));

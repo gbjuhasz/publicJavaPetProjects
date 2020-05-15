@@ -18,7 +18,7 @@ public class MechHero extends Mech {
     super.setRespawnX(x);
     super.setRespawnY(y);
     super.calculateImageCenterCoordinates();
-    super.setUnitType("mech");
+    super.setUnitType("mechHero");
 
     try {
       BufferedImage tileImage = ImageIO.read(new File(fileLocation));
@@ -44,28 +44,30 @@ public class MechHero extends Mech {
     this.unitTargeted = unitTargeted;
   }
 
-  public void calculateMouseEventDirection(){
-    int posX = super.getPosX();
-    int posY = super.getPosY();
-    int targetX = mouseEventMarkingLocation.getX();
-    int targetY = mouseEventMarkingLocation.getY();
+  public void calculateMouseEventDirection() {
+    if (mouseEventMarkingLocation != null) {
+      int posX = super.getPosX();
+      int posY = super.getPosY();
+      int targetX = mouseEventMarkingLocation.getX();
+      int targetY = mouseEventMarkingLocation.getY();
 
-    if (posX == targetX && posY < targetY) {
-      setTargetDirection("S");
-    } else if (posX == targetX && posY > targetY) {
-      setTargetDirection("N");
-    } else if (posX > targetX && posY == targetY) {
-      setTargetDirection("W");
-    } else if (posX < targetX && posY == targetY) {
-      setTargetDirection("E");
-    } else if (posX > targetX && posY < targetY) {
-      setTargetDirection("SW");
-    } else if (posX < targetX && posY < targetY) {
-      setTargetDirection("SE");
-    } else if (posX < targetX) {
-      setTargetDirection("NE");
-    } else if (posX > targetX) {
-      setTargetDirection("NW");
+      if (posX == targetX && posY < targetY) {
+        setTargetDirection("S");
+      } else if (posX == targetX && posY > targetY) {
+        setTargetDirection("N");
+      } else if (posX > targetX && posY == targetY) {
+        setTargetDirection("W");
+      } else if (posX < targetX && posY == targetY) {
+        setTargetDirection("E");
+      } else if (posX > targetX && posY < targetY) {
+        setTargetDirection("SW");
+      } else if (posX < targetX && posY < targetY) {
+        setTargetDirection("SE");
+      } else if (posX < targetX) {
+        setTargetDirection("NE");
+      } else if (posX > targetX) {
+        setTargetDirection("NW");
+      }
     }
   }
 }
