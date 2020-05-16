@@ -18,6 +18,9 @@ public class MechHeroDecisionMaker extends DecisionMaker {
                                   List<Unit> listOfAllUnits,
                                   int roundCounter) {
 
+    isItTimeToSwitchFeet(mechHero,roundCounter);
+
+
     if(mechHero.getUnitTargeted() != null){
       if(mechHero.calculateDistanceBetweenUnits(mechHero.getUnitTargeted()) <= mechHero.getAttackRange()){
         mechHeroAttackManager.attackTargetUnitWithMechHero(mechHero, mechHero.getUnitTargeted(), roundCounter);

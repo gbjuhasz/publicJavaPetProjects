@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 import javax.imageio.ImageIO;
 
 public class MechHero extends Mech {
@@ -19,6 +20,8 @@ public class MechHero extends Mech {
     super.setRespawnY(y);
     super.calculateImageCenterCoordinates();
     super.setUnitType("mechHero");
+    Random random = new Random();
+    super.setFeetForward(super.getFeetImageNames()[random.nextInt(2)]);
 
     try {
       BufferedImage tileImage = ImageIO.read(new File(fileLocation));

@@ -29,6 +29,7 @@ public class RespawnManager {
       mechHero.setHealthPoints(mechHero.getRespawnHealthPoints());
       mechHero.setPosX(mechHero.getRespawnX());
       mechHero.setPosY(mechHero.getRespawnY());
+      mechHero.setSwitchFeetInRound(roundCounter+mechHero.getSwitchFeetEveryXRound());
     }
   }
 
@@ -39,6 +40,7 @@ public class RespawnManager {
         mech.setHealthPoints(mech.getRespawnHealthPoints());
         mech.setPosX(mech.getRespawnX());
         mech.setPosY(mech.getRespawnY());
+        mech.setSwitchFeetInRound(roundCounter+mech.getSwitchFeetEveryXRound());
       }
   }
 
@@ -50,6 +52,7 @@ public class RespawnManager {
         creep.setHealthPoints(creep.getRespawnHealthPoints());
         creep.setPosX(creep.getRespawnX());
         creep.setPosY(creep.getRespawnY());
+        creep.setSwitchFeetInRound(roundCounter+creep.getSwitchFeetEveryXRound());
       }
     }
   }

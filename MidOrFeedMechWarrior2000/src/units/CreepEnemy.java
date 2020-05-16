@@ -3,6 +3,7 @@ package units;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 import javax.imageio.ImageIO;
 
 public class CreepEnemy extends Creep {
@@ -25,6 +26,8 @@ public class CreepEnemy extends Creep {
     super.setWaveSpawnTimer(waveTimer);
     super.calculateImageCenterCoordinates();
     super.setUnitType("creepEnemy");
+    Random random = new Random();
+    super.setFeetForward(super.getFeetImageNames()[random.nextInt(2)]);
 
     try {
       BufferedImage tileImage = ImageIO.read(new File(fileLocation));

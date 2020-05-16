@@ -7,126 +7,153 @@ public class StuckUnitManager {
   IllegalMoveCheckerMapObjects illegalMoveCheckerMapObjects = new IllegalMoveCheckerMapObjects();
 
   public void helpIfUnitIsStuck(Unit unit) {
-/*    String targetDirection = unit.getTargetDirection();
-    int posX = unit.getPosX();
-    int posY = unit.getPosY();
+    int x = unit.getPosX();
+    int y = unit.getPosY();
 
-    //Assistance around river upper half
-    if (posX >= 216 && posX < 220 &&
-            posY <= 180) {
-      unit.setPosX(216);
-      unit.setPosY(posY + 2);
-    } else if (posX >= 515 &&
-    posY <= 198){
-      unit.setPosX(510);
-      unit.setPosY(posY +2);
+    //Help unit around river top half
+    if (x == 197 &&
+            y >= 0 &&
+            y < 180) {
+      unit.setPosY(unit.getPosY() + 1);
+      unit.setFacingDirection("DOWN");
     }
-/*    String section = findMapsectionWhereUnitIsStuck(posX, posY);
 
-    if (section.equals("top left")) {
-      helpUnitTopLeft(unit, posX, posY, targetDirection);
-    } else if (section.equals("middle left")) {
-      helpUnitMiddleLeft(unit, posX, posY, targetDirection);
-    } else if (section.equals("bottom left")) {
-      helpUnitBottomLeft(unit, posX, posY, targetDirection);
-    } else if (section.equals("bridge")) {
-      helpUnitBridge(unit, posX, posY, targetDirection);
-    } else if (section.equals("top right")) {
-      helpUnitTopRight(unit, posX, posY, targetDirection);
-    } else {
-      helpUnitBottomRight(unit, posX, posY, targetDirection);
+    if (x >= 197 && x <= 360 &&
+            y == 180) {
+      if (unit.getTargetDirection().contains("W")) {
+        unit.setPosX(unit.getPosX() - 1);
+        unit.setFacingDirection("LEFT");
+
+      } else if (unit.getTargetDirection().contains("E")) {
+        unit.setPosX(unit.getPosX() + 1);
+        unit.setFacingDirection("RIGHT");
+      }
     }
-  }
 
-  public String findMapsectionWhereUnitIsStuck(int posX, int posY) {
-    if (posX <= 234 && posY < 162) {
-      return "top left";
-    } else if (posX <= 198 &&
-            posY >= 270 &&
-            posY <= 450) {
-      return "middle left";
-    } else if (posX <= 198 &&
-            posY >= 468) {
-      return "bottom right";
-    } else if (posX > 216 &&
-            posX <= 486 &&
-            posY >= 162 &&
-            posY <= 378) {
-      return "bridge";
-    } else if (posX >= 486 &&
-            posY <= 198) {
-      return "top right";
-    } else {
-      return "bottom right";
+    if (x > 360 && x < 486 &&
+            y <= 198) {
+      if (unit.getTargetDirection().contains("W")) {
+        unit.setPosX(unit.getPosX() - 1);
+        unit.setFacingDirection("LEFT");
+
+      } else if (unit.getTargetDirection().contains("E")) {
+        unit.setPosX(unit.getPosX() + 1);
+        unit.setPosY(unit.getPosY() + 1);
+        unit.setFacingDirection("RIGHT");
+      }
     }
-  }
 
-  public void helpUnitTopLeft(Unit unit,
-                              int posX,
-                              int posY,
-                              String targetDirection) {
-    unit.setPosX(posX - 1);
-    unit.setPosY(unit.getPosY() + 1);
-    illegalMoveCheckerMapObjects.isMoveLegal(unit.getPosX(), unit.getPosY());
-  }
-
-
-  public void helpUnitMiddleLeft(Unit unit,
-                                 int posX,
-                                 int posY,
-                                 String targetDirection) {
-    if (targetDirection.contains("N")) {
-      unit.setPosX(posX);
-      unit.setPosY(posY - 1);
-    } else if (targetDirection.contains("S")) {
-      unit.setPosX(posX);
-      unit.setPosY(posY + 1);
+    if (x == 486 && y <= 198) {
+      unit.setPosY(unit.getPosY() + 1);
+      unit.setFacingDirection("DOWN");
     }
-  }
 
-  public void helpUnitBottomLeft(Unit unit,
-                                 int posX,
-                                 int posY,
-                                 String targetDirection) {
-    if (posX < 144) {
-      unit.setPosX(posX);
-      unit.setPosY(posY - 1);
-    }
-  }
+    //Help unit around building on the left side
 
-  public void helpUnitBridge(Unit unit,
-                             int posX,
-                             int posY,
-                             String targetDirection) {
-    if (targetDirection.contains("N")) {
-      unit.setPosY(posY + 18);
-    } else if (targetDirection.contains("S")) {
-      unit.setPosY(posY - 18);
+    if (x <= 145 && y >= 290) {
+      unit.setPosX(unit.getPosX() + 1);
+      if (unit.getTargetDirection().contains("N")) {
+        unit.setFacingDirection("UP");
+      } else {
+        unit.setFacingDirection("DOWN");
+      }
     }
-  }
 
-  public void helpUnitTopRight(Unit unit,
-                               int posX,
-                               int posY,
-                               String targetDirection) {
-    if (targetDirection.contains("N")) {
-      unit.setPosX(posX + 18);
-      unit.setPosY(posY + 36);
-    } else {
-      unit.setPosX(posX + 18);
-    }
-  }
+    //Help unit around bottom half of the river
 
-  public void helpUnitBottomRight(Unit unit,
-                                  int posX,
-                                  int posY,
-                                  String targetDirection) {
-    if (targetDirection.contains("S")) {
-      unit.setPosX(posX + 18);
-      unit.setPosY(posY - 36);
-    } else {
-      unit.setPosX(posX + 18);
+    if (x == 197 &&
+            y >= 340 && y <= 486) {
+      unit.setPosY(unit.getPosY() - 1);
+      unit.setFacingDirection("UP");
     }
-  }*/
+    if(x >= 180 && x<=196&& y >= 485){
+      unit.setPosY(unit.getPosY() -1);
+      unit.setFacingDirection("UP");
+
+    }
+    if (x == 179 && y >= 486) {
+      unit.setPosY(unit.getPosY() - 1);
+      unit.setFacingDirection("UP");
+    }
+
+    if (x > 342 && x < 450 && y >= 360) {
+
+      if (unit.getTargetDirection().contains("W")) {
+        unit.setPosX(unit.getPosX() - 1);
+        unit.setPosY(unit.getPosY() - 1);
+        unit.setFacingDirection("LEFT");
+
+      } else if (unit.getTargetDirection().contains("E")) {
+        unit.setPosY(unit.getPosY() + 1);
+        unit.setFacingDirection("RIGHT");
+      }
+    }
+    if (x >= 450 && x < 486 && y >= 378) {
+      if (unit.getTargetDirection().contains("W")) {
+        unit.setPosX(unit.getPosX() - 1);
+        unit.setPosY(unit.getPosY() - 1);
+        unit.setFacingDirection("LEFT");
+
+      } else if (unit.getTargetDirection().contains("E")) {
+        unit.setPosY(unit.getPosY() + 1);
+        unit.setFacingDirection("RIGHT");
+      }
+    }
+    if (x == 487 && y >= 378) {
+      unit.setPosY(unit.getPosY() - 1);
+      unit.setFacingDirection("UP");
+
+    }
   }
 }
+
+/*
+    public Boolean checkRiverLowerHalfLeftSideAndMid(int x, int y) {
+      if (x >= 198 && x < 342 &&
+              y > 342 && y < 486) {
+        return false;
+      }
+      if (x == 180 && y > 486) {
+        return false;
+      }
+      return true;
+    }
+
+    public Boolean checkRiverLowerHalfRightSideAndMid(int x, int y) {
+      if (x > 342 && x < 450 && y > 360) {
+        return false;
+      }
+      if (x >= 450 && x < 486 && y > 378) {
+        return false;
+      }
+      if (x == 486 && y > 378) {
+        return false;
+      }
+      return true;
+    }
+
+    public Boolean checkBuildingOnTheLeft(int x, int y) {
+      if (x < 144 && y > 270 && y < 450) {
+        return false;
+      }
+      return true;
+    }
+
+    public Boolean checkBuildingBottomRight(int x, int y) {
+      if(x >= 600 && y > 414 && y < 636) {
+        return false;
+      }
+      return true;
+    }
+
+    public Boolean checkBuildingTopRight(int x, int y) {
+      if(x > 604 && y < 355){
+        return false;
+      }
+      if(x > 582 && y < 64) {
+        return false;
+      }
+      return true;
+    }
+  }
+   */

@@ -19,6 +19,8 @@ public abstract class DecisionMaker {
                                     List<Unit> listOfAllUnits,
                                     int roundCounter) {
 
+    isItTimeToSwitchFeet(unitMakingDecision,roundCounter);
+
     if (findTargetInAttackRange(unitMakingDecision, mech, listOfCreeps, turret) != null) {
       attackTarget(unitMakingDecision, findTargetInAttackRange(unitMakingDecision, mech, listOfCreeps, turret), roundCounter);
     } else if (findTargetInDetectionRange(unitMakingDecision, mech, listOfCreeps, turret) != null) {
@@ -89,6 +91,21 @@ public abstract class DecisionMaker {
 
   public void attackTarget(Unit unitAttacking, Unit unitTarget, int roundCounter) {
     attackManager.attackTargetUnit(unitAttacking,unitTarget, roundCounter);
+  }
+
+  public String isItTimeToSwitchFeet(Unit unitMoving, int roundCounter) {
+
+
+    if(unitMoving.getSwitchFeetInRound() == roundCounter){
+      if(unitMoving.getFeetForward().equals("ODD")){
+        unitMoving.setFeetForward("EVEN");
+        unitMoving.setSwitchFeetInRound(roundCounter + unitMoving.getSwitchFeetEveryXRound());
+      } else {
+        unitMoving.setFeetForward("ODD");
+        unitMoving.setSwitchFeetInRound(roundCounter + unitMoving.getSwitchFeetEveryXRound());
+      }
+    }
+    return unitMoving.getFeetForward();
   }
 
 }

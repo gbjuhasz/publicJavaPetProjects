@@ -22,21 +22,23 @@ public abstract class BotMovementManager extends MovementManager {
     unitMakingMove.calculateTargetDirection(unitDestination);
     String targetDirection = unitMakingMove.getTargetDirection();
 
-    changeCoordinatesTowardsTargetDirection(unitMakingMove, listOfAllUnits, targetDirection);
+    changeCoordinatesTowardsTargetDirection(unitMakingMove, listOfAllUnits, targetDirection, roundCounter);
 
     if(!illegalMoveCheckerMapObjects.isMoveLegal(unitMakingMove.getPosX(), unitMakingMove.getPosY())) {
       unitMakingMove.setPosX(unitMakingMove.getPreviousX());
       unitMakingMove.setPosY(unitMakingMove.getPreviousY());
+      stuckUnitManager.helpIfUnitIsStuck(unitMakingMove);
     }
     unitMakingMove.calculateImageCenterCoordinates();
     BufferedImage newImage = pickImage(findImageFileLocation(unitMakingMove.getFacingDirection(),
-            isRoundNumberEven(roundCounter)));
+            unitMakingMove.getFeetForward()));
     unitMakingMove.setImage(newImage);
   }
 
   public void changeCoordinatesTowardsTargetDirection(Unit unitMakingMove,
                                                       List<Unit> listOfAllUnits,
-                                                      String targetDirection) {
+                                                      String targetDirection,
+                                                      int roundCounter) {
 
     int currentX = unitMakingMove.getPosX();
     int currentY = unitMakingMove.getPosY();

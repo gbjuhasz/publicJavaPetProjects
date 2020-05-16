@@ -7,7 +7,7 @@ public class IllegalMoveCheckerMapObjects {
     return checkMapBorders(x, y) &&
             checkRiverUpperHalfLeftSide(x, y) &&
             checkRiverUpperHalfBottomAndRightSide(x, y) &&
-            checkRiverLowerHalfLeftSideAndMid(x, y) &&
+            checkRiverLowerHalf(x, y) &&
             checkBuildingOnTheLeft(x, y) &&
             checkRiverLowerHalfRightSideAndMid(x, y) &&
             checkBuildingBottomRight(x, y) &&
@@ -44,12 +44,11 @@ public class IllegalMoveCheckerMapObjects {
   }
 
 
-  public Boolean checkRiverLowerHalfLeftSideAndMid(int x, int y) {
-    if (x >= 198 && x < 342 &&
-            y > 342 && y < 486) {
+  public Boolean checkRiverLowerHalf(int x, int y) {
+    if(x>= 180 && x <= 486 && y > 486){
       return false;
     }
-    if (x == 180 && y > 486) {
+    if(x>=198 && x < 342 && y > 340 && y <= 486) {
       return false;
     }
     return true;
@@ -69,7 +68,7 @@ public class IllegalMoveCheckerMapObjects {
   }
 
   public Boolean checkBuildingOnTheLeft(int x, int y) {
-    if (x < 144 && y > 270 && y < 450) {
+    if (x < 144 && y > 290 && y < 450) {
       return false;
     }
     return true;

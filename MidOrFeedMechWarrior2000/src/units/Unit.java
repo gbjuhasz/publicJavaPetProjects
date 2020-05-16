@@ -2,9 +2,11 @@ package units;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 public abstract class Unit {
   //fields for positioning on board, image picking and drawing effects
+  private Random random = new Random();
   private int posX;
   private int posY;
   private int previousX;
@@ -15,6 +17,10 @@ public abstract class Unit {
   private BufferedImage image;
   private String unitType;
   private boolean isHighlighted = false;
+  private int switchFeetInRound = 10;
+  private int switchFeetEveryXRound = 10;
+  private String[] feetImageNames = {"EVEN", "ODD"};
+  private String feetForward;
   //fields for fighting
   private int respawnHealthPoints;
   private int healthPoints;
@@ -125,8 +131,28 @@ public abstract class Unit {
     return unitType;
   }
 
+  public int getSwitchFeetInRound() {
+    return switchFeetInRound;
+  }
+
+  public int getSwitchFeetEveryXRound() {
+    return switchFeetEveryXRound;
+  }
+
+  public String[] getFeetImageNames() {
+    return feetImageNames;
+  }
+
   public boolean isHighlighted() {
     return isHighlighted;
+  }
+
+  public String getFeetForward() {
+    return feetForward;
+  }
+
+  public void setFeetForward(String feetForward) {
+    this.feetForward = feetForward;
   }
 
   public void setArmorRating(int armorRating) {
@@ -223,6 +249,14 @@ public abstract class Unit {
 
   public void setHighlighted(boolean highlighted) {
     isHighlighted = highlighted;
+  }
+
+  public void setSwitchFeetInRound(int switchFeetInRound) {
+    this.switchFeetInRound = switchFeetInRound;
+  }
+
+  public void setSwitchFeetEveryXRound(int switchFeetEveryXRound) {
+    this.switchFeetEveryXRound = switchFeetEveryXRound;
   }
 
   public void draw(Graphics graphics) {

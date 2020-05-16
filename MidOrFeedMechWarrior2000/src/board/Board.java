@@ -40,7 +40,7 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     }
     //Unit placement
 
-    for (Unit unit: unitLayout.getAllUnitsOrderedByYCoordinate()) {
+    for (Unit unit : unitLayout.getAllUnitsOrderedByYCoordinate()) {
       unit.draw(graphics);
     }
     unitLayout.getTurretAllied().draw(graphics);
@@ -71,16 +71,22 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     graphics.setColor(Color.RED);
     graphics.drawString(String.valueOf(unitLayout.getMechEnemy().getHealthPoints()), 720, 40);
     graphics.setColor(Color.WHITE);
-    graphics.drawString(String.valueOf(unitLayout.getMechHero().getPreviousX()), 720, 120);
-    graphics.drawString(String.valueOf(unitLayout.getMechHero().getPreviousY()), 720, 160);
+   /* graphics.drawString(String.valueOf(unitLayout.getMechHero().getPreviousX()), 720, 120);
+    graphics.drawString(String.valueOf(unitLayout.getMechHero().getPreviousY()), 720, 160);*/
+    graphics.drawString(String.valueOf(unitLayout.getMechHero().getFeetForward()), 720, 160);
+    graphics.drawString(String.valueOf(unitLayout.getMechHero().getSwitchFeetEveryXRound()), 720, 200);
+    graphics.drawString(String.valueOf(unitLayout.getMechHero().getSwitchFeetInRound()), 720, 240);
 
-    if(unitLayout.getMechHero().getUnitTargeted() != null) {
-     graphics.drawString(unitLayout.getMechHero().getUnitTargeted().getUnitType(), 760, 80);
-   } else if ( unitLayout.getMechHero().getMouseEventMarkingLocation()!=null) {
-     graphics.drawString(String.valueOf("X:" + unitLayout.getMechHero().getMouseEventMarkingLocation().getX())
-             + "Y:" + String.valueOf(unitLayout.getMechHero().getMouseEventMarkingLocation().getY()), 760, 80);
-   }
-  /*  for (Creep creep : unitLayout.getListOfCreepAllied()) {
+
+
+    if (unitLayout.getMechHero().getUnitTargeted() != null) {
+      graphics.drawString(unitLayout.getMechHero().getUnitTargeted().getUnitType(), 760, 80);
+    } else if (unitLayout.getMechHero().getMouseEventMarkingLocation() != null) {
+      graphics.drawString(String.valueOf("X:" + unitLayout.getMechHero().getMouseEventMarkingLocation().getX())
+              + "Y:" + String.valueOf(unitLayout.getMechHero().getMouseEventMarkingLocation().getY()), 760, 80);
+    }
+    /*
+    for (Creep creep : unitLayout.getListOfCreepAllied()) {
       graphics.drawString("x:" + creep.getPosX() + "y:" + creep.getPosY() + " respawn at:" + creep.getRoundToRespawn(), 760, posYForCoordinates);
       posYForCoordinates = posYForCoordinates + 40;
     }
@@ -156,6 +162,11 @@ public class Board extends JComponent implements KeyListener, MouseListener {
       };
       Timer timer = new Timer(10, al);
       timer.start();
+    }
+
+    if (e.getKeyCode() == KeyEvent.VK_S) {
+      unitLayout.getMechHero().setMouseEventMarkingLocation(null);
+      unitLayout.getMechHero().setUnitTargeted(null);
     }
   }
 

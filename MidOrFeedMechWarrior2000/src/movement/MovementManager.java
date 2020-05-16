@@ -21,13 +21,19 @@ public abstract class MovementManager {
     }
   }
 
-  public String isRoundNumberEven(int roundCounter) {
+  public String isItTimeToSwitchFeet(Unit unitMoving, int roundCounter) {
 
-    if (roundCounter % 2 == 0) {
-      return "Even";
-    } else {
-      return "Odd";
+
+    if(unitMoving.getSwitchFeetInRound() == roundCounter){
+      if(unitMoving.getFeetForward().equals("ODD")){
+        unitMoving.setFeetForward("EVEN");
+        unitMoving.setSwitchFeetInRound(roundCounter + unitMoving.getSwitchFeetEveryXRound());
+      } else {
+        unitMoving.setFeetForward("ODD");
+        unitMoving.setSwitchFeetInRound(roundCounter + unitMoving.getSwitchFeetEveryXRound());
+      }
     }
+    return unitMoving.getFeetForward();
   }
 
   public String findImageFileLocation(String facingDirection, String roundEvenOrOdd) {

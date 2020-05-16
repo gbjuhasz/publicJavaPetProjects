@@ -7,6 +7,8 @@ import units.Unit;
 
 public class MechHeroMovementManager extends BotMovementManager {
 
+  StuckUnitManager stuckUnitManager = new StuckUnitManager();
+
   public void moveUnitTowardsMouseEvent(MechHero mechHero,
                                         List<Unit> listOfAllUnits,
                                         int roundCounter) {
@@ -18,14 +20,15 @@ public class MechHeroMovementManager extends BotMovementManager {
       mechHero.calculateMouseEventDirection();
       String targetDirection = mechHero.getTargetDirection();
 
-      changeCoordinatesTowardsTargetDirection(mechHero, listOfAllUnits, targetDirection);
+      changeCoordinatesTowardsTargetDirection(mechHero, listOfAllUnits, targetDirection, roundCounter);
       if(!illegalMoveCheckerMapObjects.isMoveLegal(mechHero.getPosX(),mechHero.getPosY())){
         mechHero.setPosX(mechHero.getPreviousX());
         mechHero.setPosY(mechHero.getPreviousY());
+        stuckUnitManager.helpIfUnitIsStuck(mechHero);
       }
       mechHero.calculateImageCenterCoordinates();
       BufferedImage newImage = pickImage(findImageFileLocation(mechHero.getFacingDirection(),
-              isRoundNumberEven(roundCounter)));
+              isItTimeToSwitchFeet(mechHero,roundCounter)));
       mechHero.setImage(newImage);
     }
   }

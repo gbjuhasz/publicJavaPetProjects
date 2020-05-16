@@ -1,4 +1,4 @@
-package mechherocontrol;
+/*package mechherocontrol;
 
 import fighting.MechHeroAttackManager;
 import movement.IllegalMoveCheckerMapObjects;
@@ -163,3 +163,4 @@ public class MechHeroMouseCommandManager extends MovementManager {
     }
   }
 }
+*/
