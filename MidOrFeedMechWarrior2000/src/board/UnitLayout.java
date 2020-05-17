@@ -31,10 +31,10 @@ public class UnitLayout {
     turretEnemy = new TurretEnemy();
     creepAllied1 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 0, 72, true, 500);
     creepAllied2 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 108, 90, true, 500);
-    creepAllied3 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 197, 72, true, 500);
+    creepAllied3 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 197, 0, true, 500);
     creepAllied4 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 0, 72, false, 500);
     creepAllied5 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 108, 90, false, 500);
-    creepAllied6 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 197, 72, false, 500);
+    creepAllied6 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 197, 0, false, 500);
     creepEnemy1 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 500, 576,true, 500);
     creepEnemy2 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 558, 558,true, 500);
     creepEnemy3 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 600, 576,true, 500);
@@ -86,14 +86,6 @@ public class UnitLayout {
     listOfMechs.add(mechHero);
     listOfMechs.add(mechEnemy);
     return listOfMechs;
-  }
-
-  public CreepAllied getCreepAllied3() {
-    return creepAllied3;
-  }
-
-  public CreepEnemy getCreepEnemy1() {
-    return creepEnemy1;
   }
 
   public List<Unit> getListOfEnemyUnits(){

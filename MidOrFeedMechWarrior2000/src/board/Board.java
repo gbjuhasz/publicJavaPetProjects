@@ -49,7 +49,6 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     //Information
     graphics.setColor(Color.WHITE);
     graphics.drawString(String.valueOf(roundCounter), 72, 120);
-    graphics.drawString(String.valueOf(unitLayout.getCreepAllied3().isAlive()), 72, 150);
 
     graphics.drawString("X:" + unitLayout.getMechHero().getPosX(),
             72,
