@@ -9,8 +9,14 @@ public class StuckUnitManager {
   public void helpIfUnitIsStuck(Unit unit) {
     int x = unit.getPosX();
     int y = unit.getPosY();
+    helpUnitAroundTopHalf(x, y, unit);
+    helpUnitAroundBuildingOntheLeftSide(x, y, unit);
+    helpUnitAroundBottomHalfOfTheRiver(x, y, unit);
+  }
 
-    //Help unit around river top half
+
+  //Help unit around river top half
+  private void helpUnitAroundTopHalf(int x, int y, Unit unit) {
     if (x == 197 &&
             y >= 0 &&
             y < 180) {
@@ -47,27 +53,32 @@ public class StuckUnitManager {
       unit.setPosY(unit.getPosY() + 1);
       unit.setFacingDirection("DOWN");
     }
+  }
+  //Help unit around building on the left side
 
-    //Help unit around building on the left side
-
+  private void helpUnitAroundBuildingOntheLeftSide(int x, int y, Unit unit) {
     if (x <= 145 && y >= 290) {
       unit.setPosX(unit.getPosX() + 1);
-      if (unit.getTargetDirection().contains("N")) {
-        unit.setFacingDirection("UP");
-      } else {
+      if (y == 290) {
+        unit.setFacingDirection("RIGHT");
+      } else if (x == 144) {
         unit.setFacingDirection("DOWN");
+      } else if (y == 450) {
+        unit.setFacingDirection("RIGHT");
       }
     }
+  }
 
-    //Help unit around bottom half of the river
+  //Help unit around bottom half of the river
+  private void helpUnitAroundBottomHalfOfTheRiver(int x, int y, Unit unit) {
 
     if (x == 197 &&
             y >= 340 && y <= 486) {
       unit.setPosY(unit.getPosY() - 1);
       unit.setFacingDirection("UP");
     }
-    if(x >= 180 && x<=196&& y >= 485){
-      unit.setPosY(unit.getPosY() -1);
+    if (x >= 180 && x <= 196 && y >= 485) {
+      unit.setPosY(unit.getPosY() - 1);
       unit.setFacingDirection("UP");
 
     }
@@ -76,25 +87,38 @@ public class StuckUnitManager {
       unit.setFacingDirection("UP");
     }
 
-    if (x > 342 && x < 450 && y >= 360) {
-
+    if (x >= 198 && x <= 342 && y >= 340) {
       if (unit.getTargetDirection().contains("W")) {
         unit.setPosX(unit.getPosX() - 1);
         unit.setPosY(unit.getPosY() - 1);
         unit.setFacingDirection("LEFT");
 
       } else if (unit.getTargetDirection().contains("E")) {
-        unit.setPosY(unit.getPosY() + 1);
+        unit.setPosY(unit.getPosY() - 1);
         unit.setFacingDirection("RIGHT");
       }
     }
-    if (x >= 450 && x < 486 && y >= 378) {
+
+    if (x > 342 && x <= 450 && y >= 360) {
+
       if (unit.getTargetDirection().contains("W")) {
         unit.setPosX(unit.getPosX() - 1);
         unit.setPosY(unit.getPosY() - 1);
         unit.setFacingDirection("LEFT");
 
       } else if (unit.getTargetDirection().contains("E")) {
+        unit.setPosY(unit.getPosY() - 1);
+        unit.setFacingDirection("RIGHT");
+      }
+    }
+    if (x > 450 && x < 486 && y >= 378) {
+      if (unit.getTargetDirection().contains("W")) {
+        unit.setPosX(unit.getPosX() - 1);
+        unit.setPosY(unit.getPosY() - 1);
+        unit.setFacingDirection("LEFT");
+
+      } else if (unit.getTargetDirection().contains("E")) {
+        unit.setPosX(unit.getPosX() + 1);
         unit.setPosY(unit.getPosY() + 1);
         unit.setFacingDirection("RIGHT");
       }

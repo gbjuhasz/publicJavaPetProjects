@@ -160,7 +160,7 @@ public class Board extends JComponent implements KeyListener, MouseListener {
           repaint();
         }
       };
-      Timer timer = new Timer(10, al);
+      Timer timer = new Timer(5, al);
       timer.start();
     }
 

@@ -14,6 +14,7 @@ public class IllegalMoveCheckerMapObjects {
             checkBuildingTopRight(x, y);
   }
 
+  //private innentol least visibility!!!!
   public Boolean checkMapBorders(int x, int y) {
 
     if (y > 648 || y < 0) {
@@ -45,17 +46,23 @@ public class IllegalMoveCheckerMapObjects {
 
 
   public Boolean checkRiverLowerHalf(int x, int y) {
-    if(x>= 180 && x <= 486 && y > 486){
+    if (x >= 180 && x <= 486 && y > 486) {
       return false;
     }
-    if(x>=198 && x < 342 && y > 340 && y <= 486) {
+    if (x >= 198 && x < 342 && y > 340 && y <= 486) {
+      return false;
+    }
+    if (x >= 342 && x < 450 && y > 360) {
+      return false;
+    }
+    if (x >= 450 && x <= 486 && y >= 378) {
       return false;
     }
     return true;
   }
 
   public Boolean checkRiverLowerHalfRightSideAndMid(int x, int y) {
-    if (x > 342 && x < 450 && y > 360) {
+ /*   if (x > 342 && x < 450 && y > 360) {
       return false;
     }
     if (x >= 450 && x < 486 && y > 378) {
@@ -63,7 +70,7 @@ public class IllegalMoveCheckerMapObjects {
     }
     if (x == 486 && y > 378) {
       return false;
-    }
+    }*/
     return true;
   }
 
@@ -75,17 +82,17 @@ public class IllegalMoveCheckerMapObjects {
   }
 
   public Boolean checkBuildingBottomRight(int x, int y) {
-    if(x >= 600 && y > 414 && y < 636) {
+    if (x >= 600 && y > 414 && y < 636) {
       return false;
     }
     return true;
   }
 
   public Boolean checkBuildingTopRight(int x, int y) {
-    if(x > 604 && y < 355){
+    if (x > 604 && y < 355) {
       return false;
     }
-    if(x > 582 && y < 64) {
+    if (x > 582 && y < 64) {
       return false;
     }
     return true;

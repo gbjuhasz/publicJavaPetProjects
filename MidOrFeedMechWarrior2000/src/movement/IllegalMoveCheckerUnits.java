@@ -6,6 +6,7 @@ import units.Unit;
 public class IllegalMoveCheckerUnits {
 
   public boolean isMoveLegal(int posX, int posY, List<Unit> listOfAllUnits){
+
     for(Unit unit : listOfAllUnits){
       if (posX >= unit.getPosX() &&
       posX <= unit.getPosX() + 36 &&

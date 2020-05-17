@@ -14,8 +14,6 @@ public class MechHeroMovementManager extends BotMovementManager {
                                         int roundCounter) {
 
     if (mechHero.getUnitTargeted() != null || mechHero.getMouseEventMarkingLocation() != null) {
-      int currentX = mechHero.getPosX();
-      int currentY = mechHero.getPosY();
 
       mechHero.calculateMouseEventDirection();
       String targetDirection = mechHero.getTargetDirection();

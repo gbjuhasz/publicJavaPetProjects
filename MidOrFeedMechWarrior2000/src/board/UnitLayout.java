@@ -35,10 +35,10 @@ public class UnitLayout {
     creepAllied4 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 0, 72, false, 500);
     creepAllied5 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 108, 90, false, 500);
     creepAllied6 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 197, 72, false, 500);
-    creepEnemy1 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 485, 576,true, 500);
+    creepEnemy1 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 500, 576,true, 500);
     creepEnemy2 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 558, 558,true, 500);
     creepEnemy3 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 600, 576,true, 500);
-    creepEnemy4 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 485, 576,false, 500);
+    creepEnemy4 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 500, 576,false, 500);
     creepEnemy5 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 558, 558,false, 500);
     creepEnemy6 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 600, 576,false, 500);
   }

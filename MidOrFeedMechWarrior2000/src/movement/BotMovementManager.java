@@ -16,9 +16,6 @@ public abstract class BotMovementManager extends MovementManager {
                        List<Unit> listOfAllUnits,
                        int roundCounter) {
 
-    int currentX = unitMakingMove.getPosX();
-    int currentY = unitMakingMove.getPosY();
-
     unitMakingMove.calculateTargetDirection(unitDestination);
     String targetDirection = unitMakingMove.getTargetDirection();
 

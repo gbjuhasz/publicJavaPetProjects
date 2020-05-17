@@ -7,7 +7,7 @@ public abstract class Mech extends Unit {
   private int attackRange = 144;
   private int attackDamage = 50;
   private int healthPoints = 700;
-  private int respawnHealthPoints = 700000; //for testing
+  private int respawnHealthPoints = 700000000; //for testing
   private int armorRating = 0;
   private int missChance = 1;
   private int mechLevel = 1;
