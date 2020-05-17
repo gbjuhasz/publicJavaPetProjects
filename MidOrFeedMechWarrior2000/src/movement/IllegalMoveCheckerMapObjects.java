@@ -55,7 +55,7 @@ public class IllegalMoveCheckerMapObjects {
     if (x >= 342 && x < 450 && y > 360) {
       return false;
     }
-    if (x >= 450 && x <= 486 && y >= 378) {
+    if (x >= 450 && x <= 486 && y > 378) {
       return false;
     }
     return true;

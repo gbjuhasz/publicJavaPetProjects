@@ -57,12 +57,16 @@ public class StuckUnitManager {
   //Help unit around building on the left side
 
   private void helpUnitAroundBuildingOntheLeftSide(int x, int y, Unit unit) {
-    if (x <= 145 && y >= 290) {
+    if (x < 145 && y >= 290) {
       unit.setPosX(unit.getPosX() + 1);
       if (y == 290) {
         unit.setFacingDirection("RIGHT");
       } else if (x == 144) {
-        unit.setFacingDirection("DOWN");
+        if(unit.getTargetDirection().contains("S")) {
+          unit.setFacingDirection("DOWN");
+        } else {
+          unit.setFacingDirection("UP");
+        }
       } else if (y == 450) {
         unit.setFacingDirection("RIGHT");
       }
@@ -111,7 +115,7 @@ public class StuckUnitManager {
         unit.setFacingDirection("RIGHT");
       }
     }
-    if (x > 450 && x < 486 && y >= 378) {
+    if (x > 450 && x <= 486 && y >= 378) {
       if (unit.getTargetDirection().contains("W")) {
         unit.setPosX(unit.getPosX() - 1);
         unit.setPosY(unit.getPosY() - 1);
