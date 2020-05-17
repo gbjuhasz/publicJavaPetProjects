@@ -21,11 +21,12 @@ public abstract class BotMovementManager extends MovementManager {
 
     changeCoordinatesTowardsTargetDirection(unitMakingMove, listOfAllUnits, targetDirection, roundCounter);
 
-    if(!illegalMoveCheckerMapObjects.isMoveLegal(unitMakingMove.getPosX(), unitMakingMove.getPosY())) {
+    if (!illegalMoveCheckerMapObjects.isMoveLegal(unitMakingMove.getPosX(), unitMakingMove.getPosY())) {
       unitMakingMove.setPosX(unitMakingMove.getPreviousX());
       unitMakingMove.setPosY(unitMakingMove.getPreviousY());
       stuckUnitManager.helpIfUnitIsStuck(unitMakingMove);
     }
+    checkAndSetFacingDirection(unitMakingMove);
     unitMakingMove.calculateImageCenterCoordinates();
     BufferedImage newImage = pickImage(findImageFileLocation(unitMakingMove.getFacingDirection(),
             unitMakingMove.getFeetForward()));
@@ -44,30 +45,30 @@ public abstract class BotMovementManager extends MovementManager {
 
     if (targetDirection.contains("N")) {
       futureY = futureY - 1;
-      if (targetDirection.length() == 1) {
+  /*    if (targetDirection.length() == 1) {
         unitMakingMove.setFacingDirection("UP");
-      }
+      }*/
     } else if (targetDirection.contains("S")) {
       futureY = futureY + 1;
-      if (targetDirection.length() == 1) {
+  /*    if (targetDirection.length() == 1) {
         unitMakingMove.setFacingDirection("DOWN");
-      }
+      }*/
     }
 
     if (targetDirection.contains("W")) {
       futureX = futureX - 1;
-      unitMakingMove.setFacingDirection("LEFT");
+      //    unitMakingMove.setFacingDirection("LEFT");
     } else if (targetDirection.contains("E")) {
       futureX = futureX + 1;
-      unitMakingMove.setFacingDirection("RIGHT");
+//      unitMakingMove.setFacingDirection("RIGHT");
     }
-    for (int i = 0; i < listOfAllUnits.size() ; i++) {
-      if(listOfAllUnits.get(i).getPosX() == currentX &&
-      listOfAllUnits.get(i).getPosY() == currentY){
+    for (int i = 0; i < listOfAllUnits.size(); i++) {
+      if (listOfAllUnits.get(i).getPosX() == currentX &&
+              listOfAllUnits.get(i).getPosY() == currentY) {
         listOfAllUnits.remove(i);
       }
     }
-    if(!illegalMoveCheckerUnits.isMoveLegal(futureX,futureY,listOfAllUnits)){
+    if (!illegalMoveCheckerUnits.isMoveLegal(futureX, futureY, listOfAllUnits)) {
       unitMakingMove.setPreviousX(currentX);
       unitMakingMove.setPreviousY(currentY);
     } else {
@@ -75,6 +76,20 @@ public abstract class BotMovementManager extends MovementManager {
       unitMakingMove.setPreviousY(currentY);
       unitMakingMove.setPosX(futureX);
       unitMakingMove.setPosY(futureY);
+    }
+  }
+
+  public void checkAndSetFacingDirection(Unit unitMakingMove) {
+    int posXChange = unitMakingMove.getPosX() - unitMakingMove.getPreviousX();
+    int posYChange = unitMakingMove.getPosY() - unitMakingMove.getPreviousY();
+    if (posXChange > 0) {
+      unitMakingMove.setFacingDirection("RIGHT");
+    } else if (posXChange < 0) {
+      unitMakingMove.setFacingDirection("LEFT");
+    } else if (posYChange < 0) {
+      unitMakingMove.setFacingDirection("UP");
+    } else if (posYChange > 0) {
+      unitMakingMove.setFacingDirection("DOWN");
     }
   }
 }

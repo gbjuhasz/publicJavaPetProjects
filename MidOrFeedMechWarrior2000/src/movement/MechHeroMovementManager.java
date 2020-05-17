@@ -24,6 +24,7 @@ public class MechHeroMovementManager extends BotMovementManager {
         mechHero.setPosY(mechHero.getPreviousY());
         stuckUnitManager.helpIfUnitIsStuck(mechHero);
       }
+      checkAndSetFacingDirection(mechHero);
       mechHero.calculateImageCenterCoordinates();
       BufferedImage newImage = pickImage(findImageFileLocation(mechHero.getFacingDirection(),
               isItTimeToSwitchFeet(mechHero,roundCounter)));
