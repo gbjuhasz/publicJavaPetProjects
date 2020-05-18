@@ -67,7 +67,7 @@ public class IllegalMoveCheckerMapObjects {
   }
 
   private Boolean checkBuildingBottomRight(int x, int y) {
-    if (x >= 600 && y > 414 && y < 636) {
+    if (x > 600 && y > 414 && y < 636) {
       return false;
     }
     return true;

@@ -53,6 +53,7 @@ public class RespawnManager {
         creep.setPosX(creep.getRespawnX());
         creep.setPosY(creep.getRespawnY());
         creep.setSwitchFeetInRound(roundCounter+creep.getSwitchFeetEveryXRound());
+        creep.setHeadingTowardsWaypoint(0);
       }
     }
   }

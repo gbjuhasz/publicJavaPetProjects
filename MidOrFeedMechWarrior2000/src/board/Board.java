@@ -84,14 +84,14 @@ public class Board extends JComponent implements KeyListener, MouseListener {
       graphics.drawString(String.valueOf("X:" + unitLayout.getMechHero().getMouseEventMarkingLocation().getX())
               + "Y:" + String.valueOf(unitLayout.getMechHero().getMouseEventMarkingLocation().getY()), 760, 80);
     }
-    /*
+
     for (Creep creep : unitLayout.getListOfCreepAllied()) {
-      graphics.drawString("x:" + creep.getPosX() + "y:" + creep.getPosY() + " respawn at:" + creep.getRoundToRespawn(), 760, posYForCoordinates);
+      graphics.drawString("waypoint:" + creep.getHeadingTowardsWaypoint(), 760, posYForCoordinates);
       posYForCoordinates = posYForCoordinates + 40;
     }
     ;
     for (Creep creep : unitLayout.getListOfCreepEnemy()) {
-      graphics.drawString("x:" + creep.getPosX() + "y:" + creep.getPosY() + " respawn at:" + creep.getRoundToRespawn(), 760, posYForCoordinates);
+      graphics.drawString("waypoint:" + creep.getHeadingTowardsWaypoint(), 760, posYForCoordinates);
       posYForCoordinates = posYForCoordinates + 40;
     }
     ;
@@ -142,6 +142,7 @@ public class Board extends JComponent implements KeyListener, MouseListener {
       ArrayList<Creep> listOfCreepAllied = unitLayout.getListOfCreepAllied();
       ArrayList<Creep> listOfCreepEnemy = unitLayout.getListOfCreepEnemy();
       List<Unit> listOfAllUnits = unitLayout.getAllUnits();
+      List<Mech> listOfMechs = unitLayout.getListOfMechs();
 
       ActionListener al = new ActionListener() {
         @Override
@@ -153,6 +154,7 @@ public class Board extends JComponent implements KeyListener, MouseListener {
                   turretAllied,
                   turretEnemy,
                   listOfAllUnits,
+                  listOfMechs,
                   roundCounter);
           respawnManager.respawnUnits(mechHero, mechEnemy, listOfCreepAllied, listOfCreepEnemy, roundCounter);
           roundCounter++;

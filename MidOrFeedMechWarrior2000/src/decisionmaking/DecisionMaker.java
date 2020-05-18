@@ -3,10 +3,7 @@ package decisionmaking;
 import fighting.AttackManager;
 import java.util.ArrayList;
 import java.util.List;
-import units.Creep;
-import units.Mech;
-import units.Turret;
-import units.Unit;
+import units.*;
 
 public abstract class DecisionMaker {
 
@@ -17,12 +14,13 @@ public abstract class DecisionMaker {
                                     ArrayList<Creep> listOfCreeps,
                                     Turret turret,
                                     List<Unit> listOfAllUnits,
+                                    List<Mech> listOfMechs,
                                     int roundCounter) {
 
-    isItTimeToSwitchFeet(unitMakingDecision,roundCounter);
+    isItTimeToSwitchFeet(unitMakingDecision, roundCounter);
 
     if (findTargetInAttackRange(unitMakingDecision, mech, listOfCreeps, turret) != null) {
-      attackTarget(unitMakingDecision, findTargetInAttackRange(unitMakingDecision, mech, listOfCreeps, turret), roundCounter);
+      attackTarget(unitMakingDecision, findTargetInAttackRange(unitMakingDecision, mech, listOfCreeps, turret),listOfMechs, roundCounter);
     } else if (findTargetInDetectionRange(unitMakingDecision, mech, listOfCreeps, turret) != null) {
       moveTowardsTargetUnit(unitMakingDecision, findTargetInDetectionRange(unitMakingDecision, mech, listOfCreeps, turret), listOfAllUnits, roundCounter);
     } else {
@@ -44,7 +42,7 @@ public abstract class DecisionMaker {
     }
     for (Creep creep : listOfCreeps) {
       if (unitMakingDecision.calculateDistanceBetweenUnits(creep) <= attackRange &&
-      creep.isAlive()) {
+              creep.isAlive()) {
         return creep;
       }
     }
@@ -72,13 +70,13 @@ public abstract class DecisionMaker {
     }
     for (Creep creep : listOfCreeps) {
       if (unitMakingDecision.calculateDistanceBetweenUnits(creep) <= detectionRange &&
-      creep.isAlive()) {
+              creep.isAlive()) {
         return creep;
       }
     }
     if (!mech.isThreatToHeroUnit()
             && unitMakingDecision.calculateDistanceBetweenUnits(mech) <= detectionRange &&
-    mech.isAlive()) {
+            mech.isAlive()) {
       return mech;
     } else if (unitMakingDecision.calculateDistanceBetweenUnits(turret) <= detectionRange) {
       return turret;
@@ -89,15 +87,15 @@ public abstract class DecisionMaker {
   public void moveTowardsTargetUnit(Unit unitMakingMove, Unit unitTarget, List<Unit> listOfAllUnit, int roundCounter) {
   }
 
-  public void attackTarget(Unit unitAttacking, Unit unitTarget, int roundCounter) {
-    attackManager.attackTargetUnit(unitAttacking,unitTarget, roundCounter);
+  public void attackTarget(Unit unitAttacking, Unit unitTarget, List<Mech> listOfMechs, int roundCounter) {
+    attackManager.attackTargetUnit(unitAttacking, unitTarget, listOfMechs, roundCounter);
   }
 
   public String isItTimeToSwitchFeet(Unit unitMoving, int roundCounter) {
 
 
-    if(unitMoving.getSwitchFeetInRound() == roundCounter){
-      if(unitMoving.getFeetForward().equals("ODD")){
+    if (unitMoving.getSwitchFeetInRound() == roundCounter) {
+      if (unitMoving.getFeetForward().equals("ODD")) {
         unitMoving.setFeetForward("EVEN");
         unitMoving.setSwitchFeetInRound(roundCounter + unitMoving.getSwitchFeetEveryXRound());
       } else {
@@ -108,4 +106,7 @@ public abstract class DecisionMaker {
     return unitMoving.getFeetForward();
   }
 
+  public Waypoint followiWaypoints(Creep creep) {
+    return creep.getListOfWaypointsToFollow().get(creep.getHeadingTowardsWaypoint());
+  }
 }

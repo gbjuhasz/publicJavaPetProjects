@@ -1,18 +1,21 @@
 package units;
 
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Creep extends Unit {
   //fields for fighting
   private int attackRange = 72;
-  private int attackDamage = 5;
+  private int attackDamage = 200;
   private int healthPoints = 550;
   private int respawnHealthPoints = 550;
   private int armorRating = 0;
-  private int detectionRange = 216;
+  private int detectionRange = 144;
   private int missChance = 2;
   private int roundToRespawn;
   private int waveSpawnTimer;
+  private List<Waypoint> listOfWaypointsToFollow = new ArrayList<>();
+  private int headingTowardsWaypoint = 0;
   //fields for decision making
 
   @Override
@@ -53,6 +56,14 @@ public abstract class Creep extends Unit {
     return waveSpawnTimer;
   }
 
+  public List<Waypoint> getListOfWaypointsToFollow() {
+    return listOfWaypointsToFollow;
+  }
+
+  public int getHeadingTowardsWaypoint() {
+    return headingTowardsWaypoint;
+  }
+
   @Override
   public int getRespawnHealthPoints() {
     return respawnHealthPoints;
@@ -69,5 +80,13 @@ public abstract class Creep extends Unit {
 
   public void setRoundToRespawn(int roundToRespawn) {
     this.roundToRespawn = roundToRespawn;
+  }
+
+  public void setListOfWaypointsToFollow(List<Waypoint> listOfWaypointsToFollow) {
+    this.listOfWaypointsToFollow = listOfWaypointsToFollow;
+  }
+
+  public void setHeadingTowardsWaypoint(int headingTowardsWaypoint) {
+    this.headingTowardsWaypoint = headingTowardsWaypoint;
   }
 }

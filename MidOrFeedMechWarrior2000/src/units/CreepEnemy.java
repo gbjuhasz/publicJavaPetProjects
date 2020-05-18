@@ -3,13 +3,18 @@ package units;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Random;
 import javax.imageio.ImageIO;
 
 public class CreepEnemy extends Creep {
 
-  public CreepEnemy(String fileLocation, int x, int y, boolean isAlive,
-                    int waveTimer) {
+  public CreepEnemy(String fileLocation,
+                    int x,
+                    int y,
+                    boolean isAlive,
+                    int waveTimer,
+                    List<Waypoint> waypointList) {
 
     if (isAlive) {
       super.setPosX(x);
@@ -26,6 +31,7 @@ public class CreepEnemy extends Creep {
     super.setWaveSpawnTimer(waveTimer);
     super.calculateImageCenterCoordinates();
     super.setUnitType("creepEnemy");
+    super.setListOfWaypointsToFollow(waypointList);
     Random random = new Random();
     super.setFeetForward(super.getFeetImageNames()[random.nextInt(2)]);
 

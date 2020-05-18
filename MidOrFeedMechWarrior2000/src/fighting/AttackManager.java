@@ -1,13 +1,15 @@
 package fighting;
 
+import java.util.List;
 import java.util.Random;
+import units.Mech;
 import units.Unit;
 
 public class AttackManager {
 
   Random random = new Random();
 
-  public void attackTargetUnit(Unit unitAttacking, Unit unitTargeted, int roundCounter){
+  public void attackTargetUnit(Unit unitAttacking, Unit unitTargeted, List<Mech> listOfMechs, int roundCounter){
     if(attackMissed(unitAttacking)){
       int unitTargetedHP = unitTargeted.getHealthPoints();
       int unitTargetedArmor = unitTargeted.getArmorRating();

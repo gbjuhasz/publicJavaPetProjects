@@ -20,6 +20,7 @@ public class OneRoundOfAction {
                                       Turret turretAllied,
                                       Turret turretEnemy,
                                       List<Unit> listOfAllUnits,
+                                      List<Mech> listOfMechs,
                                       int roundCounter) {
 
     if(mechHero.isAlive()){
@@ -28,6 +29,7 @@ public class OneRoundOfAction {
               listOfCreepEnemy,
               turretEnemy,
               listOfAllUnits,
+              listOfMechs,
               roundCounter);
     }
 
@@ -38,6 +40,7 @@ public class OneRoundOfAction {
                 listOfCreepEnemy,
                 turretEnemy,
                 listOfAllUnits,
+                listOfMechs,
                 roundCounter);
       }
     }
@@ -48,6 +51,7 @@ public class OneRoundOfAction {
                 listOfCreepAllied,
                 turretAllied,
                 listOfAllUnits,
+                listOfMechs,
                 roundCounter);
       }
     }
@@ -57,6 +61,7 @@ public class OneRoundOfAction {
               listOfCreepAllied,
               turretAllied,
               listOfAllUnits,
+              listOfMechs,
               roundCounter);
     }
     turretDecisionMaker.reactToPlayerMovement(turretAllied,
@@ -64,6 +69,7 @@ public class OneRoundOfAction {
             listOfCreepEnemy,
             turretEnemy,
             listOfAllUnits,
+            listOfMechs,
             roundCounter);
 
     turretDecisionMaker.reactToPlayerMovement(turretEnemy,
@@ -71,6 +77,7 @@ public class OneRoundOfAction {
             listOfCreepAllied,
             turretAllied,
             listOfAllUnits,
+            listOfMechs,
             roundCounter);
   }
 }

@@ -33,6 +33,7 @@ public class MechHeroMouseClickReactionManager {
                                 MechEnemy mechEnemy,
                                 ArrayList<Creep> listOfCreepEnemy,
                                 Turret turretEnemy,
+                                List<Mech> listOfMechs,
                                 MouseEvent mouseEvent
   ) {
 

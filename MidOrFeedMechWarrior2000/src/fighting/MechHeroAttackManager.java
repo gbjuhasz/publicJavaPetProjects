@@ -4,13 +4,15 @@ import fighting.AttackManager;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import javax.imageio.ImageIO;
+import units.Mech;
 import units.MechHero;
 import units.Unit;
 
 public class MechHeroAttackManager extends AttackManager {
 
-  public void attackTargetUnitWithMechHero(MechHero mechHero, Unit unitTargeted, int roundCounter) {
+  public void attackTargetUnitWithMechHero(MechHero mechHero, Unit unitTargeted, List<Mech> listOfMechs, int roundCounter) {
     if (mechHero.calculateDistanceBetweenUnits(unitTargeted) < mechHero.getAttackRange()) {
       if (attackMissed(mechHero)) {
         int unitTargetedHP = unitTargeted.getHealthPoints();

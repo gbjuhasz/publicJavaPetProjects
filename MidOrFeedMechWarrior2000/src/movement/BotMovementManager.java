@@ -28,8 +28,8 @@ public abstract class BotMovementManager extends MovementManager {
       stuckUnitManager.helpIfUnitIsStuck(unitMakingMove);
     }
 
-    if(unitDestination.getUnitType().contains("creep")) {
-      checkCreepsForCollision(unitMakingMove,listOfAllUnits,targetDirection);
+    if (unitDestination.getUnitType().contains("creep")) {
+      checkCreepsForCollision(unitMakingMove, listOfAllUnits, targetDirection);
     }
 
     checkAndSetFacingDirection(unitMakingMove);
@@ -65,7 +65,8 @@ public abstract class BotMovementManager extends MovementManager {
     for (Unit unit : listOfAllUnits
     ) {
       if (unitMakingMove.getPosX() != unit.getPosX() &&
-              unitMakingMove.getPosY() != unit.getPosY()) {
+              unitMakingMove.getPosY() != unit.getPosY() &&
+              !unit.getUnitType().contains("mech")) {
         listOfAllUnitsWithoutUnitMakingMove.add(unit);
       }
     }
@@ -87,6 +88,7 @@ public abstract class BotMovementManager extends MovementManager {
   public void checkAndSetFacingDirection(Unit unitMakingMove) {
     int posXChange = unitMakingMove.getPosX() - unitMakingMove.getPreviousX();
     int posYChange = unitMakingMove.getPosY() - unitMakingMove.getPreviousY();
+
     if (posXChange > 0) {
       unitMakingMove.setFacingDirection("RIGHT");
     } else if (posXChange < 0) {
@@ -99,10 +101,10 @@ public abstract class BotMovementManager extends MovementManager {
   }
 
   private void checkCreepsForCollision(Unit unitMakingMove,
-                                      List<Unit> listOfAllUnits,
-                                      String targetDirection) {
+                                       List<Unit> listOfAllUnits,
+                                       String targetDirection) {
 
-    int currentX = unitMakingMove.getPosX();
+ /*   int currentX = unitMakingMove.getPosX();
     int currentY = unitMakingMove.getPosY();
 
     List<Unit> listOfAllUnitsWithoutUnitMakingMove = new ArrayList<>();
@@ -118,5 +120,6 @@ public abstract class BotMovementManager extends MovementManager {
       unitMakingMove.setPosX(unitMakingMove.getPreviousX());
       unitMakingMove.setPosY(unitMakingMove.getPreviousY());
     }
+  }*/
   }
 }

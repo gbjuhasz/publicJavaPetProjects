@@ -16,6 +16,7 @@ public class MechHeroDecisionMaker extends DecisionMaker {
                                   ArrayList<Creep> listOfCreeps,
                                   Turret turret,
                                   List<Unit> listOfAllUnits,
+                                  List<Mech> listOfMechs,
                                   int roundCounter) {
 
     isItTimeToSwitchFeet(mechHero,roundCounter);
@@ -23,7 +24,7 @@ public class MechHeroDecisionMaker extends DecisionMaker {
 
     if(mechHero.getUnitTargeted() != null){
       if(mechHero.calculateDistanceBetweenUnits(mechHero.getUnitTargeted()) <= mechHero.getAttackRange()){
-        mechHeroAttackManager.attackTargetUnitWithMechHero(mechHero, mechHero.getUnitTargeted(), roundCounter);
+        mechHeroAttackManager.attackTargetUnitWithMechHero(mechHero, mechHero.getUnitTargeted(), listOfMechs, roundCounter);
       } else {
         mechHeroMovementManager.moveUnit(mechHero, mechHero.getUnitTargeted(),listOfAllUnits, roundCounter);
       }

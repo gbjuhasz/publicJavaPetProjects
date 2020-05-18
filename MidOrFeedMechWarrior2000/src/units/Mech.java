@@ -5,7 +5,7 @@ import java.util.Random;
 public abstract class Mech extends Unit {
   //fields for fighting
   private int attackRange = 144;
-  private int attackDamage = 50;
+  private int attackDamage = 25;
   private int healthPoints = 700;
   private int respawnHealthPoints = 700000000; //for testing
   private int armorRating = 0;
