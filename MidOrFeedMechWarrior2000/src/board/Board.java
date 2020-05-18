@@ -179,12 +179,15 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     ArrayList<Creep> listOfCreepEnemy = unitLayout.getListOfCreepEnemy();
     List<Unit> listOfAllUnits = unitLayout.getAllUnits();
     MechHeroMouseClickReactionManager mechHeroMouseClickReactionManager = new MechHeroMouseClickReactionManager();
+    List<Mech> listOfMechs = unitLayout.getListOfMechs();
+
 
     if (SwingUtilities.isRightMouseButton(e)) {
       mechHeroMouseClickReactionManager.reactToRightClick(mechHero,
               mechEnemy,
               listOfCreepEnemy,
               turretEnemy,
+              listOfMechs,
               e);
     } else {
       mechHeroMouseClickReactionManager.reactToLeftClick(listOfAllUnits, e);

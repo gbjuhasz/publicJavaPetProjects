@@ -11,6 +11,7 @@ public abstract class Mech extends Unit {
   private int armorRating = 0;
   private int missChance = 1;
   private int mechLevel = 1;
+  private int mechXP = 0;
   private int roundsToRespawn = mechLevel * 5 ;
   //fields for decision making
 
@@ -53,6 +54,10 @@ public abstract class Mech extends Unit {
     return roundsToRespawn;
   }
 
+  public int getMechXP() {
+    return mechXP;
+  }
+
   @Override
   public void setHealthPoints(int healthPoints) {
     this.healthPoints = healthPoints;
@@ -60,5 +65,9 @@ public abstract class Mech extends Unit {
 
   public void setMechLevel(int mechLevel) {
     this.mechLevel = mechLevel;
+  }
+
+  public void setMechXP(int mechXP) {
+    this.mechXP = mechXP;
   }
 }

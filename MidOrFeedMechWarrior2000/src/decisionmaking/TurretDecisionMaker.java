@@ -16,10 +16,11 @@ public class TurretDecisionMaker extends DecisionMaker {
                                     ArrayList<Creep> listOfCreeps,
                                     Turret turret,
                                     List<Unit> listOfAllUnits,
+                                    List<Mech> listOfMechs,
                                     int roundCounter) {
 
     if (findTargetInAttackRange(unitMakingDecision, mech, listOfCreeps, turret) != null) {
-      attackTarget(unitMakingDecision, findTargetInAttackRange(unitMakingDecision, mech, listOfCreeps, turret), roundCounter);
+      attackTarget(unitMakingDecision, findTargetInAttackRange(unitMakingDecision, mech, listOfCreeps, turret), listOfMechs, roundCounter);
     }
   }
 
