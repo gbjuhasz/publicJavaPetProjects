@@ -1,5 +1,7 @@
 package units;
 
+import java.util.HashMap;
+
 public abstract class Mech extends Unit {
   //fields for fighting
   private int attackRange = 144;
@@ -9,6 +11,16 @@ public abstract class Mech extends Unit {
   private int armorRating = 0 + super.getLevel();
   private int missChance = 1;
   private int roundsToRespawn = super.getLevel() * 5 ;
+  //fields for levelling
+  private HashMap<Integer, Integer> xpBounty = new HashMap() {{
+    put(1, 70);
+    put(2, 118);
+    put(3, 180);
+    put(4, 255);
+    put(5, 333);
+    put(6, 427);
+  }};
+
   //fields for decision making
 
 
@@ -52,4 +64,8 @@ public abstract class Mech extends Unit {
     this.healthPoints = healthPoints;
   }
 
+  @Override
+  public HashMap<Integer, Integer> getXpBounty() {
+    return xpBounty;
+  }
 }

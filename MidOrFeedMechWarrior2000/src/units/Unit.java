@@ -30,8 +30,14 @@ public abstract class Unit {
   //fields for levelling
   private int level = 1;
   private int experiencePoints = 0;
-  //230,600,1080,1660,2260
-  private HashMap<Integer, Integer> xpNeededForLevelUp = new HashMap(){{put(2, 230); put(3,600); put(4,1080);put(5,1660); put(6,2260);}};
+  private HashMap<Integer, Integer> xpNeededForLevelUp = new HashMap() {{
+    put(2, 230);
+    put(3, 600);
+    put(4, 1080);
+    put(5, 1660);
+    put(6, 2260);
+  }};
+  private HashMap<Integer, Integer> xpBounty;
   //fields for respawning
   private boolean isAlive = true;
   private int roundDied;
@@ -145,6 +151,10 @@ public abstract class Unit {
 
   public String[] getFeetImageNames() {
     return feetImageNames;
+  }
+
+  public HashMap<Integer, Integer> getXpBounty() {
+    return xpBounty;
   }
 
   public boolean isHighlighted() {

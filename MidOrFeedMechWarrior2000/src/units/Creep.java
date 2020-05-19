@@ -1,6 +1,7 @@
 package units;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public abstract class Creep extends Unit {
@@ -16,7 +17,15 @@ public abstract class Creep extends Unit {
   private int waveSpawnTimer;
   private List<Waypoint> listOfWaypointsToFollow = new ArrayList<>();
   private int headingTowardsWaypoint = 0;
-  //fields for decision making
+  //fields for levelling
+  private HashMap<Integer, Integer> xpBounty = new HashMap() {{
+    put(1, 30);
+    put(2, 60);
+    put(3, 90);
+    put(4, 120);
+    put(5, 150);
+    put(6, 180);
+  }};
 
   @Override
   public int getDetectionRange() {
@@ -67,6 +76,11 @@ public abstract class Creep extends Unit {
   @Override
   public int getRespawnHealthPoints() {
     return respawnHealthPoints;
+  }
+
+  @Override
+  public HashMap<Integer, Integer> getXpBounty() {
+    return xpBounty;
   }
 
   public void setWaveSpawnTimer(int waveSpawnTimer) {
