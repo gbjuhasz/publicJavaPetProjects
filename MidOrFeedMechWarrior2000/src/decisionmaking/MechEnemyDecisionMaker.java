@@ -1,5 +1,6 @@
 package decisionmaking;
 
+import board.BoardComponent;
 import movement.MechEnemyMovementManager;
 import java.util.List;
 import units.Unit;
@@ -10,12 +11,12 @@ public class MechEnemyDecisionMaker extends DecisionMaker {
 
   @Override
   public void moveTowardsTargetUnit(Unit unitMakingMove,
-                                    Unit unitTarget,
+                                    BoardComponent boardComponent,
                                     List<Unit> listOfAllUnits,
                                     int roundCounter) {
-    unitMakingMove.calculateTargetDirection(unitTarget);
+    unitMakingMove.calculateTargetDirection(boardComponent);
     mechEnemyMovementManager.moveUnit(unitMakingMove,
-            unitTarget,
+            boardComponent,
             listOfAllUnits,
             roundCounter);
   }

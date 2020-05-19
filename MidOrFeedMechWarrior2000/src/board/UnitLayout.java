@@ -30,18 +30,18 @@ public class UnitLayout {
     mechEnemy = new MechEnemy("images/mechenemy/MechEnemyUp.png", 558, 648);
     turretAllied = new TurretAllied();
     turretEnemy = new TurretEnemy();
-    creepAllied1 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 0, 90, true, 500, waypointLayout.getWaypointListBottomAllied());
-    creepAllied2 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 90, 45, true, 500, waypointLayout.getWaypointListMidAllied());
-    creepAllied3 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 180, 0, true, 500, waypointLayout.getWaypointListTopAllied());
-    creepAllied4 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 0, 90, false, 500, waypointLayout.getWaypointListBottomAllied());
-    creepAllied5 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 90, 45, false, 500, waypointLayout.getWaypointListMidAllied());
-    creepAllied6 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 180, 0, false, 500, waypointLayout.getWaypointListTopAllied());
-    creepEnemy1 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 500, 575, true, 500, waypointLayout.getWaypointListBottomEnemy());
-    creepEnemy2 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 550, 550, true, 500, waypointLayout.getWaypointListMidEnemy());
-    creepEnemy3 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 600, 500, true, 500, waypointLayout.getWaypointListTopEnemy());
-    creepEnemy4 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 500, 575, false, 500, waypointLayout.getWaypointListBottomEnemy());
-    creepEnemy5 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 550, 550, false, 500, waypointLayout.getWaypointListMidEnemy());
-    creepEnemy6 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 600, 500, false, 500, waypointLayout.getWaypointListTopEnemy());
+    creepAllied1 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 0, 90, true, 5000, waypointLayout.getWaypointListBottomAllied());
+    creepAllied2 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 90, 45, true, 5000, waypointLayout.getWaypointListMidAllied());
+    creepAllied3 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 180, 0, true, 5000, waypointLayout.getWaypointListTopAllied());
+    creepAllied4 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 0, 90, false, 5000, waypointLayout.getWaypointListBottomAllied());
+    creepAllied5 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 90, 45, false, 5000, waypointLayout.getWaypointListMidAllied());
+    creepAllied6 = new CreepAllied("images/creepallied/CreepAlliedDownEven.png", 180, 0, false, 5000, waypointLayout.getWaypointListTopAllied());
+    creepEnemy1 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 500, 575, true, 5000, waypointLayout.getWaypointListBottomEnemy());
+    creepEnemy2 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 550, 550, true, 5000, waypointLayout.getWaypointListMidEnemy());
+    creepEnemy3 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 600, 500, true, 5000, waypointLayout.getWaypointListTopEnemy());
+    creepEnemy4 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 500, 575, false, 5000, waypointLayout.getWaypointListBottomEnemy());
+    creepEnemy5 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 550, 550, false, 5000, waypointLayout.getWaypointListMidEnemy());
+    creepEnemy6 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 600, 500, false, 5000, waypointLayout.getWaypointListTopEnemy());
   }
 
   public MechHero getMechHero() {

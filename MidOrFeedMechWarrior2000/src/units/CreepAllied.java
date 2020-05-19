@@ -1,5 +1,6 @@
 package units;
 
+import waypoints.Waypoint;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;

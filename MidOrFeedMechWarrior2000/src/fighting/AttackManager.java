@@ -12,22 +12,26 @@ public class AttackManager {
   LevelUpManager levelUpManager = new LevelUpManager();
 
   public void attackTargetUnit(Unit unitAttacking, Unit unitTargeted, List<Mech> listOfMechs, int roundCounter) {
-    if (attackMissed(unitAttacking)) {
-      int unitTargetedHP = unitTargeted.getHealthPoints();
-      int unitTargetedArmor = unitTargeted.getArmorRating();
-      int unitAttackingDamage = unitAttacking.getAttackDamage();
-      unitTargeted.setHealthPoints(unitTargetedHP - unitAttackingDamage + unitTargetedArmor);
-      if (unitTargeted.getHealthPoints() <= 0) {
-        unitTargeted.setAlive(false);
-        unitTargeted.setRoundDied(roundCounter);
-        unitTargeted.setPosX(-100);
-        unitTargeted.setPosY(-100);
-        levelUpManager.grantXpToMechs(unitTargeted,listOfMechs);
+    if (unitAttacking.getRoundAttackNextTime() <= roundCounter) {
+      unitAttacking.setRoundAttackedLastTime(roundCounter);
+      unitAttacking.setRoundAttackNextTime(unitAttacking.getRoundAttackedLastTime() + unitAttacking.getRoundsPerAttack());
+      if (attackHit(unitAttacking)) {
+        int unitTargetedHP = unitTargeted.getHealthPoints();
+        int unitTargetedArmor = unitTargeted.getArmorRating();
+        int unitAttackingDamage = unitAttacking.getAttackDamage();
+        unitTargeted.setHealthPoints(unitTargetedHP - unitAttackingDamage + unitTargetedArmor);
+        if (unitTargeted.getHealthPoints() <= 0) {
+          unitTargeted.setAlive(false);
+          unitTargeted.setRoundDied(roundCounter);
+          unitTargeted.setPosX(-100);
+          unitTargeted.setPosY(-100);
+          levelUpManager.grantXpToMechs(unitTargeted, listOfMechs);
+        }
       }
     }
   }
 
-  public Boolean attackMissed(Unit unitAttacking) {
+  public Boolean attackHit(Unit unitAttacking) {
     int randomNumber = random.nextInt(10);
     return randomNumber > unitAttacking.getMissChance();
   }

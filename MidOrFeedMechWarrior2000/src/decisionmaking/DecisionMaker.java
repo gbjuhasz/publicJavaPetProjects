@@ -1,5 +1,6 @@
 package decisionmaking;
 
+import board.BoardComponent;
 import fighting.AttackManager;
 import java.util.ArrayList;
 import java.util.List;
@@ -84,7 +85,7 @@ public abstract class DecisionMaker {
     return null;
   }
 
-  public void moveTowardsTargetUnit(Unit unitMakingMove, Unit unitTarget, List<Unit> listOfAllUnit, int roundCounter) {
+  public void moveTowardsTargetUnit(Unit unitMakingMove, BoardComponent boardComponent, List<Unit> listOfAllUnit, int roundCounter) {
   }
 
   public void attackTarget(Unit unitAttacking, Unit unitTarget, List<Mech> listOfMechs, int roundCounter) {
@@ -106,7 +107,7 @@ public abstract class DecisionMaker {
     return unitMoving.getFeetForward();
   }
 
-  public Waypoint followiWaypoints(Creep creep) {
+  public BoardComponent followWaypoints(Creep creep) {
     return creep.getListOfWaypointsToFollow().get(creep.getHeadingTowardsWaypoint());
   }
 }

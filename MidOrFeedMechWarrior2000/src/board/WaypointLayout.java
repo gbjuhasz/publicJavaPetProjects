@@ -2,7 +2,7 @@ package board;
 
 import java.util.ArrayList;
 import java.util.List;
-import units.Waypoint;
+import waypoints.Waypoint;
 
 public class WaypointLayout {
 

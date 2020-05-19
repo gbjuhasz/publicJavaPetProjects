@@ -1,5 +1,6 @@
 package units;
 
+import waypoints.Waypoint;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 public abstract class Creep extends Unit {
   //fields for fighting
   private int attackRange = 72;
-  private int attackDamage = 200;
+  private int attackDamage = 25;
   private int healthPoints = 550;
   private int respawnHealthPoints = 550;
   private int armorRating = 0;

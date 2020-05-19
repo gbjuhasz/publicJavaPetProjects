@@ -1,5 +1,6 @@
 package decisionmaking;
 
+import board.BoardComponent;
 import java.util.ArrayList;
 import java.util.List;
 import movement.CreepEnemyMovementManager;
@@ -28,8 +29,8 @@ public class CreepEnemyDecisionMaker extends DecisionMaker {
     } else if (findTargetInDetectionRange(unitMakingDecision, mech, listOfCreeps, turret) != null) {
       moveTowardsTargetUnit(unitMakingDecision, findTargetInDetectionRange(unitMakingDecision, mech, listOfCreeps, turret), listOfAllUnits, roundCounter);
     } else {
-      moveTowardsTargetUnit(unitMakingDecision, followiWaypoints(unitMakingDecision), listOfAllUnits, roundCounter);
-      if (unitMakingDecision.calculateDistanceBetweenUnits(followiWaypoints(unitMakingDecision)) < 18
+      moveTowardsTargetUnit(unitMakingDecision, followWaypoints(unitMakingDecision), listOfAllUnits, roundCounter);
+      if (unitMakingDecision.calculateDistanceBetweenUnits(followWaypoints(unitMakingDecision)) < 18
       && unitMakingDecision.getHeadingTowardsWaypoint() < unitMakingDecision.getListOfWaypointsToFollow().size()) {
         unitMakingDecision.setHeadingTowardsWaypoint(unitMakingDecision.getHeadingTowardsWaypoint() + 1);
       }
@@ -38,12 +39,12 @@ public class CreepEnemyDecisionMaker extends DecisionMaker {
 
   @Override
   public void moveTowardsTargetUnit(Unit unitMakingMove,
-                                    Unit unitTarget,
+                                    BoardComponent boardComponent,
                                     List<Unit> listOfAllUnits,
                                     int roundCounter) {
-    unitMakingMove.calculateTargetDirection(unitTarget);
+    unitMakingMove.calculateTargetDirection(boardComponent);
     creepEnemyMovementManager.moveUnit(unitMakingMove,
-            unitTarget,
+            boardComponent,
             listOfAllUnits,
             roundCounter);
   }

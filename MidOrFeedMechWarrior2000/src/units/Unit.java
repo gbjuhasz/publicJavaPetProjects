@@ -1,20 +1,18 @@
 package units;
 
+import board.BoardComponent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
-public abstract class Unit {
+public abstract class Unit extends BoardComponent {
   //fields for positioning on board, image picking and drawing effects
-  private int posX;
-  private int posY;
   private int previousX;
   private int previousY;
   private int imageMiddleX;
   private int imageMiddleY;
   private String facingDirection;
   private BufferedImage image;
-  private String unitType;
   private boolean isHighlighted = false;
   private int switchFeetInRound = 10;
   private int switchFeetEveryXRound = 10;
@@ -27,6 +25,9 @@ public abstract class Unit {
   private int attackRange;
   private int attackDamage;
   private int missChance;
+  private int roundsPerAttack = 100;
+  private int roundAttackedLastTime = -100;
+  private int roundAttackNextTime;
   //fields for levelling
   private int level = 1;
   private int experiencePoints = 0;
@@ -81,14 +82,6 @@ public abstract class Unit {
     return imageMiddleY;
   }
 
-  public int getPosX() {
-    return posX;
-  }
-
-  public int getPosY() {
-    return posY;
-  }
-
   public int getPreviousX() {
     return previousX;
   }
@@ -137,10 +130,6 @@ public abstract class Unit {
     return respawnHealthPoints;
   }
 
-  public String getUnitType() {
-    return unitType;
-  }
-
   public int getSwitchFeetInRound() {
     return switchFeetInRound;
   }
@@ -151,6 +140,18 @@ public abstract class Unit {
 
   public String[] getFeetImageNames() {
     return feetImageNames;
+  }
+
+  public int getRoundAttackedLastTime() {
+    return roundAttackedLastTime;
+  }
+
+  public int getRoundAttackNextTime() {
+    return roundAttackNextTime;
+  }
+
+  public int getRoundsPerAttack() {
+    return roundsPerAttack;
   }
 
   public HashMap<Integer, Integer> getXpBounty() {
@@ -209,14 +210,6 @@ public abstract class Unit {
     this.imageMiddleY = imageMiddleY;
   }
 
-  public void setPosX(int posX) {
-    this.posX = posX;
-  }
-
-  public void setPosY(int posY) {
-    this.posY = posY;
-  }
-
   public void setPreviousX(int previousX) {
     this.previousX = previousX;
   }
@@ -269,10 +262,6 @@ public abstract class Unit {
     this.respawnHealthPoints = respawnHealthPoints;
   }
 
-  public void setUnitType(String unitType) {
-    this.unitType = unitType;
-  }
-
   public void setHighlighted(boolean highlighted) {
     isHighlighted = highlighted;
   }
@@ -293,9 +282,21 @@ public abstract class Unit {
     this.level = level;
   }
 
+  public void setRoundAttackedLastTime(int roundAttackedLastTime) {
+    this.roundAttackedLastTime = roundAttackedLastTime;
+  }
+
+  public void setRoundAttackNextTime(int roundAttackNextTime) {
+    this.roundAttackNextTime = roundAttackNextTime;
+  }
+
+  public void setRoundsPerAttack(int roundsPerAttack) {
+    this.roundsPerAttack = roundsPerAttack;
+  }
+
   public void draw(Graphics graphics) {
     if (image != null) {
-      graphics.drawImage(image, posX, posY, null);
+      graphics.drawImage(image, super.getPosX(), super.getPosY(), null);
     }
   }
 
@@ -304,32 +305,32 @@ public abstract class Unit {
     setImageMiddleY(getPosY() + 36);
   }
 
-  public double calculateDistanceBetweenUnits(Unit otherUnit) {
-    int a = Math.abs(getPosX() - otherUnit.getPosX());
-    int b = Math.abs(getPosY() - otherUnit.getPosY());
+  public double calculateDistanceBetweenUnits(BoardComponent boardComponent) {
+    int a = Math.abs(getPosX() - boardComponent.getPosX());
+    int b = Math.abs(getPosY() - boardComponent.getPosY());
     double distance = Math.sqrt(a * a + b * b);
     return distance;
   }
 
-  public void calculateTargetDirection(Unit targetUnit) {
-    int targetX = targetUnit.getPosX();
-    int targetY = targetUnit.getPosY();
+  public void calculateTargetDirection(BoardComponent boardComponent) {
+    int targetX = boardComponent.getPosX();
+    int targetY = boardComponent.getPosY();
 
-    if (posX == targetX && posY < targetY) {
+    if (super.getPosX() == targetX && super.getPosY() < targetY) {
       setTargetDirection("S");
-    } else if (posX == targetX && posY > targetY) {
+    } else if (super.getPosX() == targetX && super.getPosY() > targetY) {
       setTargetDirection("N");
-    } else if (posX > targetX && posY == targetY) {
+    } else if (super.getPosX() > targetX && super.getPosY() == targetY) {
       setTargetDirection("W");
-    } else if (posX < targetX && posY == targetY) {
+    } else if (super.getPosX() < targetX && super.getPosY() == targetY) {
       setTargetDirection("E");
-    } else if (posX > targetX && posY < targetY) {
+    } else if (super.getPosX() > targetX && super.getPosY() < targetY) {
       setTargetDirection("SW");
-    } else if (posX < targetX && posY < targetY) {
+    } else if (super.getPosX() < targetX && super.getPosY() < targetY) {
       setTargetDirection("SE");
-    } else if (posX < targetX) {
+    } else if (super.getPosX() < targetX) {
       setTargetDirection("NE");
-    } else if (posX > targetX) {
+    } else if (super.getPosX() > targetX) {
       setTargetDirection("NW");
     }
   }

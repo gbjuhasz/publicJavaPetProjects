@@ -1,5 +1,6 @@
 package movement;
 
+import board.BoardComponent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +14,11 @@ public abstract class BotMovementManager extends MovementManager {
 
 
   public void moveUnit(Unit unitMakingMove,
-                       Unit unitDestination,
+                       BoardComponent boardComponent,
                        List<Unit> listOfAllUnits,
                        int roundCounter) {
 
-    unitMakingMove.calculateTargetDirection(unitDestination);
+    unitMakingMove.calculateTargetDirection(boardComponent);
     String targetDirection = unitMakingMove.getTargetDirection();
 
     changeCoordinatesTowardsTargetDirection(unitMakingMove, listOfAllUnits, targetDirection);
@@ -28,7 +29,7 @@ public abstract class BotMovementManager extends MovementManager {
       stuckUnitManager.helpIfUnitIsStuck(unitMakingMove);
     }
 
-    if (unitDestination.getUnitType().contains("creep")) {
+    if (boardComponent.getUnitType().contains("creep")) {
       checkCreepsForCollision(unitMakingMove, listOfAllUnits, targetDirection);
     }
 

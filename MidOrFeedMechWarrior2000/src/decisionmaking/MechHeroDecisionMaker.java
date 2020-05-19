@@ -1,13 +1,13 @@
 package decisionmaking;
 
-import fighting.AttackManager;
+import fighting.MechHeroAttackManager;
 import java.util.ArrayList;
 import java.util.List;
 import movement.MechHeroMovementManager;
 import units.*;
 
 public class MechHeroDecisionMaker extends DecisionMaker {
-AttackManager attackManager = new AttackManager();
+  MechHeroAttackManager mechHeroAttackManager = new MechHeroAttackManager();
   MechHeroMovementManager mechHeroMovementManager = new MechHeroMovementManager();
 
   public void reactToMouseCommand(MechHero mechHero,
@@ -18,21 +18,21 @@ AttackManager attackManager = new AttackManager();
                                   List<Mech> listOfMechs,
                                   int roundCounter) {
 
-    isItTimeToSwitchFeet(mechHero,roundCounter);
+    isItTimeToSwitchFeet(mechHero, roundCounter);
 
 
-    if(mechHero.getUnitTargeted() != null){
-      if(mechHero.calculateDistanceBetweenUnits(mechHero.getUnitTargeted()) <= mechHero.getAttackRange()){
-        attackManager.attackTargetUnit(mechHero, mechHero.getUnitTargeted(), listOfMechs, roundCounter);
+    if (mechHero.getUnitTargeted() != null) {
+      if (mechHero.calculateDistanceBetweenUnits(mechHero.getUnitTargeted()) <= mechHero.getAttackRange()) {
+        mechHeroAttackManager.attackTargetUnitWithMechHero(mechHero, mechHero.getUnitTargeted(), listOfMechs, roundCounter);
       } else {
-        mechHeroMovementManager.moveUnit(mechHero, mechHero.getUnitTargeted(),listOfAllUnits, roundCounter);
+        mechHeroMovementManager.moveUnit(mechHero, mechHero.getUnitTargeted(), listOfAllUnits, roundCounter);
       }
     }
-    if(mechHero.getUnitTargeted() == null &&
-    mechHero.getMouseEventMarkingLocation() != null){
-      mechHeroMovementManager.moveUnitTowardsMouseEvent(mechHero, listOfAllUnits,roundCounter);
+    if (mechHero.getUnitTargeted() == null &&
+            mechHero.getMouseEventMarkingLocation() != null) {
+      mechHeroMovementManager.moveUnitTowardsMouseEvent(mechHero, listOfAllUnits, roundCounter);
       if (mechHero.getPosX() == mechHero.getMouseEventMarkingLocation().getX() - 36 &&
-              mechHero.getPosY() == mechHero.getMouseEventMarkingLocation().getY() - 72){
+              mechHero.getPosY() == mechHero.getMouseEventMarkingLocation().getY() - 72) {
         mechHero.setMouseEventMarkingLocation(null);
       }
     }
