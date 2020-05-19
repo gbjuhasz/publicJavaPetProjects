@@ -66,24 +66,30 @@ public class AttackManager {
       if (unitTargeted.getUnitType().contains("Enemy")) {
         for (int i = 0; i < listOfMechs.size(); i++) {
           if (listOfMechs.get(i).getUnitType().contains("Hero")) {
-            listOfMechs.get(i).setMechXP(listOfMechs.get(i).getMechXP() + xp);
+            listOfMechs.get(i).setExperiencePoints(listOfMechs.get(i).getExperiencePoints() + xp);
           }
         }
       } else {
         for (int i = 0; i < listOfMechs.size(); i++) {
           if (listOfMechs.get(i).getUnitType().contains("Enemy")) {
-            listOfMechs.get(i).setMechXP(listOfMechs.get(i).getMechXP() + xp);
+            listOfMechs.get(i).setExperiencePoints(listOfMechs.get(i).getExperiencePoints() + xp);
           }
         }
       }
     }
-/*
-    if(unitTargeted.getUnitType().equals("mechEnemy")){
+
+    if (unitTargeted.getUnitType().equals("mechEnemy")) {
       for (int i = 0; i < listOfMechs.size(); i++) {
-        if (listOfMechs.get(i).getUnitType().contains("hero")) {
-          listOfMechs.get(i).setMechXP(listOfMechs.get(i).getMechXP() + unitTargeted.);
+        if (listOfMechs.get(i).getUnitType().contains("Hero")) {
+          listOfMechs.get(i).setExperiencePoints(listOfMechs.get(i).getExperiencePoints() + 70 * unitTargeted.getLevel());
         }
       }
-    }*/
+    }else if(unitTargeted.getUnitType().equals("mechHero")){
+      for (int i = 0; i < listOfMechs.size(); i++) {
+        if (listOfMechs.get(i).getUnitType().contains("mechEnemy")) {
+          listOfMechs.get(i).setExperiencePoints(listOfMechs.get(i).getExperiencePoints() + 70 * unitTargeted.getLevel());
+        }
+      }
+    }
   }
 }

@@ -1,18 +1,14 @@
 package units;
 
-import java.util.Random;
-
 public abstract class Mech extends Unit {
   //fields for fighting
   private int attackRange = 144;
   private int attackDamage = 25;
   private int healthPoints = 700;
-  private int respawnHealthPoints = 700000000; //for testing
+  private int respawnHealthPoints = 700; //for testing
   private int armorRating = 0;
   private int missChance = 1;
-  private int mechLevel = 1;
-  private int mechXP = 0;
-  private int roundsToRespawn = mechLevel * 5 ;
+  private int roundsToRespawn = super.getLevel() * 5 ;
   //fields for decision making
 
 
@@ -36,9 +32,6 @@ public abstract class Mech extends Unit {
     return attackRange;
   }
 
-  public int getMechLevel() {
-    return mechLevel;
-  }
 
   @Override
   public int getMissChance() {
@@ -54,20 +47,9 @@ public abstract class Mech extends Unit {
     return roundsToRespawn;
   }
 
-  public int getMechXP() {
-    return mechXP;
-  }
-
   @Override
   public void setHealthPoints(int healthPoints) {
     this.healthPoints = healthPoints;
   }
 
-  public void setMechLevel(int mechLevel) {
-    this.mechLevel = mechLevel;
-  }
-
-  public void setMechXP(int mechXP) {
-    this.mechXP = mechXP;
-  }
 }

@@ -1,5 +1,6 @@
 package decisionmaking;
 
+import fighting.AttackManager;
 import fighting.MechHeroAttackManager;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +8,7 @@ import movement.MechHeroMovementManager;
 import units.*;
 
 public class MechHeroDecisionMaker extends DecisionMaker {
-
-  MechHeroAttackManager mechHeroAttackManager = new MechHeroAttackManager();
+AttackManager attackManager = new AttackManager();
   MechHeroMovementManager mechHeroMovementManager = new MechHeroMovementManager();
 
   public void reactToMouseCommand(MechHero mechHero,
@@ -24,7 +24,7 @@ public class MechHeroDecisionMaker extends DecisionMaker {
 
     if(mechHero.getUnitTargeted() != null){
       if(mechHero.calculateDistanceBetweenUnits(mechHero.getUnitTargeted()) <= mechHero.getAttackRange()){
-        mechHeroAttackManager.attackTargetUnitWithMechHero(mechHero, mechHero.getUnitTargeted(), listOfMechs, roundCounter);
+        attackManager.attackTargetUnit(mechHero, mechHero.getUnitTargeted(), listOfMechs, roundCounter);
       } else {
         mechHeroMovementManager.moveUnit(mechHero, mechHero.getUnitTargeted(),listOfAllUnits, roundCounter);
       }

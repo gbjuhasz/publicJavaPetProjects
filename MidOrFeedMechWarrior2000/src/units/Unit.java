@@ -6,7 +6,6 @@ import java.util.Random;
 
 public abstract class Unit {
   //fields for positioning on board, image picking and drawing effects
-  private Random random = new Random();
   private int posX;
   private int posY;
   private int previousX;
@@ -28,6 +27,8 @@ public abstract class Unit {
   private int attackRange;
   private int attackDamage;
   private int missChance;
+  private int level = 1;
+  private int experiencePoints = 0;
   //fields for respawning
   private boolean isAlive = true;
   private int roundDied;
@@ -151,6 +152,14 @@ public abstract class Unit {
     return feetForward;
   }
 
+  public int getLevel() {
+    return level;
+  }
+
+  public int getExperiencePoints() {
+    return experiencePoints;
+  }
+
   public void setFeetForward(String feetForward) {
     this.feetForward = feetForward;
   }
@@ -257,6 +266,14 @@ public abstract class Unit {
 
   public void setSwitchFeetEveryXRound(int switchFeetEveryXRound) {
     this.switchFeetEveryXRound = switchFeetEveryXRound;
+  }
+
+  public void setExperiencePoints(int experiencePoints) {
+    this.experiencePoints = experiencePoints;
+  }
+
+  public void setLevel(int level) {
+    this.level = level;
   }
 
   public void draw(Graphics graphics) {
