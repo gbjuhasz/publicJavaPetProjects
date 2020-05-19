@@ -1,7 +1,6 @@
 package board;
 
 import java.util.ArrayList;
-import units.Tile;
 
 public class MapBuilder {
 

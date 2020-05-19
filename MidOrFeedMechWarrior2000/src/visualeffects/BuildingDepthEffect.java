@@ -1,6 +1,6 @@
 package visualeffects;
 
-import units.Tile;
+import board.Tile;
 
 public class BuildingDepthEffect {
 
