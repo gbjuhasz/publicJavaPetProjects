@@ -1,5 +1,6 @@
 package fighting;
 
+import experiencesystem.LevelUpManager;
 import java.util.List;
 import java.util.Random;
 import units.Mech;
@@ -8,6 +9,7 @@ import units.Unit;
 public class AttackManager {
 
   Random random = new Random();
+  LevelUpManager levelUpManager = new LevelUpManager();
 
   public void attackTargetUnit(Unit unitAttacking, Unit unitTargeted, List<Mech> listOfMechs, int roundCounter) {
     if (attackMissed(unitAttacking)) {
@@ -20,7 +22,7 @@ public class AttackManager {
         unitTargeted.setRoundDied(roundCounter);
         unitTargeted.setPosX(-100);
         unitTargeted.setPosY(-100);
-        grantXpToMechs(unitTargeted,listOfMechs);
+        levelUpManager.grantXpToMechs(unitTargeted,listOfMechs);
       }
     }
   }
@@ -54,41 +56,6 @@ public class AttackManager {
         unitAttacking.setFacingDirection("Down");
       } else {
         unitAttacking.setFacingDirection("Up");
-      }
-    }
-  }
-
-  public void grantXpToMechs(Unit unitTargeted, List<Mech> listOfMechs) {
-
-    int xp = 50;
-
-    if (unitTargeted.getUnitType().contains("creep")) {
-      if (unitTargeted.getUnitType().contains("Enemy")) {
-        for (int i = 0; i < listOfMechs.size(); i++) {
-          if (listOfMechs.get(i).getUnitType().contains("Hero")) {
-            listOfMechs.get(i).setExperiencePoints(listOfMechs.get(i).getExperiencePoints() + xp);
-          }
-        }
-      } else {
-        for (int i = 0; i < listOfMechs.size(); i++) {
-          if (listOfMechs.get(i).getUnitType().contains("Enemy")) {
-            listOfMechs.get(i).setExperiencePoints(listOfMechs.get(i).getExperiencePoints() + xp);
-          }
-        }
-      }
-    }
-
-    if (unitTargeted.getUnitType().equals("mechEnemy")) {
-      for (int i = 0; i < listOfMechs.size(); i++) {
-        if (listOfMechs.get(i).getUnitType().contains("Hero")) {
-          listOfMechs.get(i).setExperiencePoints(listOfMechs.get(i).getExperiencePoints() + 70 * unitTargeted.getLevel());
-        }
-      }
-    }else if(unitTargeted.getUnitType().equals("mechHero")){
-      for (int i = 0; i < listOfMechs.size(); i++) {
-        if (listOfMechs.get(i).getUnitType().contains("mechEnemy")) {
-          listOfMechs.get(i).setExperiencePoints(listOfMechs.get(i).getExperiencePoints() + 70 * unitTargeted.getLevel());
-        }
       }
     }
   }

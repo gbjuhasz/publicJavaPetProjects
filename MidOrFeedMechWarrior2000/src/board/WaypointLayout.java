@@ -12,7 +12,7 @@ public class WaypointLayout {
   Waypoint waypoint1mid = new Waypoint(234, 220);
   Waypoint waypoint1bottom = new Waypoint(220, 340);
   Waypoint waypoint2top = new Waypoint(600, 360);
-  Waypoint waypoint2mid = new Waypoint(330, 380);
+  Waypoint waypoint2mid = new Waypoint(550, 380);
   Waypoint waypoint2bottom = new Waypoint(500, 395);
   Waypoint waypointTurretAllied = new Waypoint(80,150);
   Waypoint waypointTurretEnemy = new Waypoint(580,280);

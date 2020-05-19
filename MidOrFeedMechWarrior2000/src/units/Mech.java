@@ -3,10 +3,10 @@ package units;
 public abstract class Mech extends Unit {
   //fields for fighting
   private int attackRange = 144;
-  private int attackDamage = 25;
-  private int healthPoints = 700;
-  private int respawnHealthPoints = 700; //for testing
-  private int armorRating = 0;
+  private int attackDamage = 50 + (super.getLevel() * 5);
+  private int healthPoints = 750 + (super.getLevel() * 50);
+  private int respawnHealthPoints = 750 + (super.getLevel() * 50);
+  private int armorRating = 0 + super.getLevel();
   private int missChance = 1;
   private int roundsToRespawn = super.getLevel() * 5 ;
   //fields for decision making

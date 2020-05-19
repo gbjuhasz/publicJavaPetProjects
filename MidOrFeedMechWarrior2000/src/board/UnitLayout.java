@@ -40,7 +40,7 @@ public class UnitLayout {
     creepEnemy2 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 550, 550, true, 500, waypointLayout.getWaypointListMidEnemy());
     creepEnemy3 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 600, 500, true, 500, waypointLayout.getWaypointListTopEnemy());
     creepEnemy4 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 500, 575, false, 500, waypointLayout.getWaypointListBottomEnemy());
-    creepEnemy5 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 558, 550, false, 500, waypointLayout.getWaypointListMidEnemy());
+    creepEnemy5 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 550, 550, false, 500, waypointLayout.getWaypointListMidEnemy());
     creepEnemy6 = new CreepEnemy("images/creepenemy/CreepEnemyUpEven.png", 600, 500, false, 500, waypointLayout.getWaypointListTopEnemy());
   }
 
