@@ -1,5 +1,6 @@
 package units;
 
+import java.util.HashMap;
 import waypoints.Waypoint;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -9,6 +10,21 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 public class CreepAllied extends Creep {
+
+  private HashMap<String, Integer> xCoordinatesForRightClickEffectInEveryDirection = new HashMap() {{
+    put("Up", 28);
+    put("Down", 28);
+    put("Right", 33);
+    put("Left", 28);
+  }};
+  private HashMap<String, Integer> yCoordinatesForRightClickEffectInEveryDirection = new HashMap() {
+    {
+      put("Up", 2);
+      put("Down", 20);
+      put("Right", 20);
+      put("Left", 20);
+    }
+  };
 
   public CreepAllied(String fileLocation,
                      int x,
@@ -42,5 +58,22 @@ public class CreepAllied extends Creep {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  @Override
+  public HashMap<String, Integer> getxCoordinatesForRightClickEffectInEveryDirection() {
+    return xCoordinatesForRightClickEffectInEveryDirection;
+  }
+
+  @Override
+  public HashMap<String, Integer> getyCoordinatesForRightClickEffectInEveryDirection() {
+    return yCoordinatesForRightClickEffectInEveryDirection;
+  }
+
+  //not necessary if image files are replaced later!!!
+  @Override
+  public void calculateImageCenterCoordinates() {
+    setImageMiddleX(getPosX() + 23);
+    setImageMiddleY(getPosY() + 23);
   }
 }

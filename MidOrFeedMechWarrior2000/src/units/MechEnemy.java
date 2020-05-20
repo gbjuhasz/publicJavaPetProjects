@@ -1,14 +1,31 @@
 package units;
 
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Random;
 import javax.imageio.ImageIO;
 
 public class MechEnemy extends Mech {
 
   private int detectionRange = 0;
+
+  private HashMap<String, Integer> xCoordinatesForRightClickEffectInEveryDirection = new HashMap() {{
+    put("Up", 28);
+    put("Down", 28);
+    put("Right", 33);
+    put("Left", 28);
+  }};
+  private HashMap<String, Integer> yCoordinatesForRightClickEffectInEveryDirection = new HashMap() {
+    {
+      put("Up", 2);
+      put("Down", 20);
+      put("Right", 20);
+      put("Left", 20);
+    }
+  };
 
   public MechEnemy(String fileLocation, int x, int y) {
 
@@ -27,6 +44,16 @@ public class MechEnemy extends Mech {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  @Override
+  public HashMap<String, Integer> getxCoordinatesForRightClickEffectInEveryDirection() {
+    return xCoordinatesForRightClickEffectInEveryDirection;
+  }
+
+  @Override
+  public HashMap<String, Integer> getyCoordinatesForRightClickEffectInEveryDirection() {
+    return yCoordinatesForRightClickEffectInEveryDirection;
   }
 
   @Override

@@ -12,6 +12,7 @@ public class AttackManager {
   LevelUpManager levelUpManager = new LevelUpManager();
 
   public void attackTargetUnit(Unit unitAttacking, Unit unitTargeted, List<Mech> listOfMechs, int roundCounter) {
+    setFacingDirection(unitAttacking, unitTargeted);
     if (unitAttacking.getRoundAttackNextTime() <= roundCounter) {
       unitAttacking.setRoundAttackedLastTime(roundCounter);
       unitAttacking.setRoundAttackNextTime(unitAttacking.getRoundAttackedLastTime() + unitAttacking.getRoundsPerAttack());
@@ -21,6 +22,7 @@ public class AttackManager {
         int unitAttackingDamage = unitAttacking.getAttackDamage();
         unitTargeted.setHealthPoints(unitTargetedHP - unitAttackingDamage + unitTargetedArmor);
         unitAttacking.setUnitTargeted(unitTargeted);
+        unitAttacking.setRightClickAttackedThisRound(true);
         if (unitTargeted.getHealthPoints() <= 0) {
           unitTargeted.setAlive(false);
           unitTargeted.setRoundDied(roundCounter);
