@@ -1,35 +1,41 @@
 package fighting;
 
+import board.EffectLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import javax.imageio.ImageIO;
-import units.Mech;
 import units.MechHero;
 import units.Unit;
+import visualeffects.LaserBlast;
 
 public class MechHeroAttackManager extends AttackManager {
 
-  public void attackTargetUnitWithMechHero(MechHero mechHero, Unit unitTargeted, List<Mech> listOfMechs, int roundCounter) {
-    if (mechHero.calculateDistanceBetweenUnits(unitTargeted) < mechHero.getAttackRange()) {
-      if (attackHit(mechHero)) {
-        int unitTargetedHP = unitTargeted.getHealthPoints();
-        int unitTargetedArmor = unitTargeted.getArmorRating();
-        int unitAttackingDamage = mechHero.getAttackDamage();
-        unitTargeted.setHealthPoints(unitTargetedHP - unitAttackingDamage + unitTargetedArmor);
-        setFacingDirection(mechHero, unitTargeted);
-        findImageFileLocation(mechHero.getFacingDirection(), isRoundNumberEven(roundCounter));
-        BufferedImage newImage = pickImage(findImageFileLocation(mechHero.getFacingDirection(),
-                isRoundNumberEven(roundCounter)));
-        mechHero.setImage(newImage);
+  public void attackTargetUnitWithMechHero(MechHero mechHero, Unit unitTargeted, int roundCounter) {
+    setFacingDirection(mechHero, unitTargeted);
+    if (mechHero.getRoundAttackNextTime() <= roundCounter) {
+      mechHero.setRoundAttackedLastTime(roundCounter);
+      mechHero.setRoundAttackNextTime(mechHero.getRoundAttackedLastTime() + mechHero.getRoundsPerAttack());
+      if (mechHero.calculateDistanceBetweenUnits(unitTargeted) < mechHero.getAttackRange()) {
+        if (attackHit(mechHero)) {
+          int unitTargetedHP = unitTargeted.getHealthPoints();
+          int unitTargetedArmor = unitTargeted.getArmorRating();
+          int unitAttackingDamage = mechHero.getAttackDamage();
+          unitTargeted.setHealthPoints(unitTargetedHP - unitAttackingDamage + unitTargetedArmor);
+          mechHero.setRightClickAttackedThisRound(true);
+          findImageFileLocation(mechHero.getFacingDirection(), isRoundNumberEven(roundCounter));
+          BufferedImage newImage = pickImage(findImageFileLocation(mechHero.getFacingDirection(),
+                  isRoundNumberEven(roundCounter)));
+          mechHero.setImage(newImage);
 
-        if (unitTargeted.getHealthPoints() <= 0) {
-          unitTargeted.setAlive(false);
-          unitTargeted.setRoundDied(roundCounter);
-          unitTargeted.setPosX(-100);
-          unitTargeted.setPosY(-100);
-          mechHero.setUnitTargeted(null);
+          if (unitTargeted.getHealthPoints() <= 0) {
+            mechHero.setUnitTargeted(null);
+            mechHero.setMouseEventMarkingLocation(null);
+            unitTargeted.setAlive(false);
+            unitTargeted.setRoundDied(roundCounter);
+            unitTargeted.setPosX(-100);
+            unitTargeted.setPosY(-100);
+          }
         }
       }
     }

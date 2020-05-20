@@ -1,8 +1,8 @@
 package board;
 
 public abstract class BoardComponent {
-  private int posX;
-  private int posY;
+  private Integer posX;
+  private Integer posY;
   private String unitType;
 
 

@@ -19,6 +19,7 @@ public abstract class DecisionMaker {
                                     int roundCounter) {
 
     isItTimeToSwitchFeet(unitMakingDecision, roundCounter);
+    checkIfStillHasTarget(unitMakingDecision);
 
     if (findTargetInAttackRange(unitMakingDecision, mech, listOfCreeps, turret) != null) {
       attackTarget(unitMakingDecision, findTargetInAttackRange(unitMakingDecision, mech, listOfCreeps, turret),listOfMechs, roundCounter);
@@ -109,5 +110,12 @@ public abstract class DecisionMaker {
 
   public BoardComponent followWaypoints(Creep creep) {
     return creep.getListOfWaypointsToFollow().get(creep.getHeadingTowardsWaypoint());
+  }
+
+  public void checkIfStillHasTarget(Unit unitMakingDecision){
+    if(unitMakingDecision.getUnitTargeted() != null &&
+            !unitMakingDecision.getUnitTargeted().isAlive()){
+      unitMakingDecision.setUnitTargeted(null);
+    }
   }
 }

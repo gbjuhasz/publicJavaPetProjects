@@ -1,10 +1,12 @@
 package decisionmaking;
 
+import board.EffectLayout;
 import fighting.MechHeroAttackManager;
 import java.util.ArrayList;
 import java.util.List;
 import movement.MechHeroMovementManager;
 import units.*;
+import visualeffects.LaserBlast;
 
 public class MechHeroDecisionMaker extends DecisionMaker {
   MechHeroAttackManager mechHeroAttackManager = new MechHeroAttackManager();
@@ -15,15 +17,14 @@ public class MechHeroDecisionMaker extends DecisionMaker {
                                   ArrayList<Creep> listOfCreeps,
                                   Turret turret,
                                   List<Unit> listOfAllUnits,
-                                  List<Mech> listOfMechs,
                                   int roundCounter) {
 
     isItTimeToSwitchFeet(mechHero, roundCounter);
-
+    checkIfStillHasTarget(mechHero);
 
     if (mechHero.getUnitTargeted() != null) {
       if (mechHero.calculateDistanceBetweenUnits(mechHero.getUnitTargeted()) <= mechHero.getAttackRange()) {
-        mechHeroAttackManager.attackTargetUnitWithMechHero(mechHero, mechHero.getUnitTargeted(), listOfMechs, roundCounter);
+        mechHeroAttackManager.attackTargetUnitWithMechHero(mechHero, mechHero.getUnitTargeted(), roundCounter);
       } else {
         mechHeroMovementManager.moveUnit(mechHero, mechHero.getUnitTargeted(), listOfAllUnits, roundCounter);
       }

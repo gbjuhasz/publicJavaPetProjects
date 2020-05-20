@@ -20,6 +20,7 @@ public class AttackManager {
         int unitTargetedArmor = unitTargeted.getArmorRating();
         int unitAttackingDamage = unitAttacking.getAttackDamage();
         unitTargeted.setHealthPoints(unitTargetedHP - unitAttackingDamage + unitTargetedArmor);
+        unitAttacking.setUnitTargeted(unitTargeted);
         if (unitTargeted.getHealthPoints() <= 0) {
           unitTargeted.setAlive(false);
           unitTargeted.setRoundDied(roundCounter);

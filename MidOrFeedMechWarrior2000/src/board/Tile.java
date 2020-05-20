@@ -5,12 +5,13 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import units.Unit;
 
 public class Tile extends BoardComponent {
 
   private BufferedImage image;
 
+  public Tile() {
+  }
 
   public Tile(String fileName, Integer x, Integer y) {
 

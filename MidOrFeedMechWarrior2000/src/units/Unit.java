@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 public abstract class Unit extends BoardComponent {
-  //fields for positioning on board, image picking and drawing effects
+  //fields for positioning on board, image picking
   private int previousX;
   private int previousY;
   private int imageMiddleX;
@@ -18,6 +18,11 @@ public abstract class Unit extends BoardComponent {
   private int switchFeetEveryXRound = 10;
   private String[] feetImageNames = {"EVEN", "ODD"};
   private String feetForward;
+  //fields for drawing effects
+  private boolean rightClickAttackedThisRound = false;
+  private int rightClickVisibleForRounds = 50;
+  private HashMap<String,Integer> xCoordinatesForRightClickEffectInEveryDirection = new HashMap<>();
+  private HashMap<String,Integer> yCoordinatesForRightClickEffectInEveryDirection = new HashMap<>();
   //fields for fighting
   private int respawnHealthPoints;
   private int healthPoints;
@@ -28,6 +33,7 @@ public abstract class Unit extends BoardComponent {
   private int roundsPerAttack = 100;
   private int roundAttackedLastTime = -100;
   private int roundAttackNextTime;
+  Unit unitTargeted;
   //fields for levelling
   private int level = 1;
   private int experiencePoints = 0;
@@ -154,6 +160,14 @@ public abstract class Unit extends BoardComponent {
     return roundsPerAttack;
   }
 
+  public HashMap<String, Integer> getxCoordinatesForRightClickEffectInEveryDirection() {
+    return xCoordinatesForRightClickEffectInEveryDirection;
+  }
+
+  public HashMap<String, Integer> getyCoordinatesForRightClickEffectInEveryDirection() {
+    return yCoordinatesForRightClickEffectInEveryDirection;
+  }
+
   public HashMap<Integer, Integer> getXpBounty() {
     return xpBounty;
   }
@@ -176,6 +190,18 @@ public abstract class Unit extends BoardComponent {
 
   public HashMap<Integer, Integer> getXpNeededForLevelUp() {
     return xpNeededForLevelUp;
+  }
+
+  public Unit getUnitTargeted() {
+    return unitTargeted;
+  }
+
+  public int getRightClickVisibleForRounds() {
+    return rightClickVisibleForRounds;
+  }
+
+  public boolean isRightClickAttackedThisRound() {
+    return rightClickAttackedThisRound;
   }
 
   public void setFeetForward(String feetForward) {
@@ -292,6 +318,14 @@ public abstract class Unit extends BoardComponent {
 
   public void setRoundsPerAttack(int roundsPerAttack) {
     this.roundsPerAttack = roundsPerAttack;
+  }
+
+  public void setRightClickAttackedThisRound(boolean rightClickAttackedThisRound) {
+    this.rightClickAttackedThisRound = rightClickAttackedThisRound;
+  }
+
+  public void setUnitTargeted(Unit unitTargeted) {
+    this.unitTargeted = unitTargeted;
   }
 
   public void draw(Graphics graphics) {

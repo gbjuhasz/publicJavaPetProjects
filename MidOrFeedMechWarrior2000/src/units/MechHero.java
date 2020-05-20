@@ -4,13 +4,27 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Random;
 import javax.imageio.ImageIO;
 
 public class MechHero extends Mech {
 
   MouseEvent mouseEventMarkingLocation;
-  Unit unitTargeted;
+  private HashMap<String, Integer> xCoordinatesForRightClickEffectInEveryDirection = new HashMap() {{
+    put("Up", 28);
+    put("Down", 28);
+    put("Right", 33);
+    put("Left", 28);
+  }};
+  private HashMap<String, Integer> yCoordinatesForRightClickEffectInEveryDirection = new HashMap() {
+    {
+      put("Up", 2);
+      put("Down", 20);
+      put("Right", 20);
+      put("Left", 20);
+    }
+  };
 
   public MechHero(String fileLocation, int x, int y) {
 
@@ -35,16 +49,18 @@ public class MechHero extends Mech {
     return mouseEventMarkingLocation;
   }
 
-  public Unit getUnitTargeted() {
-    return unitTargeted;
+  @Override
+  public HashMap<String, Integer> getyCoordinatesForRightClickEffectInEveryDirection() {
+    return yCoordinatesForRightClickEffectInEveryDirection;
+  }
+
+  @Override
+  public HashMap<String, Integer> getxCoordinatesForRightClickEffectInEveryDirection() {
+    return xCoordinatesForRightClickEffectInEveryDirection;
   }
 
   public void setMouseEventMarkingLocation(MouseEvent mouseEventMarkingLocation) {
     this.mouseEventMarkingLocation = mouseEventMarkingLocation;
-  }
-
-  public void setUnitTargeted(Unit unitTargeted) {
-    this.unitTargeted = unitTargeted;
   }
 
   public void calculateMouseEventDirection() {

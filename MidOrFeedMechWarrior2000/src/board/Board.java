@@ -8,8 +8,10 @@ import javax.swing.*;
 import mechherocontrol.MechHeroMouseClickReactionManager;
 import respawn.RespawnManager;
 import units.*;
-import visualeffects.BuildingDepthEffect;
+import visualeffects.BuildingDepthEffectManager;
 import visualeffects.HUD;
+import visualeffects.LaserBlast;
+import visualeffects.RightClickVisualEffectManager;
 
 public class Board extends JComponent implements KeyListener, MouseListener {
 
@@ -19,7 +21,8 @@ public class Board extends JComponent implements KeyListener, MouseListener {
   RespawnManager respawnManager = new RespawnManager();
   HUD hud = new HUD();
   OneRoundOfAction oneRoundOfAction = new OneRoundOfAction();
-  BuildingDepthEffect buildingDepthEffect = new BuildingDepthEffect();
+  BuildingDepthEffectManager buildingDepthEffectManager = new BuildingDepthEffectManager();
+RightClickVisualEffectManager rightClickVisualEffectManager = new RightClickVisualEffectManager();
   int roundCounter = 0;
 
   public Board() {
@@ -27,7 +30,7 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     setPreferredSize(new Dimension(1120, 720));
     setVisible(true);
     unitLayout.placeUnitsOnMap();
-    buildingDepthEffect.placeBuildingEffectOnMap();
+    buildingDepthEffectManager.placeBuildingEffectOnMap();
 
   }
 
@@ -46,6 +49,9 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     unitLayout.getTurretAllied().draw(graphics);
     unitLayout.getTurretEnemy().draw(graphics);
 
+    //fight effects
+    rightClickVisualEffectManager.drawUpRightClicks(unitLayout.getAllUnits(), roundCounter, graphics);
+
     //Information
     graphics.setColor(Color.WHITE);
     graphics.drawString(String.valueOf(roundCounter), 72, 120);
@@ -56,23 +62,22 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     graphics.drawString("Y:" + unitLayout.getMechHero().getPosY(),
             72,
             80);
+
     //HUD display
     hud.drawHUD(unitLayout.getMechHero(), unitLayout.getListOfEnemyUnits(), graphics);
     hud.drawHealthBars(unitLayout.getAllUnits(), graphics);
 
     //Building depth effects
-    buildingDepthEffect.getBuildingBottomRightSide().draw(graphics);
-    buildingDepthEffect.getBuildingLeftSide().draw(graphics);
+    buildingDepthEffectManager.getBuildingBottomRightSide().draw(graphics);
+    buildingDepthEffectManager.getBuildingLeftSide().draw(graphics);
     //DEBUGGING DRAWINGS
     graphics.setColor(Color.BLACK);
     int posYForCoordinates = 40;
     graphics.fillRect(720, 0, 400, 720);
     graphics.setColor(Color.RED);
-    graphics.drawString(String.valueOf(unitLayout.getMechEnemy().getHealthPoints()), 720, 40);
     graphics.setColor(Color.WHITE);
-   /* graphics.drawString(String.valueOf(unitLayout.getMechHero().getPreviousX()), 720, 120);
-    graphics.drawString(String.valueOf(unitLayout.getMechHero().getPreviousY()), 720, 160);*/
-    graphics.drawString(String.valueOf(unitLayout.getMechHero().getFeetForward()), 720, 160);
+
+  /*  graphics.drawString(String.valueOf(unitLayout.getMechHero().getFeetForward()), 720, 160);
     graphics.drawString(String.valueOf(unitLayout.getMechHero().getSwitchFeetEveryXRound()), 720, 200);
     graphics.drawString(String.valueOf(unitLayout.getMechHero().getSwitchFeetInRound()), 720, 240);
 

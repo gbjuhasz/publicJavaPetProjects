@@ -22,6 +22,8 @@ public class CreepAlliedDecisionMaker extends DecisionMaker {
                                     int roundCounter) {
 
     isItTimeToSwitchFeet(unitMakingDecision,roundCounter);
+    checkIfStillHasTarget(unitMakingDecision);
+
 
     if (findTargetInAttackRange(unitMakingDecision, mech, listOfCreeps, turret) != null) {
       attackTarget(unitMakingDecision, findTargetInAttackRange(unitMakingDecision, mech, listOfCreeps, turret), listOfMechs,  roundCounter);

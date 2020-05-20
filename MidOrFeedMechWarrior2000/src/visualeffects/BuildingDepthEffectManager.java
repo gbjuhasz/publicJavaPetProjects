@@ -2,7 +2,7 @@ package visualeffects;
 
 import board.Tile;
 
-public class BuildingDepthEffect {
+public class BuildingDepthEffectManager {
 
   private Tile buildingLeftSide;
   private Tile buildingBottomRightSide;
