@@ -1,12 +1,10 @@
 package decisionmaking;
 
-import board.EffectLayout;
 import fighting.MechHeroAttackManager;
 import java.util.ArrayList;
 import java.util.List;
 import movement.MechHeroMovementManager;
 import units.*;
-import visualeffects.LaserBlast;
 
 public class MechHeroDecisionMaker extends DecisionMaker {
   MechHeroAttackManager mechHeroAttackManager = new MechHeroAttackManager();

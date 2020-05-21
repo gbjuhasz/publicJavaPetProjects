@@ -1,13 +1,11 @@
 package fighting;
 
-import board.EffectLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import units.MechHero;
 import units.Unit;
-import visualeffects.LaserBlast;
 
 public class MechHeroAttackManager extends AttackManager {
 
@@ -22,6 +20,7 @@ public class MechHeroAttackManager extends AttackManager {
           int unitTargetedArmor = unitTargeted.getArmorRating();
           int unitAttackingDamage = mechHero.getAttackDamage();
           unitTargeted.setHealthPoints(unitTargetedHP - unitAttackingDamage + unitTargetedArmor);
+          mechHero.setLastAttackResult("Did" + (unitAttackingDamage + unitTargetedArmor) + "damage!");
           mechHero.setRightClickAttackedThisRound(true);
           findImageFileLocation(mechHero.getFacingDirection(), isRoundNumberEven(roundCounter));
           BufferedImage newImage = pickImage(findImageFileLocation(mechHero.getFacingDirection(),
@@ -36,6 +35,9 @@ public class MechHeroAttackManager extends AttackManager {
             unitTargeted.setPosX(-100);
             unitTargeted.setPosY(-100);
           }
+        } else {
+          mechHero.setLastAttackResult("Miss!");
+          mechHero.setRightClickAttackedThisRound(true);
         }
       }
     }

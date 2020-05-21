@@ -7,7 +7,7 @@ import javax.swing.*;
 import units.Mech;
 import units.Unit;
 
-public class HUD extends JComponent {
+public class HUDeffectsManager extends JComponent {
 
   public ArrayList<Integer> findCrosshairCoordinates(Unit unit) {
     ArrayList<Integer> crosshairCoordinates = new ArrayList<>();

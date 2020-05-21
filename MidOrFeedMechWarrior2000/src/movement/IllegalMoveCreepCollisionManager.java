@@ -3,7 +3,7 @@ package movement;
 import java.util.List;
 import units.Unit;
 
-public class IllegalMoveCheckerCreeps {
+public class IllegalMoveCreepCollisionManager {
 
   public boolean isMoveLegalForCreeps(int posX, int posY, List<Unit> listOfAllUnitsToCheck) {
    /* for (Unit unit : listOfAllUnitsToCheck) {

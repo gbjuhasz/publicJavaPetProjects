@@ -4,6 +4,7 @@ import board.BoardComponent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
+import visualeffects.Explosion;
 
 public abstract class Unit extends BoardComponent {
   //fields for positioning on board, image picking
@@ -21,8 +22,10 @@ public abstract class Unit extends BoardComponent {
   //fields for drawing effects
   private boolean rightClickAttackedThisRound = false;
   private int rightClickVisibleForRounds = 50;
+  private String lastAttackResult;
   private HashMap<String,Integer> xCoordinatesForRightClickEffectInEveryDirection = new HashMap<>();
   private HashMap<String,Integer> yCoordinatesForRightClickEffectInEveryDirection = new HashMap<>();
+  private Explosion rightClickEffect = new Explosion();
   //fields for fighting
   private int respawnHealthPoints;
   private int healthPoints;
@@ -200,8 +203,20 @@ public abstract class Unit extends BoardComponent {
     return rightClickVisibleForRounds;
   }
 
+  public String getLastAttackResult() {
+    return lastAttackResult;
+  }
+
+  public Explosion getRightClickEffect() {
+    return rightClickEffect;
+  }
+
   public boolean isRightClickAttackedThisRound() {
     return rightClickAttackedThisRound;
+  }
+
+  public void setLastAttackResult(String lastAttackResult) {
+    this.lastAttackResult = lastAttackResult;
   }
 
   public void setFeetForward(String feetForward) {
@@ -322,6 +337,10 @@ public abstract class Unit extends BoardComponent {
 
   public void setRightClickAttackedThisRound(boolean rightClickAttackedThisRound) {
     this.rightClickAttackedThisRound = rightClickAttackedThisRound;
+  }
+
+  public void setRightClickEffect(Explosion rightClickEffect) {
+    this.rightClickEffect = rightClickEffect;
   }
 
   public void setUnitTargeted(Unit unitTargeted) {

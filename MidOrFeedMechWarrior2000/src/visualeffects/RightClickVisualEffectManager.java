@@ -13,9 +13,15 @@ public class RightClickVisualEffectManager extends JComponent {
   public void drawUpRightClicks(List<Unit> listOfAllUnits, Integer roundCounter, Graphics graphics) {
 
     Graphics2D graphics2d = (Graphics2D) graphics.create();
+    String roundEvenOrOdd;
+    if(roundCounter%2 == 0){
+      roundEvenOrOdd = "EVEN";
+    } else {
+      roundEvenOrOdd = "ODD";
+    }
 
     //set the stroke of the copy, not the original
-    Stroke dashed = new BasicStroke(2, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
+    Stroke dashed = new BasicStroke(1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
     graphics2d.setStroke(dashed);
 
     for (Unit unit :
@@ -34,6 +40,11 @@ public class RightClickVisualEffectManager extends JComponent {
                 laserY1 != null &&
                 laserX2 != null &&
                 laserY2 != null) {
+          unit.getRightClickEffect().setPosX(laserX2);
+          unit.getRightClickEffect().setPosY(laserY2);
+          unit.getRightClickEffect().pickImage("images/explosions/rightClickExplosion" + roundEvenOrOdd +".png");
+          unit.getRightClickEffect().setDisappearsInRound(unit.getRoundAttackedLastTime() + unit.getRightClickVisibleForRounds());
+          unit.getRightClickEffect().draw(graphics);
           if (unit.getUnitType().contains("Hero")) {
             graphics2d.setColor(Color.RED);
             graphics2d.drawLine(unit.getPosX() + laserX1, unit.getPosY() + laserY1, laserX2, laserY2);
@@ -47,10 +58,13 @@ public class RightClickVisualEffectManager extends JComponent {
             graphics2d.setColor(Color.BLUE);
             graphics2d.drawLine(unit.getPosX() + laserX1, unit.getPosY() + laserY1, laserX2, laserY2);
           }
+          if(unit.getLastAttackResult().equals("Miss!")){
+            graphics2d.setColor(Color.WHITE);
+            graphics2d.drawString(unit.getLastAttackResult(), laserX2,laserY2);
+          }
           if (roundCounter > unit.getRoundAttackedLastTime() + unit.getRightClickVisibleForRounds()) {
             unit.setRightClickAttackedThisRound(false);
           }
-          graphics2d.dispose();
         }
       }
     }

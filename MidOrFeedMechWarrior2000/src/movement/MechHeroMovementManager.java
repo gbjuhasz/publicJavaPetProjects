@@ -19,7 +19,7 @@ public class MechHeroMovementManager extends BotMovementManager {
       String targetDirection = mechHero.getTargetDirection();
 
       changeCoordinatesTowardsTargetDirection(mechHero, listOfAllUnits, targetDirection);
-      if(!illegalMoveCheckerMapObjects.isMoveLegal(mechHero.getPosX(),mechHero.getPosY())){
+      if(!illegalMoveMapObjectsManager.isMoveLegal(mechHero.getPosX(),mechHero.getPosY())){
         mechHero.setPosX(mechHero.getPreviousX());
         mechHero.setPosY(mechHero.getPreviousY());
         stuckUnitManager.helpIfUnitIsStuck(mechHero);

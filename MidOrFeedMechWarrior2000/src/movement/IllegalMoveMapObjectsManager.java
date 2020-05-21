@@ -1,6 +1,6 @@
 package movement;
 
-public class IllegalMoveCheckerMapObjects {
+public class IllegalMoveMapObjectsManager {
 
   public Boolean isMoveLegal(int x, int y) {
 

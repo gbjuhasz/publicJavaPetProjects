@@ -9,8 +9,8 @@ import units.Unit;
 public abstract class BotMovementManager extends MovementManager {
 
   StuckUnitManager stuckUnitManager = new StuckUnitManager();
-  IllegalMoveCheckerCreeps illegalMoveCheckerCreeps = new IllegalMoveCheckerCreeps();
-  IllegalMoveCheckerMapObjects illegalMoveCheckerMapObjects = new IllegalMoveCheckerMapObjects();
+  IllegalMoveCreepCollisionManager illegalMoveCreepCollisionManager = new IllegalMoveCreepCollisionManager();
+  IllegalMoveMapObjectsManager illegalMoveMapObjectsManager = new IllegalMoveMapObjectsManager();
 
 
   public void moveUnit(Unit unitMakingMove,
@@ -23,7 +23,7 @@ public abstract class BotMovementManager extends MovementManager {
 
     changeCoordinatesTowardsTargetDirection(unitMakingMove, listOfAllUnits, targetDirection);
 
-    if (!illegalMoveCheckerMapObjects.isMoveLegal(unitMakingMove.getPosX(), unitMakingMove.getPosY())) {
+    if (!illegalMoveMapObjectsManager.isMoveLegal(unitMakingMove.getPosX(), unitMakingMove.getPosY())) {
       unitMakingMove.setPosX(unitMakingMove.getPreviousX());
       unitMakingMove.setPosY(unitMakingMove.getPreviousY());
       stuckUnitManager.helpIfUnitIsStuck(unitMakingMove);
@@ -72,7 +72,7 @@ public abstract class BotMovementManager extends MovementManager {
       }
     }
     if (unitMakingMove.getUnitType().contains("creep")) {
-      if (illegalMoveCheckerCreeps.isMoveLegalForCreeps(futureX, futureY, listOfAllUnitsWithoutUnitMakingMove)) {
+      if (illegalMoveCreepCollisionManager.isMoveLegalForCreeps(futureX, futureY, listOfAllUnitsWithoutUnitMakingMove)) {
         unitMakingMove.setPreviousX(currentX);
         unitMakingMove.setPreviousY(currentY);
         unitMakingMove.setPosX(futureX);
@@ -117,7 +117,7 @@ public abstract class BotMovementManager extends MovementManager {
         listOfAllUnitsWithoutUnitMakingMove.add(unit);
       }
     }
-    if (illegalMoveCheckerCreeps.isMoveLegalForCreeps(currentX, currentY, listOfAllUnitsWithoutUnitMakingMove)) {
+    if (illegalMoveCreepCollisionManager.isMoveLegalForCreeps(currentX, currentY, listOfAllUnitsWithoutUnitMakingMove)) {
       unitMakingMove.setPosX(unitMakingMove.getPreviousX());
       unitMakingMove.setPosY(unitMakingMove.getPreviousY());
     }

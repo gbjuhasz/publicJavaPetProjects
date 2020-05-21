@@ -21,6 +21,7 @@ public class AttackManager {
         int unitTargetedArmor = unitTargeted.getArmorRating();
         int unitAttackingDamage = unitAttacking.getAttackDamage();
         unitTargeted.setHealthPoints(unitTargetedHP - unitAttackingDamage + unitTargetedArmor);
+        unitAttacking.setLastAttackResult("Did"+(unitAttackingDamage + unitTargetedArmor)+"damage!");
         unitAttacking.setUnitTargeted(unitTargeted);
         unitAttacking.setRightClickAttackedThisRound(true);
         if (unitTargeted.getHealthPoints() <= 0) {
@@ -30,6 +31,9 @@ public class AttackManager {
           unitTargeted.setPosY(-100);
           levelUpManager.grantXpToMechs(unitTargeted, listOfMechs);
         }
+      } else {
+        unitAttacking.setLastAttackResult("Miss!");
+        unitAttacking.setRightClickAttackedThisRound(true);
       }
     }
   }

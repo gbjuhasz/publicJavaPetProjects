@@ -9,8 +9,7 @@ import mechherocontrol.MechHeroMouseClickReactionManager;
 import respawn.RespawnManager;
 import units.*;
 import visualeffects.BuildingDepthEffectManager;
-import visualeffects.HUD;
-import visualeffects.LaserBlast;
+import visualeffects.HUDeffectsManager;
 import visualeffects.RightClickVisualEffectManager;
 
 public class Board extends JComponent implements KeyListener, MouseListener {
@@ -18,20 +17,22 @@ public class Board extends JComponent implements KeyListener, MouseListener {
   MapBuilder mapBuilder = new MapBuilder();
   ArrayList<Tile> cityMap = mapBuilder.buildMap();
   UnitLayout unitLayout = new UnitLayout();
+  HUDlayout huDlayout = new HUDlayout();
   RespawnManager respawnManager = new RespawnManager();
-  HUD hud = new HUD();
+  HUDeffectsManager HUDeffectsManager = new HUDeffectsManager();
   OneRoundOfAction oneRoundOfAction = new OneRoundOfAction();
+  EffectLayout effectLayout = new EffectLayout();
   BuildingDepthEffectManager buildingDepthEffectManager = new BuildingDepthEffectManager();
-RightClickVisualEffectManager rightClickVisualEffectManager = new RightClickVisualEffectManager();
+  RightClickVisualEffectManager rightClickVisualEffectManager = new RightClickVisualEffectManager();
   int roundCounter = 0;
 
   public Board() {
 
-    setPreferredSize(new Dimension(1120, 720));
+    setPreferredSize(new Dimension(720, 768));
     setVisible(true);
     unitLayout.placeUnitsOnMap();
     buildingDepthEffectManager.placeBuildingEffectOnMap();
-
+    huDlayout.placeHud();
   }
 
   @Override
@@ -51,7 +52,8 @@ RightClickVisualEffectManager rightClickVisualEffectManager = new RightClickVisu
 
     //fight effects
     rightClickVisualEffectManager.drawUpRightClicks(unitLayout.getAllUnits(), roundCounter, graphics);
-
+    //hud
+    huDlayout.getHud().draw(graphics);
     //Information
     graphics.setColor(Color.WHITE);
     graphics.drawString(String.valueOf(roundCounter), 72, 120);
@@ -63,9 +65,9 @@ RightClickVisualEffectManager rightClickVisualEffectManager = new RightClickVisu
             72,
             80);
 
-    //HUD display
-    hud.drawHUD(unitLayout.getMechHero(), unitLayout.getListOfEnemyUnits(), graphics);
-    hud.drawHealthBars(unitLayout.getAllUnits(), graphics);
+    //HUDeffectsManager display
+    HUDeffectsManager.drawHUD(unitLayout.getMechHero(), unitLayout.getListOfEnemyUnits(), graphics);
+    HUDeffectsManager.drawHealthBars(unitLayout.getAllUnits(), graphics);
 
     //Building depth effects
     buildingDepthEffectManager.getBuildingBottomRightSide().draw(graphics);
@@ -77,8 +79,10 @@ RightClickVisualEffectManager rightClickVisualEffectManager = new RightClickVisu
     graphics.setColor(Color.RED);
     graphics.setColor(Color.WHITE);
 
-  /*  graphics.drawString(String.valueOf(unitLayout.getMechHero().getFeetForward()), 720, 160);
-    graphics.drawString(String.valueOf(unitLayout.getMechHero().getSwitchFeetEveryXRound()), 720, 200);
+    if (unitLayout.getMechHero().getUnitTargeted() != null) {
+      graphics.drawString(unitLayout.getMechHero().getUnitTargeted().getUnitType(), 720, 160);
+    }
+    /*graphics.drawString(String.valueOf(unitLayout.getMechHero().getSwitchFeetEveryXRound()), 720, 200);
     graphics.drawString(String.valueOf(unitLayout.getMechHero().getSwitchFeetInRound()), 720, 240);
 
 
