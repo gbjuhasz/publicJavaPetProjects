@@ -26,10 +26,10 @@ public class AttackManager {
         unitAttacking.setRightClickAttackedThisRound(true);
         if (unitTargeted.getHealthPoints() <= 0) {
           unitTargeted.setAlive(false);
+          levelUpManager.grantXpToMechs(unitTargeted, listOfMechs);
           unitTargeted.setRoundDied(roundCounter);
           unitTargeted.setPosX(-100);
           unitTargeted.setPosY(-100);
-          levelUpManager.grantXpToMechs(unitTargeted, listOfMechs);
         }
       } else {
         unitAttacking.setLastAttackResult("Miss!");

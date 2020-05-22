@@ -3,7 +3,10 @@ package fighting;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.imageio.ImageIO;
+import units.Mech;
 import units.MechHero;
 import units.Unit;
 
@@ -30,6 +33,9 @@ public class MechHeroAttackManager extends AttackManager {
           if (unitTargeted.getHealthPoints() <= 0) {
             mechHero.setUnitTargeted(null);
             mechHero.setMouseEventMarkingLocation(null);
+            List<Mech> mechHeroInListForm = new ArrayList<>();
+            mechHeroInListForm.add(mechHero);
+            levelUpManager.grantXpToMechs(unitTargeted,mechHeroInListForm);
             unitTargeted.setAlive(false);
             unitTargeted.setRoundDied(roundCounter);
             unitTargeted.setPosX(-100);

@@ -11,15 +11,19 @@ public class LevelUpManager {
       if (unitTargeted.getUnitType().contains("Enemy")) {
         for (int i = 0; i < listOfMechs.size(); i++) {
           if (listOfMechs.get(i).getUnitType().contains("Hero")) {
-            listOfMechs.get(i).setExperiencePoints(listOfMechs.get(i).getExperiencePoints() + unitTargeted.getXpBounty().get(unitTargeted.getLevel()));
-            checkLevelUpMech(listOfMechs.get(i));
+            if (listOfMechs.get(i).calculateDistanceBetweenUnits(unitTargeted) < 216) {
+              listOfMechs.get(i).setExperiencePoints(listOfMechs.get(i).getExperiencePoints() + unitTargeted.getXpBounty().get(unitTargeted.getLevel()));
+              checkLevelUpMech(listOfMechs.get(i));
+            }
           }
         }
       } else {
         for (int i = 0; i < listOfMechs.size(); i++) {
           if (listOfMechs.get(i).getUnitType().contains("Enemy")) {
-            listOfMechs.get(i).setExperiencePoints(listOfMechs.get(i).getExperiencePoints() + unitTargeted.getXpBounty().get(unitTargeted.getLevel()));
-            checkLevelUpMech(listOfMechs.get(i));
+            if (listOfMechs.get(i).calculateDistanceBetweenUnits(unitTargeted) < 216) {
+              listOfMechs.get(i).setExperiencePoints(listOfMechs.get(i).getExperiencePoints() + unitTargeted.getXpBounty().get(unitTargeted.getLevel()));
+              checkLevelUpMech(listOfMechs.get(i));
+            }
           }
         }
       }
