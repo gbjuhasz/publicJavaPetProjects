@@ -22,25 +22,28 @@ public class HUDeffectsManager extends JComponent {
   }
 
   public void drawHUD(Mech mechHero, List<Unit> listOfEnemyUnits, Graphics graphics) {
-    for (Unit unit : listOfEnemyUnits) {
-      if (mechHero.calculateDistanceBetweenUnits(unit) < mechHero.getAttackRange()) {
-        if (unit.getHealthPoints() <= mechHero.getAttackDamage() &&
-                mechHero.getAttackRange() >= mechHero.calculateDistanceBetweenUnits(unit)) {
-          graphics.setColor(Color.RED);
-        } else if (unit.getHealthPoints() > mechHero.getAttackDamage() &&
-                mechHero.getAttackRange() >= mechHero.calculateDistanceBetweenUnits(unit)) {
-          graphics.setColor(Color.GREEN);
-        } else {
-          graphics.setColor(Color.WHITE);
+    if (mechHero.getUnitTargeted() != null) {
+  //    for (Unit unit : listOfEnemyUnits) {
+  //      if (mechHero.calculateDistanceBetweenUnits(unit) < mechHero.getAttackRange()) {
+  /*        if (unit.getHealthPoints() <= mechHero.getAttackDamage() &&
+                  mechHero.getAttackRange() >= mechHero.calculateDistanceBetweenUnits(unit)) {
+            graphics.setColor(Color.RED);
+          } else if (unit.getHealthPoints() > mechHero.getAttackDamage() &&
+                  mechHero.getAttackRange() >= mechHero.calculateDistanceBetweenUnits(unit)) {
+            graphics.setColor(Color.GREEN);
+          } else {
+            graphics.setColor(Color.WHITE);
+          }*/
+      graphics.setColor(Color.GREEN);
+      ArrayList<Integer> crosshairCoordinates = findCrosshairCoordinates(mechHero.getUnitTargeted());
+          graphics.drawRect(crosshairCoordinates.get(0),
+                  crosshairCoordinates.get(1),
+                  crosshairCoordinates.get(2),
+                  crosshairCoordinates.get(2));
+       //   graphics.setColor(Color.GREEN);
         }
-        ArrayList<Integer> crosshairCoordinates = findCrosshairCoordinates(unit);
-        graphics.drawRect(crosshairCoordinates.get(0),
-                crosshairCoordinates.get(1),
-                crosshairCoordinates.get(2),
-                crosshairCoordinates.get(2));
-        graphics.setColor(Color.GREEN);
-      }
-    }
+ //     }
+ //   }
   }
 
   public void drawHealthBars(List<Unit> listOfAllUnits, Graphics graphics) {
@@ -75,6 +78,45 @@ public class HUDeffectsManager extends JComponent {
     } else {
       Integer oneTickHealth = unit.getRespawnHealthPoints() / healthBarLength;
       return unit.getHealthPoints() / oneTickHealth;
+    }
+  }
+
+  public void drawUnitImageForHighlightedUnit(List<Unit> listOfAllUnits, HUD hud, Graphics graphics) {
+    hud.getHudUnitImage().setImage(null);
+    for (Unit unit : listOfAllUnits
+    ) {
+      if (unit.isHighlighted()) {
+        hud.getHudUnitImage().setImage(unit.getImage());
+      }
+    }
+    hud.getHudUnitImage().draw(graphics);
+  }
+
+  public void drawInfoOfHighlightedUnit(List<Unit> listOfAllUnits, Graphics graphics) {
+    for (Unit unit : listOfAllUnits
+    ) {
+      if (unit.isHighlighted()) {
+        graphics.setColor(Color.green);
+        String unitName = new String();
+        if(unit.getUnitType().contains("Hero")){
+          unitName = "Hero";
+          graphics.drawString(unitName, 30, 675);
+        } else if(unit.getUnitType().equals("mechEnemy")){
+          unitName = "Enemy Hero";
+          graphics.drawString(unitName, 16, 675);
+        } else if (unit.getUnitType().contains("creep")){
+          unitName = "Creep";
+          graphics.drawString(unitName, 30, 675);
+
+        }
+        graphics.drawString("Level: " + String.valueOf(unit.getLevel()), 30, 745);
+        graphics.drawString("Experience: "+ unit.getExperiencePoints()+"/"+unit.getXpNeededForLevelUp().get(unit.getLevel()+1),225,705);
+        graphics.drawString("Health: " + String.valueOf(unit.getHealthPoints()) +
+                "/" + String.valueOf(unit.getRespawnHealthPoints()), 225, 720);
+        graphics.drawString("Energy: ", 225, 735);
+        graphics.drawString("Armor: " + String.valueOf(unit.getArmorRating()), 225, 750);
+
+      }
     }
   }
 }

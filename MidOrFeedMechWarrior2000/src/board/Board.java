@@ -67,7 +67,9 @@ public class Board extends JComponent implements KeyListener, MouseListener {
 
     //HUDeffectsManager display
     HUDeffectsManager.drawHUD(unitLayout.getMechHero(), unitLayout.getListOfEnemyUnits(), graphics);
+    HUDeffectsManager.drawUnitImageForHighlightedUnit(unitLayout.getAllUnits(),huDlayout.getHud(),graphics);
     HUDeffectsManager.drawHealthBars(unitLayout.getAllUnits(), graphics);
+    HUDeffectsManager.drawInfoOfHighlightedUnit(unitLayout.getAllUnits(),graphics);
 
     //Building depth effects
     buildingDepthEffectManager.getBuildingBottomRightSide().draw(graphics);
@@ -78,6 +80,14 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     graphics.fillRect(720, 0, 400, 720);
     graphics.setColor(Color.RED);
     graphics.setColor(Color.WHITE);
+    graphics.drawLine(unitLayout.getMechEnemy().getImageMiddleX()-2,
+            unitLayout.getMechEnemy().getImageMiddleY()-2,
+            unitLayout.getMechEnemy().getImageMiddleX() +2,
+            unitLayout.getMechEnemy().getImageMiddleY()+2);
+    graphics.drawLine(unitLayout.getMechEnemy().getImageMiddleX()+2,
+            unitLayout.getMechEnemy().getImageMiddleY()-2,
+            unitLayout.getMechEnemy().getImageMiddleX() -2,
+            unitLayout.getMechEnemy().getImageMiddleY()+2);
 
     if (unitLayout.getMechHero().getUnitTargeted() != null) {
       graphics.drawString(unitLayout.getMechHero().getUnitTargeted().getUnitType(), 720, 160);

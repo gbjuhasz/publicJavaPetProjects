@@ -1,5 +1,6 @@
 package mechherocontrol;
 
+import board.BoardComponent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,9 +10,17 @@ public class MechHeroMouseClickReactionManager {
 
   public void reactToLeftClick(List<Unit> listOfAllUnits, MouseEvent e
   ) {
-    for (Unit unit : listOfAllUnits) {
-      unit.setHighlighted(false);
-      if (unit.getUnitType().equals("turret")) {
+    if(identifyClickedUnit(listOfAllUnits, e)!= null){
+      identifyClickedUnit(listOfAllUnits, e).setHighlighted(true);
+    } else {
+      for (Unit unit: listOfAllUnits
+           ) {
+        if(unit.getUnitType().equals("mechHero")){
+          unit.setHighlighted(true);
+        }
+      }
+    };
+    /*  if (unit.getUnitType().equals("turret")) {
         if (e.getX() >= unit.getPosX() &&
                 e.getX() <= unit.getPosX() + 144 &&
                 e.getY() >= unit.getPosY() &&
@@ -19,15 +28,15 @@ public class MechHeroMouseClickReactionManager {
           unit.setHighlighted(true);
         }
       } else {
-        if (e.getX() >= unit.getPosX() &&
-                e.getX() <= unit.getPosX() + 72 &&
-                e.getY() >= unit.getPosY() &&
-                e.getY() <= unit.getPosY() + 72) {
+        if (e.getX() >= unit.getImageMiddleX() -36 &&
+                e.getX() <= unit.getImageMiddleX()+ 36 &&
+                e.getY() >= unit.getImageMiddleY() -36 &&
+                e.getY() <= unit.getImageMiddleY() + 36) {
           unit.setHighlighted(true);
         }
       }
+    }*/
     }
-  }
 
   public void reactToRightClick(MechHero mechHero,
                                 MechEnemy mechEnemy,
@@ -50,8 +59,8 @@ public class MechHeroMouseClickReactionManager {
     }
   }
 
-  public Unit identifyClickedUnit(List<Unit> listOfClickableUnits, MouseEvent mouseEvent) {
-    for (Unit unit : listOfClickableUnits) {
+  public Unit identifyClickedUnit(List<Unit> listOfUnits, MouseEvent e) {
+  /*  for (Unit unit : listOfClickableUnits) {
       if (mouseEvent.getX() >= unit.getPosX() &&
               mouseEvent.getX() <= unit.getPosX() + 72 &&
               mouseEvent.getY() >= unit.getPosY() &&
@@ -59,6 +68,29 @@ public class MechHeroMouseClickReactionManager {
         return unit;
       }
     }
-    return null;
+    return null;*/
+    double closestUnitDistance = calculateDistanceBetweenClickAndUnits(e, listOfUnits.get(0));
+    Unit closestUnit = listOfUnits.get(0);
+    for (Unit unit : listOfUnits) {
+      unit.setHighlighted(false);
+      double distance = calculateDistanceBetweenClickAndUnits(e, unit);
+      if (distance < closestUnitDistance) {
+        closestUnitDistance = distance;
+        closestUnit = unit;
+      }
+    }
+
+    if (closestUnitDistance <= 72) {
+      return closestUnit;
+    } else {
+      return null;
+    }
+  }
+
+  public double calculateDistanceBetweenClickAndUnits(MouseEvent e, Unit unit) {
+    int a = Math.abs(e.getX() - unit.getImageMiddleX());
+    int b = Math.abs(e.getY() - unit.getImageMiddleY());
+    double distance = Math.sqrt(a * a + b * b);
+    return distance;
   }
 }

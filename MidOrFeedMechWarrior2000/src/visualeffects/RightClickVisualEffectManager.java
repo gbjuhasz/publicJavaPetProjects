@@ -1,5 +1,6 @@
 package visualeffects;
 
+import com.sun.tools.classfile.RuntimeInvisibleTypeAnnotations_attribute;
 import java.awt.*;
 import java.util.List;
 import javax.swing.*;
@@ -14,7 +15,7 @@ public class RightClickVisualEffectManager extends JComponent {
 
     Graphics2D graphics2d = (Graphics2D) graphics.create();
     String roundEvenOrOdd;
-    if(roundCounter%2 == 0){
+    if (roundCounter % 2 == 0) {
       roundEvenOrOdd = "EVEN";
     } else {
       roundEvenOrOdd = "ODD";
@@ -39,10 +40,11 @@ public class RightClickVisualEffectManager extends JComponent {
         if (laserX1 != null &&
                 laserY1 != null &&
                 laserX2 != null &&
-                laserY2 != null) {
+                laserY2 != null &&
+                !unit.getLastAttackResult().equals("Miss!")) {
           unit.getRightClickEffect().setPosX(laserX2);
           unit.getRightClickEffect().setPosY(laserY2);
-          unit.getRightClickEffect().pickImage("images/explosions/rightClickExplosion" + roundEvenOrOdd +".png");
+          unit.getRightClickEffect().pickImage("images/explosions/rightClickExplosion" + roundEvenOrOdd + ".png");
           unit.getRightClickEffect().setDisappearsInRound(unit.getRoundAttackedLastTime() + unit.getRightClickVisibleForRounds());
           unit.getRightClickEffect().draw(graphics);
           if (unit.getUnitType().contains("Hero")) {
@@ -58,13 +60,14 @@ public class RightClickVisualEffectManager extends JComponent {
             graphics2d.setColor(Color.BLUE);
             graphics2d.drawLine(unit.getPosX() + laserX1, unit.getPosY() + laserY1, laserX2, laserY2);
           }
-          if(unit.getLastAttackResult().equals("Miss!")){
-            graphics2d.setColor(Color.WHITE);
-            graphics2d.drawString(unit.getLastAttackResult(), laserX2,laserY2);
-          }
-          if (roundCounter > unit.getRoundAttackedLastTime() + unit.getRightClickVisibleForRounds()) {
-            unit.setRightClickAttackedThisRound(false);
-          }
+        } else if (unit.getLastAttackResult().equals("Miss!")) {
+          graphics2d.setColor(Color.WHITE);
+          graphics2d.drawString(unit.getLastAttackResult(), laserX2, laserY2);
+          unit.getRightClickEffect().setPosX(-100);
+          unit.getRightClickEffect().setPosY(-100);
+        }
+        if (roundCounter > unit.getRoundAttackedLastTime() + unit.getRightClickVisibleForRounds()) {
+          unit.setRightClickAttackedThisRound(false);
         }
       }
     }

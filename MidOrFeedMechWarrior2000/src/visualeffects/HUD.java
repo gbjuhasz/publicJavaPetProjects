@@ -1,11 +1,14 @@
-package board;
+package visualeffects;
 
+import board.Tile;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class HUD extends Tile {
+
+  HUDUnitImage hudUnitImage = new HUDUnitImage();
 
   public HUD(String fileLocation, Integer posX, Integer posY){
     super.setPosX(posX);
@@ -17,5 +20,9 @@ public class HUD extends Tile {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  public HUDUnitImage getHudUnitImage() {
+    return hudUnitImage;
   }
 }
