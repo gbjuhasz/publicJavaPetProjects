@@ -188,6 +188,12 @@ public class Board extends JComponent implements KeyListener, MouseListener {
       unitLayout.getMechHero().setMouseEventMarkingLocation(null);
       unitLayout.getMechHero().setUnitTargeted(null);
     }
+
+    if(e.getKeyCode() == KeyEvent.VK_Q) {
+      if(unitLayout.getMechHero().getEnergy() > unitLayout.getMechHero().getListOfAbilities().get(0).getEnergyCost()){
+        unitLayout.getMechHero().getListOfAbilities().get(0).setActivated(true);
+      }
+    }
   }
 
   @Override
@@ -203,13 +209,10 @@ public class Board extends JComponent implements KeyListener, MouseListener {
 
     if (SwingUtilities.isRightMouseButton(e)) {
       mechHeroMouseClickReactionManager.reactToRightClick(mechHero,
-              mechEnemy,
-              listOfCreepEnemy,
-              turretEnemy,
-              listOfMechs,
+            listOfAllUnits,
               e);
     } else {
-      mechHeroMouseClickReactionManager.reactToLeftClick(listOfAllUnits, e);
+      mechHeroMouseClickReactionManager.reactToLeftClick(mechHero,listOfAllUnits, e, roundCounter);
       repaint();
     }
   }

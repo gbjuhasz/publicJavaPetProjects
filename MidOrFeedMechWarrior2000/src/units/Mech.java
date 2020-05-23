@@ -1,6 +1,9 @@
 package units;
 
+import abilities.Ability;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public abstract class Mech extends Unit {
   //fields for fighting
@@ -8,6 +11,8 @@ public abstract class Mech extends Unit {
   private int attackDamage = 50 + (super.getLevel() * 5);
   private int healthPoints = 750 + (super.getLevel() * 50);
   private int respawnHealthPoints = 750 + (super.getLevel() * 50);
+  private int energy = 300 + (super.getLevel() * 50);
+  private int respawnEnergy = 300 + (super.getLevel() * 50);
   private int armorRating = 0 + super.getLevel();
   private int missChance = 1;
   private int roundsToRespawn = super.getLevel() * 5 ;
@@ -20,9 +25,7 @@ public abstract class Mech extends Unit {
     put(5, 333);
     put(6, 427);
   }};
-
   //fields for decision making
-
 
   @Override
   public int getArmorRating() {
@@ -67,5 +70,25 @@ public abstract class Mech extends Unit {
   @Override
   public HashMap<Integer, Integer> getXpBounty() {
     return xpBounty;
+  }
+
+  @Override
+  public int getRespawnEnergy() {
+    return respawnEnergy;
+  }
+
+  @Override
+  public int getEnergy() {
+    return energy;
+  }
+
+  @Override
+  public void setEnergy(int energy) {
+    this.energy = energy;
+  }
+
+  @Override
+  public void setRespawnEnergy(int respawnEnergy) {
+    this.respawnEnergy = respawnEnergy;
   }
 }

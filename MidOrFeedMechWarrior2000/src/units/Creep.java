@@ -11,6 +11,8 @@ public abstract class Creep extends Unit {
   private int attackDamage = 25;
   private int healthPoints = 550;
   private int respawnHealthPoints = 550;
+  private int energy = 0;
+  private int respawnEnergy = 0;
   private int armorRating = 0;
   private int detectionRange = 144;
   private int missChance = 2;
@@ -103,5 +105,25 @@ public abstract class Creep extends Unit {
 
   public void setHeadingTowardsWaypoint(int headingTowardsWaypoint) {
     this.headingTowardsWaypoint = headingTowardsWaypoint;
+  }
+
+  @Override
+  public int getEnergy() {
+    return energy;
+  }
+
+  @Override
+  public int getRespawnEnergy() {
+    return respawnEnergy;
+  }
+
+  @Override
+  public void setRespawnEnergy(int respawnEnergy) {
+    this.respawnEnergy = respawnEnergy;
+  }
+
+  @Override
+  public void setEnergy(int energy) {
+    this.energy = energy;
   }
 }

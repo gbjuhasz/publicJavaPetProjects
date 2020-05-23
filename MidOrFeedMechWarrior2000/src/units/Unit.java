@@ -1,8 +1,10 @@
 package units;
 
+import abilities.Ability;
 import board.BoardComponent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.HashMap;
 import visualeffects.Explosion;
 
@@ -29,6 +31,8 @@ public abstract class Unit extends BoardComponent {
   //fields for fighting
   private int respawnHealthPoints;
   private int healthPoints;
+  private int energy;
+  private int respawnEnergy;
   private int armorRating;
   private int attackRange;
   private int attackDamage;
@@ -36,7 +40,10 @@ public abstract class Unit extends BoardComponent {
   private int roundsPerAttack = 100;
   private int roundAttackedLastTime = -100;
   private int roundAttackNextTime;
-  Unit unitTargeted;
+  private Unit unitTargeted;
+  private boolean isStunned;
+  private int stunOverInRound;
+  private ArrayList<Ability> listOfAbilities = new ArrayList();
   //fields for levelling
   private int level = 1;
   private int experiencePoints = 0;
@@ -211,8 +218,37 @@ public abstract class Unit extends BoardComponent {
     return rightClickEffect;
   }
 
+  public ArrayList<Ability> getListOfAbilities() {
+    return listOfAbilities;
+  }
+
+  public int getEnergy() {
+    return energy;
+  }
+
+  public int getRespawnEnergy() {
+    return respawnEnergy;
+  }
+
+  public int getStunOverInRound() {
+    return stunOverInRound;
+  }
+
+  public boolean isStunned() {
+    return isStunned;
+  }
+
   public boolean isRightClickAttackedThisRound() {
     return rightClickAttackedThisRound;
+  }
+
+
+  public void setStunned(boolean stunned) {
+    isStunned = stunned;
+  }
+
+  public void setStunOverInRound(int stunOverInRound) {
+    this.stunOverInRound = stunOverInRound;
   }
 
   public void setLastAttackResult(String lastAttackResult) {
@@ -345,6 +381,14 @@ public abstract class Unit extends BoardComponent {
 
   public void setUnitTargeted(Unit unitTargeted) {
     this.unitTargeted = unitTargeted;
+  }
+
+  public void setRespawnEnergy(int respawnEnergy) {
+    this.respawnEnergy = respawnEnergy;
+  }
+
+  public void setEnergy(int energy) {
+    this.energy = energy;
   }
 
   public void draw(Graphics graphics) {

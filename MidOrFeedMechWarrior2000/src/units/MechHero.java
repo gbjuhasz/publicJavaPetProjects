@@ -1,5 +1,6 @@
 package units;
 
+import abilities.Stun;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -36,6 +37,7 @@ public class MechHero extends Mech {
     super.setUnitType("mechHero");
     Random random = new Random();
     super.setFeetForward(super.getFeetImageNames()[random.nextInt(2)]);
+    super.getListOfAbilities().add(new Stun());
 
     try {
       BufferedImage tileImage = ImageIO.read(new File(fileLocation));

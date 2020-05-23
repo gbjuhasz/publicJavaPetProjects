@@ -24,6 +24,7 @@ public class RespawnManager {
   public void respawnMechHeroIfDead(MechHero mechHero, int roundCounter){
     if (!mechHero.isAlive() && roundCounter - mechHero.getRoundDied() == mechHero.getRoundsToRespawn()) {
       mechHero.setAlive(true);
+      mechHero.setStunned(false);
       mechHero.setUnitTargeted(null);
       mechHero.setMouseEventMarkingLocation(null);
       mechHero.setHealthPoints(mechHero.getRespawnHealthPoints());
@@ -37,6 +38,7 @@ public class RespawnManager {
 
       if (!mech.isAlive() && roundCounter - mech.getRoundDied() == mech.getRoundsToRespawn()) {
         mech.setAlive(true);
+        mech.setStunned(false);
         mech.setHealthPoints(mech.getRespawnHealthPoints());
         mech.setPosX(mech.getRespawnX());
         mech.setPosY(mech.getRespawnY());
@@ -49,6 +51,7 @@ public class RespawnManager {
       if(!creep.isAlive() &&
       roundCounter == creep.getRoundToRespawn()){
         creep.setAlive(true);
+        creep.setStunned(false);
         creep.setHealthPoints(creep.getRespawnHealthPoints());
         creep.setPosX(creep.getRespawnX());
         creep.setPosY(creep.getRespawnY());

@@ -113,7 +113,7 @@ public class HUDeffectsManager extends JComponent {
         graphics.drawString("Experience: "+ unit.getExperiencePoints()+"/"+unit.getXpNeededForLevelUp().get(unit.getLevel()+1),225,705);
         graphics.drawString("Health: " + String.valueOf(unit.getHealthPoints()) +
                 "/" + String.valueOf(unit.getRespawnHealthPoints()), 225, 720);
-        graphics.drawString("Energy: ", 225, 735);
+        graphics.drawString("Energy: "+ String.valueOf(unit.getEnergy())+"/"+ unit.getRespawnEnergy(), 225, 735);
         graphics.drawString("Armor: " + String.valueOf(unit.getArmorRating()), 225, 750);
 
       }

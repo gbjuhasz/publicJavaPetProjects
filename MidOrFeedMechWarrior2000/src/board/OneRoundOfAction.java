@@ -33,7 +33,8 @@ public class OneRoundOfAction {
     }
 
     for (Creep creepAllied : listOfCreepAllied) {
-      if (creepAllied.isAlive()) {
+      if (creepAllied.isAlive() &&
+      !creepAllied.isStunned()) {
         creepAlliedDecisionMaker.reactToPlayerMovement(creepAllied,
                 mechEnemy,
                 listOfCreepEnemy,
@@ -44,7 +45,8 @@ public class OneRoundOfAction {
       }
     }
     for (Creep creepEnemy : listOfCreepEnemy) {
-      if (creepEnemy.isAlive()) {
+      if (creepEnemy.isAlive() &&
+              !creepEnemy.isStunned()) {
         creepEnemyDecisionMaker.reactToPlayerMovement(creepEnemy,
                 mechHero,
                 listOfCreepAllied,
@@ -54,7 +56,8 @@ public class OneRoundOfAction {
                 roundCounter);
       }
     }
-    if (mechEnemy.isAlive()) {
+    if (mechEnemy.isAlive() &&
+    !mechEnemy.isStunned()) {
       mechEnemyDecisionMaker.reactToPlayerMovement(mechEnemy,
               mechHero,
               listOfCreepAllied,
