@@ -1,6 +1,5 @@
 package board;
 
-import units.MechHero;
 import visualeffects.HUD;
 
 public class HUDlayout {

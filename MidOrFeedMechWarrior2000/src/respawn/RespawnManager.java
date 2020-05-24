@@ -26,6 +26,7 @@ public class RespawnManager {
       mechHero.setAlive(true);
       mechHero.setStunned(false);
       mechHero.setUnitTargeted(null);
+      mechHero.setEnergy(mechHero.getRespawnEnergy());
       mechHero.setMouseEventMarkingLocation(null);
       mechHero.setHealthPoints(mechHero.getRespawnHealthPoints());
       mechHero.setPosX(mechHero.getRespawnX());
@@ -40,6 +41,7 @@ public class RespawnManager {
         mech.setAlive(true);
         mech.setStunned(false);
         mech.setHealthPoints(mech.getRespawnHealthPoints());
+        mech.setEnergy(mech.getRespawnEnergy());
         mech.setPosX(mech.getRespawnX());
         mech.setPosY(mech.getRespawnY());
         mech.setSwitchFeetInRound(roundCounter+mech.getSwitchFeetEveryXRound());

@@ -23,7 +23,10 @@ public class OneRoundOfAction {
                                       List<Mech> listOfMechs,
                                       int roundCounter) {
 
-    if(mechHero.isAlive()){
+    checkStunnedUnits(listOfAllUnits,roundCounter);
+
+    if (mechHero.isAlive() &&
+            !mechHero.isStunned()) {
       mechHeroDecisionMaker.reactToMouseCommand(mechHero,
               mechEnemy,
               listOfCreepEnemy,
@@ -34,7 +37,7 @@ public class OneRoundOfAction {
 
     for (Creep creepAllied : listOfCreepAllied) {
       if (creepAllied.isAlive() &&
-      !creepAllied.isStunned()) {
+              !creepAllied.isStunned()) {
         creepAlliedDecisionMaker.reactToPlayerMovement(creepAllied,
                 mechEnemy,
                 listOfCreepEnemy,
@@ -57,7 +60,7 @@ public class OneRoundOfAction {
       }
     }
     if (mechEnemy.isAlive() &&
-    !mechEnemy.isStunned()) {
+            !mechEnemy.isStunned()) {
       mechEnemyDecisionMaker.reactToPlayerMovement(mechEnemy,
               mechHero,
               listOfCreepAllied,
@@ -81,5 +84,15 @@ public class OneRoundOfAction {
             listOfAllUnits,
             listOfMechs,
             roundCounter);
+  }
+
+  private void checkStunnedUnits(List<Unit> lisOfAllUnits, int roundCounter) {
+    for (Unit unit : lisOfAllUnits
+    ) {
+      if (unit.isStunned() &&
+              unit.getStunOverInRound() >= roundCounter) {
+        unit.setStunned(false);
+      }
+    }
   }
 }

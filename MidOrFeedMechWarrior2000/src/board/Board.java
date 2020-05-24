@@ -66,10 +66,12 @@ public class Board extends JComponent implements KeyListener, MouseListener {
             80);
 
     //HUDeffectsManager display
-    HUDeffectsManager.drawHUD(unitLayout.getMechHero(), unitLayout.getListOfEnemyUnits(), graphics);
+    HUDeffectsManager.drawXPBar(unitLayout.getMechHero(), graphics);
+    huDlayout.placeHud();
+    HUDeffectsManager.drawRectangle(unitLayout.getMechHero(), unitLayout.getListOfEnemyUnits(), graphics);
     HUDeffectsManager.drawUnitImageForHighlightedUnit(unitLayout.getAllUnits(),huDlayout.getHud(),graphics);
     HUDeffectsManager.drawHealthBars(unitLayout.getAllUnits(), graphics);
-    HUDeffectsManager.drawInfoOfHighlightedUnit(unitLayout.getAllUnits(),graphics);
+    HUDeffectsManager.drawInfoOfHighlightedUnit(unitLayout.getAllUnits(), graphics);
 
     //Building depth effects
     buildingDepthEffectManager.getBuildingBottomRightSide().draw(graphics);
