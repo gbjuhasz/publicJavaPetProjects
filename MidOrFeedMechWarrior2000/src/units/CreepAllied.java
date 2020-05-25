@@ -73,7 +73,7 @@ public class CreepAllied extends Creep {
   //not necessary if image files are replaced later!!!
   @Override
   public void calculateImageCenterCoordinates() {
-    setImageMiddleX(getPosX() + 23);
-    setImageMiddleY(getPosY() + 23);
+    setImageMiddleX(getPosX() + 15);
+    setImageMiddleY(getPosY() + 15);
   }
 }

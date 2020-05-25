@@ -48,6 +48,7 @@ public class MechHeroMouseClickReactionManager {
     }
     if (identifyClickedUnit(listOfAllRightClickableUnits, mouseEvent) == null) {
       mechHero.setMouseEventMarkingLocation(mouseEvent);
+      mechHero.setHighlighted(true);
     } else {
       mechHero.setUnitTargeted(identifyClickedUnit(listOfAllRightClickableUnits, mouseEvent));
       for (Unit unit : listOfAllUnits

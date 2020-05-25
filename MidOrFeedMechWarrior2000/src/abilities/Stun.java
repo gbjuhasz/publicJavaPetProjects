@@ -6,7 +6,7 @@ import units.Unit;
 public class Stun extends Ability {
   private String name = "EMP shock";
   private int energyCost = 100;
-  private int coolDown = 10;
+  private int coolDown = 1000;
   private int stunnedForRounds = 300;
   private int range = 216;
   private int lastUsedInRound;

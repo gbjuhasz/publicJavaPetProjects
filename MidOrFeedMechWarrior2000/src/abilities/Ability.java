@@ -71,4 +71,6 @@ public abstract class Ability {
   }
 
   public void useAbility(Mech mech, Unit unitTargeted, int roundCounter){}
+
+  public void useAOEAbility(Mech mech, Unit unitTargeted, List<Unit>listOfUnits, int roundCounter){}
 }

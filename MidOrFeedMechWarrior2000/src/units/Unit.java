@@ -431,4 +431,15 @@ public abstract class Unit extends BoardComponent {
       setTargetDirection("NW");
     }
   }
+
+  public ArrayList<Unit> listOfUnitsWithinRangeOfAreaEffectAroundUnit(Unit unitTargeted, ArrayList<Unit> listOfUnits, int rangeAOE){
+    ArrayList<Unit> unitsInAoe = new ArrayList<>();
+    for (Unit unitAroundTarget: listOfUnits
+         ) {
+      if(unitTargeted.calculateDistanceBetweenUnits(unitAroundTarget) <= rangeAOE){
+        unitsInAoe.add(unitAroundTarget);
+      }
+    }
+    return unitsInAoe;
+  }
 }

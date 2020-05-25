@@ -69,4 +69,10 @@ public class CreepEnemy extends Creep {
   public HashMap<String, Integer> getyCoordinatesForRightClickEffectInEveryDirection() {
     return yCoordinatesForRightClickEffectInEveryDirection;
   }
+
+  @Override
+  public void calculateImageCenterCoordinates() {
+    setImageMiddleX(getPosX() + 23);
+    setImageMiddleY(getPosY() + 23);
+  }
 }

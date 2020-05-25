@@ -9,7 +9,7 @@ import mechherocontrol.MechHeroMouseClickReactionManager;
 import respawn.RespawnManager;
 import units.*;
 import visualeffects.BuildingDepthEffectManager;
-import visualeffects.HUDeffectsManager;
+import visualeffects.HUDgraphicsManager;
 import visualeffects.RightClickVisualEffectManager;
 
 public class Board extends JComponent implements KeyListener, MouseListener {
@@ -19,7 +19,7 @@ public class Board extends JComponent implements KeyListener, MouseListener {
   UnitLayout unitLayout = new UnitLayout();
   HUDlayout huDlayout = new HUDlayout();
   RespawnManager respawnManager = new RespawnManager();
-  HUDeffectsManager HUDeffectsManager = new HUDeffectsManager();
+  HUDgraphicsManager HUDgraphicsManager = new HUDgraphicsManager();
   OneRoundOfAction oneRoundOfAction = new OneRoundOfAction();
   EffectLayout effectLayout = new EffectLayout();
   BuildingDepthEffectManager buildingDepthEffectManager = new BuildingDepthEffectManager();
@@ -65,13 +65,13 @@ public class Board extends JComponent implements KeyListener, MouseListener {
             72,
             80);
 
-    //HUDeffectsManager display
-    HUDeffectsManager.drawXPBar(unitLayout.getMechHero(), graphics);
+    //HUDgraphicsManager display
+    HUDgraphicsManager.drawXPBar(unitLayout.getMechHero(), graphics);
     huDlayout.placeHud();
-    HUDeffectsManager.drawRectangle(unitLayout.getMechHero(), unitLayout.getListOfEnemyUnits(), graphics);
-    HUDeffectsManager.drawUnitImageForHighlightedUnit(unitLayout.getAllUnits(),huDlayout.getHud(),graphics);
-    HUDeffectsManager.drawHealthBars(unitLayout.getAllUnits(), graphics);
-    HUDeffectsManager.drawInfoOfHighlightedUnit(unitLayout.getAllUnits(), graphics);
+    HUDgraphicsManager.drawRectangle(unitLayout.getMechHero(), unitLayout.getListOfEnemyUnits(), graphics);
+    HUDgraphicsManager.drawUnitImageForHighlightedUnit(unitLayout.getAllUnits(),huDlayout.getHud(),graphics);
+    HUDgraphicsManager.drawInfoBars(unitLayout.getAllUnits(), graphics);
+    HUDgraphicsManager.drawInfoOfHighlightedUnit(unitLayout.getAllUnits(), graphics);
 
     //Building depth effects
     buildingDepthEffectManager.getBuildingBottomRightSide().draw(graphics);

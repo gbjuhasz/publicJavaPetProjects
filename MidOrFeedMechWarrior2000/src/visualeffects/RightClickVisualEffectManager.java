@@ -29,6 +29,7 @@ public class RightClickVisualEffectManager extends JComponent {
             listOfAllUnits) {
       if (unit.isRightClickAttackedThisRound() &&
               unit.getUnitTargeted() != null &&
+              unit.getUnitTargeted().isAlive() &&
               unit.calculateDistanceBetweenUnits(unit.getUnitTargeted()) < unit.getAttackRange()) {
         String unitFacingDirection = unit.getFacingDirection();
 
