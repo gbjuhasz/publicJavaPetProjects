@@ -189,12 +189,17 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     if (e.getKeyCode() == KeyEvent.VK_S) {
       unitLayout.getMechHero().setMouseEventMarkingLocation(null);
       unitLayout.getMechHero().setUnitTargeted(null);
+      for (int i = 0; i <       unitLayout.getMechHero().getListOfAbilities().size(); i++) {
+        unitLayout.getMechHero().getListOfAbilities().get(i).setActivated(false);
+      }
     }
 
     if(e.getKeyCode() == KeyEvent.VK_Q) {
       if(unitLayout.getMechHero().getEnergy() > unitLayout.getMechHero().getListOfAbilities().get(0).getEnergyCost() &&
       unitLayout.getMechHero().getListOfAbilities().get(0).getCanBeusedAgainInRound() <= roundCounter){
         unitLayout.getMechHero().getListOfAbilities().get(0).setActivated(true);
+        unitLayout.getMechHero().getListOfAbilities().get(1).setActivated(false);
+
       }
     }
 
@@ -202,6 +207,8 @@ public class Board extends JComponent implements KeyListener, MouseListener {
       if(unitLayout.getMechHero().getEnergy() > unitLayout.getMechHero().getListOfAbilities().get(1).getEnergyCost() &&
       unitLayout.getMechHero().getListOfAbilities().get(1).getCanBeusedAgainInRound() <= roundCounter){
         unitLayout.getMechHero().getListOfAbilities().get(1).setActivated(true);
+        unitLayout.getMechHero().getListOfAbilities().get(0).setActivated(false);
+
       }
     }
   }

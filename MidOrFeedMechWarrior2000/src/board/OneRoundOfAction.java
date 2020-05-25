@@ -90,7 +90,7 @@ public class OneRoundOfAction {
     for (Unit unit : lisOfAllUnits
     ) {
       if (unit.isStunned() &&
-              unit.getStunOverInRound() >= roundCounter) {
+              unit.getStunOverInRound() <= roundCounter) {
         unit.setStunned(false);
       }
     }
