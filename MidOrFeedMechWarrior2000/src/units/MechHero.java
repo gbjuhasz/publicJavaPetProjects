@@ -1,5 +1,6 @@
 package units;
 
+import abilities.AoeNuke;
 import abilities.Stun;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -38,6 +39,7 @@ public class MechHero extends Mech {
     Random random = new Random();
     super.setFeetForward(super.getFeetImageNames()[random.nextInt(2)]);
     super.getListOfAbilities().add(new Stun());
+    super.getListOfAbilities().add(new AoeNuke());
 
     try {
       BufferedImage tileImage = ImageIO.read(new File(fileLocation));

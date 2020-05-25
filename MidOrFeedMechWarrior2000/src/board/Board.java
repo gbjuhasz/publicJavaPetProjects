@@ -192,8 +192,16 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     }
 
     if(e.getKeyCode() == KeyEvent.VK_Q) {
-      if(unitLayout.getMechHero().getEnergy() > unitLayout.getMechHero().getListOfAbilities().get(0).getEnergyCost()){
+      if(unitLayout.getMechHero().getEnergy() > unitLayout.getMechHero().getListOfAbilities().get(0).getEnergyCost() &&
+      unitLayout.getMechHero().getListOfAbilities().get(0).getCanBeusedAgainInRound() <= roundCounter){
         unitLayout.getMechHero().getListOfAbilities().get(0).setActivated(true);
+      }
+    }
+
+    if(e.getKeyCode() == KeyEvent.VK_W) {
+      if(unitLayout.getMechHero().getEnergy() > unitLayout.getMechHero().getListOfAbilities().get(1).getEnergyCost() &&
+      unitLayout.getMechHero().getListOfAbilities().get(1).getCanBeusedAgainInRound() <= roundCounter){
+        unitLayout.getMechHero().getListOfAbilities().get(1).setActivated(true);
       }
     }
   }

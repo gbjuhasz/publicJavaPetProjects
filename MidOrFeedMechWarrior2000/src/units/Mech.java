@@ -102,7 +102,7 @@ public abstract class Mech extends Unit {
   @Override
   public void setArmorRating(int armorRating) {
     this.armorRating = armorRating;
-  } 
+  }
 
   @Override
   public void setRespawnEnergy(int respawnEnergy) {

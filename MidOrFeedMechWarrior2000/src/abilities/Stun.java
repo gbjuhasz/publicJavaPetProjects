@@ -9,6 +9,7 @@ public class Stun extends Ability {
   private int coolDown = 1000;
   private int stunnedForRounds = 300;
   private int range = 216;
+  private String category = "Single target";
   private int lastUsedInRound;
   private int canBeusedAgainInRound;
 
@@ -46,6 +47,11 @@ public class Stun extends Ability {
   @Override
   public int getRange() {
     return range;
+  }
+
+  @Override
+  public String getCategory() {
+    return category;
   }
 
   @Override

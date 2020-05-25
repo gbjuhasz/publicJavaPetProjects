@@ -1,5 +1,6 @@
 package abilities;
 
+import java.util.ArrayList;
 import java.util.List;
 import units.Mech;
 import units.Unit;
@@ -7,6 +8,7 @@ import units.Unit;
 public abstract class Ability {
 
   private String name;
+  private String category;
   private int energyCost;
   private int coolDown;
   private int lastUsedInRound;
@@ -66,11 +68,19 @@ public abstract class Ability {
     this.canBeusedAgainInRound = canBeusedAgainInRound;
   }
 
+  public String getCategory() {
+    return category;
+  }
+
+  public void setCategory(String category) {
+    this.category = category;
+  }
+
   public void setLastUsedInRound(int lastUsedInRound) {
     this.lastUsedInRound = lastUsedInRound;
   }
 
   public void useAbility(Mech mech, Unit unitTargeted, int roundCounter){}
 
-  public void useAOEAbility(Mech mech, Unit unitTargeted, List<Unit>listOfUnits, int roundCounter){}
+  public void useAOEAbility(Mech mech, Unit unitTargeted, ArrayList<Unit> listOfUnits, int roundCounter){}
 }

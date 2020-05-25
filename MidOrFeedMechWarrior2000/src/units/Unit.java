@@ -432,7 +432,7 @@ public abstract class Unit extends BoardComponent {
     }
   }
 
-  public ArrayList<Unit> listOfUnitsWithinRangeOfAreaEffectAroundUnit(Unit unitTargeted, ArrayList<Unit> listOfUnits, int rangeAOE){
+  public ArrayList<Unit> findUnitsWithinRangeOfAreaEffectAroundUnit(Unit unitTargeted, ArrayList<Unit> listOfUnits, int rangeAOE){
     ArrayList<Unit> unitsInAoe = new ArrayList<>();
     for (Unit unitAroundTarget: listOfUnits
          ) {

@@ -18,14 +18,26 @@ public class MechHeroMouseClickReactionManager {
     }
     if (findActivatedAbility(mechHero) != null) {
       identifyClickedUnit(listOfAllUnits, e).setHighlighted(true);
+      if (findActivatedAbility(mechHero).getCategory().contains("aoe")) {
+        ArrayList<Unit> listOfTargetableEnemyUnits = new ArrayList<>();
+        for (Unit unit : listOfAllUnits
+        ) {
+          if (unit.getUnitType().contains("Enemy") &&
+                  !unit.getUnitType().contains("turret")) {
+            listOfTargetableEnemyUnits.add(unit);
+          }
+        }
+        findActivatedAbility(mechHero).useAOEAbility(mechHero, identifyClickedUnit(listOfAllUnits, e), listOfTargetableEnemyUnits, roundCounter);
+        findActivatedAbility(mechHero).setActivated(false);
+      }
+    } else {
       findActivatedAbility(mechHero).useAbility(mechHero, identifyClickedUnit(listOfAllUnits, e), roundCounter);
       findActivatedAbility(mechHero).setActivated(false);
+    }
+    if (identifyClickedUnit(listOfAllUnits, e) != null) {
+      identifyClickedUnit(listOfAllUnits, e).setHighlighted(true);
     } else {
-      if (identifyClickedUnit(listOfAllUnits, e) != null) {
-        identifyClickedUnit(listOfAllUnits, e).setHighlighted(true);
-      } else {
-        mechHero.setHighlighted(true);
-      }
+      mechHero.setHighlighted(true);
     }
   }
 
@@ -33,7 +45,7 @@ public class MechHeroMouseClickReactionManager {
                                 List<Unit> listOfAllUnits,
                                 MouseEvent mouseEvent
   ) {
-    if(findActivatedAbility(mechHero) != null) {
+    if (findActivatedAbility(mechHero) != null) {
       findActivatedAbility(mechHero).setActivated(false);
     }
     mechHero.setUnitTargeted(null);
@@ -42,7 +54,7 @@ public class MechHeroMouseClickReactionManager {
     for (Unit unit : listOfAllUnits
     ) {
       if (unit.getUnitType().contains("Enemy") &&
-      unit.isAlive()) {
+              unit.isAlive()) {
         listOfAllRightClickableUnits.add(unit);
       }
     }
@@ -62,22 +74,26 @@ public class MechHeroMouseClickReactionManager {
   }
 
   public Unit identifyClickedUnit(List<Unit> listOfUnits, MouseEvent e) {
-    double closestUnitDistance = calculateDistanceBetweenClickAndUnits(e, listOfUnits.get(0));
-    Unit closestUnit = listOfUnits.get(0);
-    for (Unit unit : listOfUnits) {
-      unit.setHighlighted(false);
-      if (unit.isAlive() == true) {
-        double distance = calculateDistanceBetweenClickAndUnits(e, unit);
-        if (distance < closestUnitDistance) {
-          closestUnitDistance = distance;
-          closestUnit = unit;
+    if (listOfUnits.size() >= 1) {
+      double closestUnitDistance = calculateDistanceBetweenClickAndUnits(e, listOfUnits.get(0));
+      Unit closestUnit = listOfUnits.get(0);
+      for (Unit unit : listOfUnits) {
+        unit.setHighlighted(false);
+        if (unit.isAlive() == true) {
+          double distance = calculateDistanceBetweenClickAndUnits(e, unit);
+          if (distance < closestUnitDistance) {
+            closestUnitDistance = distance;
+            closestUnit = unit;
+          }
         }
       }
-    }
 
-    if (closestUnitDistance <= 72 &&
-            closestUnit.isAlive()) {
-      return closestUnit;
+      if (closestUnitDistance <= 72 &&
+              closestUnit.isAlive()) {
+        return closestUnit;
+      } else {
+        return null;
+      }
     } else {
       return null;
     }
