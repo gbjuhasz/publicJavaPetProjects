@@ -26,6 +26,7 @@ public class AttackManager {
         unitAttacking.setRightClickAttackedThisRound(true);
         if (unitTargeted.getHealthPoints() <= 0) {
           unitTargeted.setAlive(false);
+          unitTargeted.setHighlighted(false);
           levelUpManager.grantXpToMechs(unitTargeted, listOfMechs);
           unitTargeted.setRoundDied(roundCounter);
           unitTargeted.setPosX(-100);

@@ -19,11 +19,11 @@ public class MechHeroMouseClickReactionManager {
     if (findActivatedAbility(mechHero) != null &&
     identifyClickedUnit(listOfAllUnits,e) != null) {
       ArrayList<Unit> listOfPossibleAbilityTargets = new ArrayList<>();
-      for (int i = 0; i < listOfAllUnits.size(); i++) {
-        if(listOfAllUnits.get(i).getUnitType().contains("Enemy") &&
-                listOfAllUnits.get(i).isAlive() &&
-                !listOfAllUnits.get(i).getUnitType().contains("turret")){
-          listOfPossibleAbilityTargets.add(listOfAllUnits.get(i));
+      for (Unit listOfAllUnit : listOfAllUnits) {
+        if (listOfAllUnit.getUnitType().contains("Enemy") &&
+                listOfAllUnit.isAlive() &&
+                !listOfAllUnit.getUnitType().contains("turret")) {
+          listOfPossibleAbilityTargets.add(listOfAllUnit);
         }
       }
       identifyClickedUnit(listOfAllUnits, e).setHighlighted(true);
@@ -74,7 +74,7 @@ public class MechHeroMouseClickReactionManager {
     }
   }
 
-  public Unit identifyClickedUnit(List<Unit> listOfUnits, MouseEvent e) {
+  private Unit identifyClickedUnit(List<Unit> listOfUnits, MouseEvent e) {
     if(listOfUnits.size() >= 1) {
       double closestUnitDistance = calculateDistanceBetweenClickAndUnits(e, listOfUnits.get(0));
       Unit closestUnit = listOfUnits.get(0);
@@ -100,11 +100,10 @@ public class MechHeroMouseClickReactionManager {
     }
   }
 
-  public double calculateDistanceBetweenClickAndUnits(MouseEvent e, Unit unit) {
+  private double calculateDistanceBetweenClickAndUnits(MouseEvent e, Unit unit) {
     int a = Math.abs(e.getX() - unit.getImageMiddleX());
     int b = Math.abs(e.getY() - unit.getImageMiddleY());
-    double distance = Math.sqrt(a * a + b * b);
-    return distance;
+    return Math.sqrt(a * a + b * b);
   }
 
   private Ability findActivatedAbility(MechHero mechHero) {

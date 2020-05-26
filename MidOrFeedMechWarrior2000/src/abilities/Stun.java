@@ -65,7 +65,7 @@ public class Stun extends Ability {
   }
 
   @Override
-  public void setCanBeusedAgainInRound(int canBeusedAgainInRound) {
+  public void setCanBeUsedAgainInRound(int canBeusedAgainInRound) {
     this.canBeusedAgainInRound = canBeusedAgainInRound;
   }
 
@@ -86,7 +86,7 @@ public class Stun extends Ability {
   @Override
   public void useAbility(Mech mech, Unit unitTargeted, int roundCounter){
     mech.setEnergy(mech.getEnergy() - getEnergyCost());
-    setCanBeusedAgainInRound(roundCounter+getCoolDown());
+    setCanBeUsedAgainInRound(roundCounter+getCoolDown());
     unitTargeted.setStunned(true);
     unitTargeted.setStunOverInRound(roundCounter + getStunnedForRounds());
   }

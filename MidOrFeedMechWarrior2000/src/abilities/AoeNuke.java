@@ -1,8 +1,10 @@
 package abilities;
 
+import experiencesystem.LevelUpManager;
 import java.util.ArrayList;
 import java.util.List;
 import units.Mech;
+import units.MechHero;
 import units.Unit;
 
 public class AoeNuke extends Ability {
@@ -14,6 +16,7 @@ public class AoeNuke extends Ability {
   private int damage = 1080;
   private int lastUsedInRound;
   private int canBeusedAgainInRound;
+  private LevelUpManager levelUpManager = new LevelUpManager();
 
   @Override
   public int getEnergyCost() {
@@ -44,7 +47,7 @@ public class AoeNuke extends Ability {
   }
 
   @Override
-  public void setCanBeusedAgainInRound(int canBeusedAgainInRound) {
+  public void setCanBeUsedAgainInRound(int canBeusedAgainInRound) {
     this.canBeusedAgainInRound = canBeusedAgainInRound;
   }
 
@@ -52,11 +55,26 @@ public class AoeNuke extends Ability {
   public void useAOEAbility(Mech mech, Unit unitTargeted, ArrayList<Unit> listOfEnemyUnits, int roundCounter) {
     mech.setEnergy(mech.getEnergy() - getEnergyCost());
     setLastUsedInRound(roundCounter);
-    setCanBeusedAgainInRound(roundCounter + getCoolDown());
+    setCanBeUsedAgainInRound(roundCounter + getCoolDown());
     unitTargeted.setHealthPoints(unitTargeted.getHealthPoints() - getDamage());
     List<Unit> listOfUnitsInAoeRange = unitTargeted.findUnitsWithinRangeOfAreaEffectAroundUnit(unitTargeted, listOfEnemyUnits, area);
     for (Unit unitInAoe : listOfUnitsInAoeRange) {
       unitInAoe.setHealthPoints((unitInAoe.getHealthPoints() - getDamage()));
+      manageDeathByAbility(mech, unitInAoe, roundCounter);
+    }
+    manageDeathByAbility(mech, unitTargeted, roundCounter);
+  }
+
+  private void manageDeathByAbility(Mech mech, Unit unitTargeted, int roundCounter){
+    if(unitTargeted.getHealthPoints() <= 0){
+      unitTargeted.setHighlighted(false);
+      unitTargeted.setAlive(false);
+      unitTargeted.setRoundDied(roundCounter);
+      unitTargeted.setPosX(-100);
+      unitTargeted.setPosY(-100);
+      List<Mech> listOfMech = new ArrayList<>();
+      listOfMech.add(mech);
+      levelUpManager.grantXpToMechs(unitTargeted,listOfMech);
     }
   }
 }

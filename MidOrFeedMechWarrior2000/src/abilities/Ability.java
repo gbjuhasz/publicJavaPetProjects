@@ -64,7 +64,7 @@ public abstract class Ability {
     return lastUsedInRound;
   }
 
-  public void setCanBeusedAgainInRound(int canBeusedAgainInRound) {
+  public void setCanBeUsedAgainInRound(int canBeusedAgainInRound) {
     this.canBeusedAgainInRound = canBeusedAgainInRound;
   }
 
