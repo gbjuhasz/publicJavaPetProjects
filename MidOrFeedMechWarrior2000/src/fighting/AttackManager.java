@@ -14,6 +14,9 @@ public class AttackManager {
   public void attackTargetUnit(Unit unitAttacking, Unit unitTargeted, List<Mech> listOfMechs, int roundCounter) {
     setFacingDirection(unitAttacking, unitTargeted);
     if (unitAttacking.getRoundAttackNextTime() <= roundCounter) {
+      if(unitAttacking.isInvisible()){
+        unitAttacking.setInvisible(false);
+      }
       unitAttacking.setRoundAttackedLastTime(roundCounter);
       unitAttacking.setRoundAttackNextTime(unitAttacking.getRoundAttackedLastTime() + unitAttacking.getRoundsPerAttack());
       if (attackHit(unitAttacking)) {

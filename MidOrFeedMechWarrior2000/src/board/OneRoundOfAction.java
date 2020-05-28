@@ -23,7 +23,7 @@ public class OneRoundOfAction {
                                       List<Mech> listOfMechs,
                                       int roundCounter) {
 
-    checkStunnedUnits(listOfAllUnits,roundCounter);
+    checkStunnedAndInvisibleUnits(listOfAllUnits,roundCounter);
 
     if (mechHero.isAlive() &&
             !mechHero.isStunned()) {
@@ -86,12 +86,16 @@ public class OneRoundOfAction {
             roundCounter);
   }
 
-  private void checkStunnedUnits(List<Unit> lisOfAllUnits, int roundCounter) {
+  private void checkStunnedAndInvisibleUnits(List<Unit> lisOfAllUnits, int roundCounter) {
     for (Unit unit : lisOfAllUnits
     ) {
       if (unit.isStunned() &&
-              unit.getStunOverInRound() <= roundCounter) {
+              unit.getStunOverInRound() == roundCounter) {
         unit.setStunned(false);
+      }
+      if(unit.isInvisible() &&
+      unit.getInvisibleUntilRound() == roundCounter){
+        unit.setInvisible(false);
       }
     }
   }

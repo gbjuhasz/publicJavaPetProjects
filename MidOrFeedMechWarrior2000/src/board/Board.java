@@ -92,7 +92,7 @@ public class Board extends JComponent implements KeyListener, MouseListener {
             unitLayout.getMechEnemy().getImageMiddleY()+2);
 
     if (unitLayout.getMechHero().getUnitTargeted() != null) {
-      graphics.drawString(unitLayout.getMechHero().getUnitTargeted().getUnitType(), 720, 160);
+      graphics.drawString(String.valueOf(unitLayout.getMechHero().getUnitTargeted().isInvisible()), 72, 160);
     }
     /*graphics.drawString(String.valueOf(unitLayout.getMechHero().getSwitchFeetEveryXRound()), 720, 200);
     graphics.drawString(String.valueOf(unitLayout.getMechHero().getSwitchFeetInRound()), 720, 240);
@@ -208,7 +208,15 @@ public class Board extends JComponent implements KeyListener, MouseListener {
       unitLayout.getMechHero().getListOfAbilities().get(1).getCanBeusedAgainInRound() <= roundCounter){
         unitLayout.getMechHero().getListOfAbilities().get(1).setActivated(true);
         unitLayout.getMechHero().getListOfAbilities().get(0).setActivated(false);
+      }
+    }
 
+    if(e.getKeyCode() == KeyEvent.VK_E) {
+      if(unitLayout.getMechHero().getEnergy() > unitLayout.getMechHero().getListOfAbilities().get(2).getEnergyCost() &&
+              unitLayout.getMechHero().getListOfAbilities().get(2).getCanBeusedAgainInRound() <= roundCounter){
+        unitLayout.getMechHero().getListOfAbilities().get(1).setActivated(false);
+        unitLayout.getMechHero().getListOfAbilities().get(0).setActivated(false);
+        unitLayout.getMechHero().getListOfAbilities().get(2).useAbility(unitLayout.getMechHero(), unitLayout.getMechHero(), roundCounter);
       }
     }
   }

@@ -15,6 +15,8 @@ public abstract class Ability {
   private int canBeusedAgainInRound;
   private int range;
   private boolean activated = false;
+  private int damage;
+  private int area;
 
   public int getCoolDown() {
     return coolDown;
@@ -58,6 +60,14 @@ public abstract class Ability {
 
   public int getCanBeusedAgainInRound() {
     return canBeusedAgainInRound;
+  }
+
+  public int getArea() {
+    return area;
+  }
+
+  public int getDamage() {
+    return damage;
   }
 
   public int getLastUsedInRound() {

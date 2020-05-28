@@ -26,9 +26,15 @@ public class MechHeroMovementManager extends BotMovementManager {
       }
       checkAndSetFacingDirection(mechHero);
       mechHero.calculateImageCenterCoordinates();
-      BufferedImage newImage = pickImage(findImageFileLocation(mechHero.getFacingDirection(),
-              isItTimeToSwitchFeet(mechHero,roundCounter)));
-      mechHero.setImage(newImage);
+      if(mechHero.isInvisible()){
+        BufferedImage newImage = pickImage(findImageFileLocationInvisible(mechHero.getFacingDirection(),
+                isItTimeToSwitchFeet(mechHero,roundCounter)));
+        mechHero.setImage(newImage);
+      } else {
+        BufferedImage newImage = pickImage(findImageFileLocation(mechHero.getFacingDirection(),
+                isItTimeToSwitchFeet(mechHero, roundCounter)));
+        mechHero.setImage(newImage);
+      }
     }
   }
 
@@ -36,6 +42,12 @@ public class MechHeroMovementManager extends BotMovementManager {
   public String findImageFileLocation(String facingDirection, String roundEvenOrOdd) {
 
     String fileLocation = "images/mechhero/MechHero" + facingDirection + roundEvenOrOdd + ".png";
+    return fileLocation;
+  }
+
+  public String findImageFileLocationInvisible(String facingDirection, String roundEvenOrOdd) {
+
+    String fileLocation = "images/mechhero/MechHero" + facingDirection + roundEvenOrOdd + "Invisible.png";
     return fileLocation;
   }
 }

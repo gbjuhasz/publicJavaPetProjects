@@ -39,6 +39,7 @@ public abstract class DecisionMaker {
 
     if (mech.isThreatToHeroUnit() &&
             mech.isAlive() &&
+            !mech.isInvisible() &&
             unitMakingDecision.calculateDistanceBetweenUnits(mech) <= attackRange) {
       return mech;
     }
@@ -50,6 +51,7 @@ public abstract class DecisionMaker {
     }
     if (!mech.isThreatToHeroUnit() &&
             mech.isAlive() &&
+            !mech.isInvisible() &&
             unitMakingDecision.calculateDistanceBetweenUnits(mech) <= attackRange) {
       return mech;
     } else if (unitMakingDecision.calculateDistanceBetweenUnits(turret) <= attackRange) {
@@ -66,6 +68,7 @@ public abstract class DecisionMaker {
     int detectionRange = unitMakingDecision.getDetectionRange();
 
     if (mech.isThreatToHeroUnit() &&
+            !mech.isInvisible() &&
             mech.isAlive() &&
             unitMakingDecision.calculateDistanceBetweenUnits(mech) <= detectionRange) {
       return mech;
@@ -78,7 +81,8 @@ public abstract class DecisionMaker {
     }
     if (!mech.isThreatToHeroUnit()
             && unitMakingDecision.calculateDistanceBetweenUnits(mech) <= detectionRange &&
-            mech.isAlive()) {
+            mech.isAlive() &&
+            !mech.isInvisible()) {
       return mech;
     } else if (unitMakingDecision.calculateDistanceBetweenUnits(turret) <= detectionRange) {
       return turret;

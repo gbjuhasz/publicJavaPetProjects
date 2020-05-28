@@ -15,6 +15,9 @@ public class MechHeroAttackManager extends AttackManager {
   public void attackTargetUnitWithMechHero(MechHero mechHero, Unit unitTargeted, int roundCounter) {
     setFacingDirection(mechHero, unitTargeted);
     if (mechHero.getRoundAttackNextTime() <= roundCounter) {
+      if(mechHero.isInvisible()){
+        mechHero.setInvisible(false);
+      }
       mechHero.setRoundAttackedLastTime(roundCounter);
       mechHero.setRoundAttackNextTime(mechHero.getRoundAttackedLastTime() + mechHero.getRoundsPerAttack());
       if (mechHero.calculateDistanceBetweenUnits(unitTargeted) < mechHero.getAttackRange()) {
@@ -31,6 +34,7 @@ public class MechHeroAttackManager extends AttackManager {
           mechHero.setImage(newImage);
 
           if (unitTargeted.getHealthPoints() <= 0) {
+            unitTargeted.setHighlighted(false);
             mechHero.setUnitTargeted(null);
             mechHero.setMouseEventMarkingLocation(null);
             List<Mech> mechHeroInListForm = new ArrayList<>();

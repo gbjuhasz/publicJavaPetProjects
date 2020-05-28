@@ -44,6 +44,8 @@ public abstract class Unit extends BoardComponent {
   private boolean isStunned;
   private int stunOverInRound;
   private ArrayList<Ability> listOfAbilities = new ArrayList();
+  private boolean isInvisible;
+  private int invisibleUntilRound;
   //fields for levelling
   private int level = 1;
   private int experiencePoints = 0;
@@ -234,6 +236,14 @@ public abstract class Unit extends BoardComponent {
     return stunOverInRound;
   }
 
+  public int getInvisibleUntilRound() {
+    return invisibleUntilRound;
+  }
+
+  public boolean isInvisible() {
+    return isInvisible;
+  }
+
   public boolean isStunned() {
     return isStunned;
   }
@@ -389,6 +399,14 @@ public abstract class Unit extends BoardComponent {
 
   public void setEnergy(int energy) {
     this.energy = energy;
+  }
+
+  public void setInvisible(boolean invisible) {
+    isInvisible = invisible;
+  }
+
+  public void setInvisibleUntilRound(int invisibleUntilRound) {
+    this.invisibleUntilRound = invisibleUntilRound;
   }
 
   public void draw(Graphics graphics) {

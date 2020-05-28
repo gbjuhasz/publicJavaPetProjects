@@ -33,10 +33,12 @@ public class AoeNuke extends Ability {
     return name;
   }
 
+  @Override
   public int getDamage() {
     return damage;
   }
 
+  @Override
   public int getArea() {
     return area;
   }
