@@ -6,22 +6,24 @@ import javax.imageio.ImageIO;
 import units.Mech;
 import units.Unit;
 
-public class Stun extends Ability {
-  private String name = "EMP shock";
-  private String category = "offensive targeted stun";
-  private int energyCost = 100;
-  private int coolDown = 1000;
-  private int stunnedForRounds = 300;
+public class SingleTargetNuke extends Ability {
+
+  private String name = "Ultimate: Drone Strike";
+  private String category = "offensive targeted nuke";
+  private int energyCost = 150;
+  private int coolDown = 4000;
   private int range = 216;
+  private int damage = 400;
   private int lastUsedInRound;
   private int canBeusedAgainInRound;
-  private String key = "Q";
+  private String key = "R";
 
-  public Stun(){
-    super.setPosX(445);
+
+  public SingleTargetNuke() {
+    super.setPosX(535);
     super.setPosY(675);
     try {
-      super.setImage(ImageIO.read(new File("images/abilityicons/Stun.png")));
+      super.setImage(ImageIO.read(new File("images/abilityicons/SingleTargetNuke.png")));
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -52,10 +54,6 @@ public class Stun extends Ability {
     return coolDown;
   }
 
-  public int getStunnedForRounds() {
-    return stunnedForRounds;
-  }
-
   @Override
   public int getRange() {
     return range;
@@ -64,11 +62,6 @@ public class Stun extends Ability {
   @Override
   public String getCategory() {
     return category;
-  }
-
-  @Override
-  public String getKey() {
-    return key;
   }
 
   @Override
@@ -96,15 +89,11 @@ public class Stun extends Ability {
     this.coolDown = coolDown;
   }
 
-  public void setStunnedForRounds(int stunnedForRounds) {
-    this.stunnedForRounds = stunnedForRounds;
-  }
-
   @Override
-  public void useAbility(Mech mech, Unit unitTargeted, int roundCounter){
+  public void useAbility(Mech mech, Unit unitTargeted, int roundCounter) {
     mech.setEnergy(mech.getEnergy() - getEnergyCost());
-    setCanBeUsedAgainInRound(roundCounter+getCoolDown());
-    unitTargeted.setStunned(true);
-    unitTargeted.setStunOverInRound(roundCounter + getStunnedForRounds());
+    setCanBeUsedAgainInRound(roundCounter + getCoolDown());
+    unitTargeted.setHealthPoints(unitTargeted.getHealthPoints() - damage);
+    manageDeathByAbility(mech,unitTargeted,roundCounter);
   }
 }

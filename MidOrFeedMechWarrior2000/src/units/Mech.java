@@ -13,6 +13,8 @@ public abstract class Mech extends Unit {
   private int armorRating = 1;
   private int missChance = 1;
   private int roundsToRespawn = 1000;
+  private int critChance = 0;
+  private int availableLevelUpPoints = 2;
   //fields for levelling
   private HashMap<Integer, Integer> xpBounty = new HashMap() {{
     put(1, 70);
@@ -58,6 +60,22 @@ public abstract class Mech extends Unit {
 
   public int getRoundsToRespawn() {
     return this.roundsToRespawn;
+  }
+
+  public int getCritChance() {
+    return critChance;
+  }
+
+  public int getAvailableLevelUpPoints() {
+    return availableLevelUpPoints;
+  }
+
+  public void setAvailableLevelUpPoints(int availableLevelUpPoints) {
+    this.availableLevelUpPoints = availableLevelUpPoints;
+  }
+
+  public void setCritChance(int critChance) {
+    this.critChance = critChance;
   }
 
   @Override
@@ -109,14 +127,19 @@ public abstract class Mech extends Unit {
     this.respawnEnergy = respawnEnergy;
   }
 
-  public void levelUpMech(Mech mech) {
+  @Override
+  public void setMissChance(int missChance) {
+    this.missChance = missChance;
+  }
+
+  public void levelUpMech() {
     setRespawnHealthPoints(750 + (getLevel() * 50));
     setHealthPoints(respawnHealthPoints);
     setRespawnEnergy(300 + (getLevel() * 50));
     setEnergy(respawnEnergy);
     setAttackDamage(50 + (getLevel() * 5));
     setArmorRating(0 + getLevel());
-    setRoundsToRespawn(getLevel() * 1000);
-
+    setRoundsToRespawn(getLevel() * 500);
+    setAvailableLevelUpPoints(getAvailableLevelUpPoints()+1);
   }
 }

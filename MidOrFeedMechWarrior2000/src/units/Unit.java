@@ -1,6 +1,8 @@
 package units;
 
 import abilities.Ability;
+import abilities.Aura;
+import abilities.PassiveAbility;
 import board.BoardComponent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -36,14 +38,18 @@ public abstract class Unit extends BoardComponent {
   private int armorRating;
   private int attackRange;
   private int attackDamage;
-  private int missChance;
   private int roundsPerAttack = 100;
   private int roundAttackedLastTime = -100;
   private int roundAttackNextTime;
   private Unit unitTargeted;
   private boolean isStunned;
   private int stunOverInRound;
+  private int missChance;
+  private int evasionChance;
+  private int lifeLeechPercentage;
   private ArrayList<Ability> listOfAbilities = new ArrayList();
+  private ArrayList<PassiveAbility> listOfPassiveAbilities = new ArrayList();
+  private ArrayList<Aura> listOfAuras = new ArrayList();
   private boolean isInvisible;
   private int invisibleUntilRound;
   //fields for levelling
@@ -224,6 +230,14 @@ public abstract class Unit extends BoardComponent {
     return listOfAbilities;
   }
 
+  public ArrayList<PassiveAbility> getListOfPassiveAbilities() {
+    return listOfPassiveAbilities;
+  }
+
+  public ArrayList<Aura> getListOfAuras() {
+    return listOfAuras;
+  }
+
   public int getEnergy() {
     return energy;
   }
@@ -240,6 +254,14 @@ public abstract class Unit extends BoardComponent {
     return invisibleUntilRound;
   }
 
+  public int getEvasionChance() {
+    return evasionChance;
+  }
+
+  public int getLifeLeechPercentage() {
+    return lifeLeechPercentage;
+  }
+
   public boolean isInvisible() {
     return isInvisible;
   }
@@ -251,7 +273,6 @@ public abstract class Unit extends BoardComponent {
   public boolean isRightClickAttackedThisRound() {
     return rightClickAttackedThisRound;
   }
-
 
   public void setStunned(boolean stunned) {
     isStunned = stunned;
@@ -405,8 +426,16 @@ public abstract class Unit extends BoardComponent {
     isInvisible = invisible;
   }
 
+  public void setEvasionChance(int evasionChance) {
+    this.evasionChance = evasionChance;
+  }
+
   public void setInvisibleUntilRound(int invisibleUntilRound) {
     this.invisibleUntilRound = invisibleUntilRound;
+  }
+
+  public void setLifeLeechPercentage(int lifeLeechPercentage) {
+    this.lifeLeechPercentage = lifeLeechPercentage;
   }
 
   public void draw(Graphics graphics) {

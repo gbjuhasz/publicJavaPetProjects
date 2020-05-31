@@ -1,11 +1,13 @@
 package abilities;
 
+import experiencesystem.LevelUpManager;
 import java.util.ArrayList;
 import java.util.List;
 import units.Mech;
+import units.PositionedImage;
 import units.Unit;
 
-public abstract class Ability {
+public abstract class Ability extends PositionedImage {
 
   private String name;
   private String category;
@@ -15,8 +17,12 @@ public abstract class Ability {
   private int canBeusedAgainInRound;
   private int range;
   private boolean activated = false;
+  private String key;
   private int damage;
   private int area;
+  private int level;
+  private LevelUpManager levelUpManager = new LevelUpManager();
+
 
   public int getCoolDown() {
     return coolDown;
@@ -58,6 +64,10 @@ public abstract class Ability {
     this.name = name;
   }
 
+  public String getKey() {
+    return key;
+  }
+
   public int getCanBeusedAgainInRound() {
     return canBeusedAgainInRound;
   }
@@ -82,15 +92,40 @@ public abstract class Ability {
     return category;
   }
 
+  public int getLevel() {
+    return level;
+  }
+
   public void setCategory(String category) {
     this.category = category;
+  }
+
+  public void setLevel(int level) {
+    this.level = level;
   }
 
   public void setLastUsedInRound(int lastUsedInRound) {
     this.lastUsedInRound = lastUsedInRound;
   }
 
+  public void levelUpAbility(Mech mech){
+    setLevel(getLevel()+1);
+  }
+
   public void useAbility(Mech mech, Unit unitTargeted, int roundCounter){}
 
   public void useAOEAbility(Mech mech, Unit unitTargeted, ArrayList<Unit> listOfUnits, int roundCounter){}
+
+  public void manageDeathByAbility(Mech mech, Unit unitTargeted, int roundCounter){
+    if(unitTargeted.getHealthPoints() <= 0){
+      unitTargeted.setHighlighted(false);
+      unitTargeted.setAlive(false);
+      unitTargeted.setRoundDied(roundCounter);
+      unitTargeted.setPosX(-100);
+      unitTargeted.setPosY(-100);
+      List<Mech> listOfMech = new ArrayList<>();
+      listOfMech.add(mech);
+      levelUpManager.grantXpToMechs(unitTargeted,listOfMech);
+    }
+  }
 }

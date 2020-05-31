@@ -17,7 +17,7 @@ public class Board extends JComponent implements KeyListener, MouseListener {
   MapBuilder mapBuilder = new MapBuilder();
   ArrayList<Tile> cityMap = mapBuilder.buildMap();
   UnitLayout unitLayout = new UnitLayout();
-  HUDlayout huDlayout = new HUDlayout();
+  HUDlayout hudLayout = new HUDlayout();
   RespawnManager respawnManager = new RespawnManager();
   HUDgraphicsManager HUDgraphicsManager = new HUDgraphicsManager();
   OneRoundOfAction oneRoundOfAction = new OneRoundOfAction();
@@ -32,7 +32,7 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     setVisible(true);
     unitLayout.placeUnitsOnMap();
     buildingDepthEffectManager.placeBuildingEffectOnMap();
-    huDlayout.placeHud();
+    hudLayout.placeHud();
   }
 
   @Override
@@ -53,7 +53,7 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     //fight effects
     rightClickVisualEffectManager.drawUpRightClicks(unitLayout.getAllUnits(), roundCounter, graphics);
     //hud
-    huDlayout.getHud().draw(graphics);
+    hudLayout.getHud().draw(graphics);
     //Information
     graphics.setColor(Color.WHITE);
     graphics.drawString(String.valueOf(roundCounter), 72, 120);
@@ -67,9 +67,10 @@ public class Board extends JComponent implements KeyListener, MouseListener {
 
     //HUDgraphicsManager display
     HUDgraphicsManager.drawXPBar(unitLayout.getMechHero(), graphics);
-    huDlayout.placeHud();
+    hudLayout.placeHud();
     HUDgraphicsManager.drawRectangle(unitLayout.getMechHero(), unitLayout.getListOfEnemyUnits(), graphics);
-    HUDgraphicsManager.drawUnitImageForHighlightedUnit(unitLayout.getAllUnits(),huDlayout.getHud(),graphics);
+    HUDgraphicsManager.drawUnitImageForHighlightedUnit(unitLayout.getAllUnits(), hudLayout.getHud(), graphics);
+    HUDgraphicsManager.drawAbilityIcons(unitLayout.getMechHero(), graphics);
     HUDgraphicsManager.drawInfoBars(unitLayout.getAllUnits(), graphics);
     HUDgraphicsManager.drawInfoOfHighlightedUnit(unitLayout.getAllUnits(), graphics);
 
@@ -82,19 +83,19 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     graphics.fillRect(720, 0, 400, 720);
     graphics.setColor(Color.RED);
     graphics.setColor(Color.WHITE);
-    graphics.drawLine(unitLayout.getMechEnemy().getImageMiddleX()-2,
-            unitLayout.getMechEnemy().getImageMiddleY()-2,
-            unitLayout.getMechEnemy().getImageMiddleX() +2,
-            unitLayout.getMechEnemy().getImageMiddleY()+2);
-    graphics.drawLine(unitLayout.getMechEnemy().getImageMiddleX()+2,
-            unitLayout.getMechEnemy().getImageMiddleY()-2,
-            unitLayout.getMechEnemy().getImageMiddleX() -2,
-            unitLayout.getMechEnemy().getImageMiddleY()+2);
+    graphics.drawLine(unitLayout.getMechEnemy().getImageMiddleX() - 2,
+            unitLayout.getMechEnemy().getImageMiddleY() - 2,
+            unitLayout.getMechEnemy().getImageMiddleX() + 2,
+            unitLayout.getMechEnemy().getImageMiddleY() + 2);
+    graphics.drawLine(unitLayout.getMechEnemy().getImageMiddleX() + 2,
+            unitLayout.getMechEnemy().getImageMiddleY() - 2,
+            unitLayout.getMechEnemy().getImageMiddleX() - 2,
+            unitLayout.getMechEnemy().getImageMiddleY() + 2);
 
     if (unitLayout.getMechHero().getUnitTargeted() != null) {
       graphics.drawString(String.valueOf(unitLayout.getMechHero().getUnitTargeted().isInvisible()), 72, 160);
     }
-    /*graphics.drawString(String.valueOf(unitLayout.getMechHero().getSwitchFeetEveryXRound()), 720, 200);
+  /*  graphics.drawString(String.valueOf(unitLayout.getMechHero().getAvailableLevelUpPoints()), 72, 200);
     graphics.drawString(String.valueOf(unitLayout.getMechHero().getSwitchFeetInRound()), 720, 240);
 
 
@@ -189,34 +190,48 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     if (e.getKeyCode() == KeyEvent.VK_S) {
       unitLayout.getMechHero().setMouseEventMarkingLocation(null);
       unitLayout.getMechHero().setUnitTargeted(null);
-      for (int i = 0; i <       unitLayout.getMechHero().getListOfAbilities().size(); i++) {
+      for (int i = 0; i < unitLayout.getMechHero().getListOfAbilities().size(); i++) {
         unitLayout.getMechHero().getListOfAbilities().get(i).setActivated(false);
       }
     }
 
-    if(e.getKeyCode() == KeyEvent.VK_Q) {
-      if(unitLayout.getMechHero().getEnergy() > unitLayout.getMechHero().getListOfAbilities().get(0).getEnergyCost() &&
-      unitLayout.getMechHero().getListOfAbilities().get(0).getCanBeusedAgainInRound() <= roundCounter){
+    if (e.getKeyCode() == KeyEvent.VK_Q) {
+      if (unitLayout.getMechHero().getEnergy() > unitLayout.getMechHero().getListOfAbilities().get(0).getEnergyCost() &&
+              unitLayout.getMechHero().getListOfAbilities().get(0).getCanBeusedAgainInRound() <= roundCounter) {
         unitLayout.getMechHero().getListOfAbilities().get(0).setActivated(true);
         unitLayout.getMechHero().getListOfAbilities().get(1).setActivated(false);
+        unitLayout.getMechHero().getListOfAbilities().get(2).setActivated(false);
+        unitLayout.getMechHero().getListOfAbilities().get(3).setActivated(false);
 
       }
     }
 
-    if(e.getKeyCode() == KeyEvent.VK_W) {
-      if(unitLayout.getMechHero().getEnergy() > unitLayout.getMechHero().getListOfAbilities().get(1).getEnergyCost() &&
-      unitLayout.getMechHero().getListOfAbilities().get(1).getCanBeusedAgainInRound() <= roundCounter){
+    if (e.getKeyCode() == KeyEvent.VK_W) {
+      if (unitLayout.getMechHero().getEnergy() > unitLayout.getMechHero().getListOfAbilities().get(1).getEnergyCost() &&
+              unitLayout.getMechHero().getListOfAbilities().get(1).getCanBeusedAgainInRound() <= roundCounter) {
+        unitLayout.getMechHero().getListOfAbilities().get(0).setActivated(false);
         unitLayout.getMechHero().getListOfAbilities().get(1).setActivated(true);
-        unitLayout.getMechHero().getListOfAbilities().get(0).setActivated(false);
+        unitLayout.getMechHero().getListOfAbilities().get(2).setActivated(false);
+        unitLayout.getMechHero().getListOfAbilities().get(3).setActivated(false);
       }
     }
 
-    if(e.getKeyCode() == KeyEvent.VK_E) {
-      if(unitLayout.getMechHero().getEnergy() > unitLayout.getMechHero().getListOfAbilities().get(2).getEnergyCost() &&
-              unitLayout.getMechHero().getListOfAbilities().get(2).getCanBeusedAgainInRound() <= roundCounter){
-        unitLayout.getMechHero().getListOfAbilities().get(1).setActivated(false);
+    if (e.getKeyCode() == KeyEvent.VK_E) {
+      if (unitLayout.getMechHero().getEnergy() > unitLayout.getMechHero().getListOfAbilities().get(2).getEnergyCost() &&
+              unitLayout.getMechHero().getListOfAbilities().get(2).getCanBeusedAgainInRound() <= roundCounter) {
         unitLayout.getMechHero().getListOfAbilities().get(0).setActivated(false);
+        unitLayout.getMechHero().getListOfAbilities().get(1).setActivated(false);
+        unitLayout.getMechHero().getListOfAbilities().get(3).setActivated(false);
         unitLayout.getMechHero().getListOfAbilities().get(2).useAbility(unitLayout.getMechHero(), unitLayout.getMechHero(), roundCounter);
+      }
+    }
+    if (e.getKeyCode() == KeyEvent.VK_R) {
+      if (unitLayout.getMechHero().getEnergy() > unitLayout.getMechHero().getListOfAbilities().get(3).getEnergyCost() &&
+              unitLayout.getMechHero().getListOfAbilities().get(3).getCanBeusedAgainInRound() <= roundCounter) {
+        unitLayout.getMechHero().getListOfAbilities().get(0).setActivated(false);
+        unitLayout.getMechHero().getListOfAbilities().get(1).setActivated(false);
+        unitLayout.getMechHero().getListOfAbilities().get(2).setActivated(false);
+        unitLayout.getMechHero().getListOfAbilities().get(3).setActivated(true);
       }
     }
   }
@@ -234,10 +249,10 @@ public class Board extends JComponent implements KeyListener, MouseListener {
 
     if (SwingUtilities.isRightMouseButton(e)) {
       mechHeroMouseClickReactionManager.reactToRightClick(mechHero,
-            listOfAllUnits,
+              listOfAllUnits,
               e);
     } else {
-      mechHeroMouseClickReactionManager.reactToLeftClick(mechHero,listOfAllUnits, e, roundCounter);
+      mechHeroMouseClickReactionManager.reactToLeftClick(mechHero, listOfAllUnits, e, roundCounter);
       repaint();
     }
   }

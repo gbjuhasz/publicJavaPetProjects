@@ -1,8 +1,6 @@
 package units;
 
-import abilities.AoeNuke;
-import abilities.Escape;
-import abilities.Stun;
+import abilities.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -41,7 +39,17 @@ public class MechHero extends Mech {
     super.setFeetForward(super.getFeetImageNames()[random.nextInt(2)]);
     super.getListOfAbilities().add(new Stun());
     super.getListOfAbilities().add(new AoeNuke());
-    super.getListOfAbilities().add(new Escape());
+    super.getListOfAbilities().add(new Invisibility());
+    super.getListOfAbilities().add(new SingleTargetNuke());
+    super.getListOfPassiveAbilities().add(new CritChance());
+    super.getListOfPassiveAbilities().add(new Evasion());
+    super.getListOfPassiveAbilities().add(new LifeLeech());
+    super.getListOfPassiveAbilities().add(new Overcharge());
+    super.getListOfAuras().add(new ExtraDamageAura());
+    super.getListOfAuras().add(new ExtraArmorAura());
+    super.getListOfAuras().add(new EnergyRegenerationAura());
+    super.getListOfAuras().add(new TargetingAura());
+  //  super.getListOfPassiveAbilities().add(new SingleTargetNuke());
 
     try {
       BufferedImage tileImage = ImageIO.read(new File(fileLocation));

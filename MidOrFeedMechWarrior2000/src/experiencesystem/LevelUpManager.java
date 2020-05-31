@@ -56,7 +56,7 @@ public class LevelUpManager {
       int xpLimitNextLevel = mech.getXpNeededForLevelUp().get(nextLevel);
       if (mech.getExperiencePoints() >= xpLimitNextLevel && mech.getLevel() < 6) {
         mech.setLevel(mech.getLevel() + 1);
-        mech.levelUpMech(mech);
+        mech.levelUpMech();
       }
     }
   }

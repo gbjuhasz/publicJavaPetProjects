@@ -11,6 +11,8 @@ public class PositionedImage {
   BufferedImage image;
   int posX, posY;
 
+  public PositionedImage(){}
+
   public PositionedImage(String filename, int posX, int posY) {
     this.posX = posX;
     this.posY = posY;
@@ -27,4 +29,27 @@ public class PositionedImage {
     }
   }
 
+  public void setPosX(int posX) {
+    this.posX = posX;
+  }
+
+  public void setPosY(int posY) {
+    this.posY = posY;
+  }
+
+  public int getPosX() {
+    return posX;
+  }
+
+  public int getPosY() {
+    return posY;
+  }
+
+  public void setImage(BufferedImage image) {
+    this.image = image;
+  }
+
+  public BufferedImage getImage() {
+    return image;
+  }
 }

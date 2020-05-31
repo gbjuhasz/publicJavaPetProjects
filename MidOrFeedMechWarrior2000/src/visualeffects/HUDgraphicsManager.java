@@ -1,5 +1,8 @@
 package visualeffects;
 
+import abilities.Ability;
+import abilities.Aura;
+import abilities.PassiveAbility;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -143,6 +146,46 @@ public class HUDgraphicsManager extends JComponent {
       for (int i = 1; i < 13; i++) {
         graphics2d.drawLine(xForSmallBars + i * 20, 673, xForSmallBars + i * 20, 684);
       }
+    }
+  }
+
+  public void drawAbilityIcons(Mech mechHero, Graphics graphics) {
+
+    graphics.setColor(Color.white);
+
+    for (Ability ability : mechHero.getListOfAbilities()
+    ) {
+      ability.draw(graphics);
+      if (ability.isActivated()) {
+        graphics.setColor(Color.GREEN);
+        graphics.drawRect(ability.getPosX(), ability.getPosY(), 20, 20);
+      }
+      graphics.setColor(Color.WHITE);
+      graphics.drawString(String.valueOf(ability.getLevel()), ability.getPosX() - 3, ability.getPosY() + 7);
+    }
+    for (PassiveAbility passiveAbility : mechHero.getListOfPassiveAbilities()
+    ) {
+      passiveAbility.draw(graphics);
+      if (passiveAbility.isTurnedOn()) {
+        graphics.setColor(Color.GREEN);
+        graphics.drawRect(passiveAbility.getPosX(), passiveAbility.getPosY(), 20, 20);
+      }
+      graphics.setColor(Color.WHITE);
+      graphics.drawString(String.valueOf(passiveAbility.getLevel()), getX(), getY());
+      graphics.drawString(String.valueOf(passiveAbility.getLevel()), passiveAbility.getPosX() - 3, passiveAbility.getPosY() + 7);
+
+    }
+    for (Aura aura : mechHero.getListOfAuras()
+    ) {
+      aura.draw(graphics);
+      if (aura.isTurnedOn()) {
+        graphics.setColor(Color.GREEN);
+        graphics.drawRect(aura.getPosX(), aura.getPosY(), 20, 20);
+      }
+      graphics.setColor(Color.WHITE);
+      graphics.drawString(String.valueOf(aura.getLevel()), getX(), getY());
+      graphics.drawString(String.valueOf(aura.getLevel()), aura.getPosX() - 3, aura.getPosY() + 7);
+
     }
   }
 }
