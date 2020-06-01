@@ -37,10 +37,10 @@ public class MechHero extends Mech {
     super.setUnitType("mechHero");
     Random random = new Random();
     super.setFeetForward(super.getFeetImageNames()[random.nextInt(2)]);
-    super.getListOfAbilities().add(new Stun());
-    super.getListOfAbilities().add(new AoeNuke());
-    super.getListOfAbilities().add(new Invisibility());
-    super.getListOfAbilities().add(new SingleTargetNuke());
+    super.getListOfActiveAbilities().add(new Stun());
+    super.getListOfActiveAbilities().add(new AoeNuke());
+    super.getListOfActiveAbilities().add(new Invisibility());
+    super.getListOfActiveAbilities().add(new SingleTargetNuke());
     super.getListOfPassiveAbilities().add(new CritChance());
     super.getListOfPassiveAbilities().add(new Evasion());
     super.getListOfPassiveAbilities().add(new LifeLeech());

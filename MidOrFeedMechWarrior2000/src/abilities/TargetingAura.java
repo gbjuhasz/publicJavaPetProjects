@@ -3,6 +3,7 @@ package abilities;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import units.Mech;
 
 public class TargetingAura extends Aura {
   private boolean activated;
@@ -25,5 +26,10 @@ public class TargetingAura extends Aura {
 
   public void setActivated(boolean activated) {
     this.activated = activated;
+  }
+
+  @Override
+  public void levelUpAbility(Mech mech) {
+    super.setLevel(super.getLevel()+1);
   }
 }

@@ -1,16 +1,14 @@
 package abilities;
 
+import board.BoardComponent;
 import experiencesystem.LevelUpManager;
 import java.util.ArrayList;
 import java.util.List;
 import units.Mech;
-import units.PositionedImage;
 import units.Unit;
 
-public abstract class Ability extends PositionedImage {
+public abstract class ActiveAbility extends MechAbility {
 
-  private String name;
-  private String category;
   private int energyCost;
   private int coolDown;
   private int lastUsedInRound;
@@ -20,7 +18,6 @@ public abstract class Ability extends PositionedImage {
   private String key;
   private int damage;
   private int area;
-  private int level;
   private LevelUpManager levelUpManager = new LevelUpManager();
 
 
@@ -30,10 +27,6 @@ public abstract class Ability extends PositionedImage {
 
   public int getEnergyCost() {
     return energyCost;
-  }
-
-  public String getName() {
-    return name;
   }
 
   public int getRange() {
@@ -60,10 +53,6 @@ public abstract class Ability extends PositionedImage {
     this.energyCost = energyCost;
   }
 
-  public void setName(String name) {
-    this.name = name;
-  }
-
   public String getKey() {
     return key;
   }
@@ -88,36 +77,22 @@ public abstract class Ability extends PositionedImage {
     this.canBeusedAgainInRound = canBeusedAgainInRound;
   }
 
-  public String getCategory() {
-    return category;
-  }
-
-  public int getLevel() {
-    return level;
-  }
-
-  public void setCategory(String category) {
-    this.category = category;
-  }
-
-  public void setLevel(int level) {
-    this.level = level;
-  }
-
   public void setLastUsedInRound(int lastUsedInRound) {
     this.lastUsedInRound = lastUsedInRound;
   }
 
-  public void levelUpAbility(Mech mech){
-    setLevel(getLevel()+1);
+  public void levelUpAbility(Mech mech) {
+    setLevel(getLevel() + 1);
   }
 
-  public void useAbility(Mech mech, Unit unitTargeted, int roundCounter){}
+  public void useAbility(Mech mech, Unit unitTargeted, int roundCounter) {
+  }
 
-  public void useAOEAbility(Mech mech, Unit unitTargeted, ArrayList<Unit> listOfUnits, int roundCounter){}
+  public void useAOEAbility(Mech mech, Unit unitTargeted, ArrayList<Unit> listOfUnits, int roundCounter) {
+  }
 
-  public void manageDeathByAbility(Mech mech, Unit unitTargeted, int roundCounter){
-    if(unitTargeted.getHealthPoints() <= 0){
+  public void manageDeathByAbility(Mech mech, Unit unitTargeted, int roundCounter) {
+    if (unitTargeted.getHealthPoints() <= 0) {
       unitTargeted.setHighlighted(false);
       unitTargeted.setAlive(false);
       unitTargeted.setRoundDied(roundCounter);
@@ -125,7 +100,7 @@ public abstract class Ability extends PositionedImage {
       unitTargeted.setPosY(-100);
       List<Mech> listOfMech = new ArrayList<>();
       listOfMech.add(mech);
-      levelUpManager.grantXpToMechs(unitTargeted,listOfMech);
+      levelUpManager.grantXpToMechs(unitTargeted, listOfMech);
     }
   }
 }

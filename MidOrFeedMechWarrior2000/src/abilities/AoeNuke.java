@@ -1,22 +1,20 @@
 package abilities;
 
-import experiencesystem.LevelUpManager;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
 import units.Mech;
-import units.MechHero;
 import units.Unit;
 
-public class AoeNuke extends Ability {
+public class AoeNuke extends ActiveAbility {
   private String name = "Cluster bomb";
   private String category = "offensive active targeted aoe";
   private int energyCost = 100;
   private int coolDown = 800;
   private int area = 108;
-  private int damage = 1080;
+  private int damage = 80;
   private int lastUsedInRound;
   private int canBeusedAgainInRound;
   private String key = "W";
@@ -62,10 +60,31 @@ public class AoeNuke extends Ability {
   }
 
 
+  public void setDamage(int damage) {
+    this.damage = damage;
+  }
+
+  @Override
+  public void setCoolDown(int coolDown) {
+    this.coolDown = coolDown;
+  }
+
+  @Override
+  public void setEnergyCost(int energyCost) {
+    this.energyCost = energyCost;
+  }
 
   @Override
   public void setCanBeUsedAgainInRound(int canBeusedAgainInRound) {
     this.canBeusedAgainInRound = canBeusedAgainInRound;
+  }
+
+  @Override
+  public void levelUpAbility(Mech mech) {
+    super.setLevel(super.getLevel()+1);
+    setDamage(getDamage() + super.getLevel() * 30);
+    setCoolDown(getCoolDown() - super.getLevel() * 100);
+    setEnergyCost(getEnergyCost() - super.getLevel() * 10);
   }
 
   @Override

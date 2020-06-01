@@ -1,6 +1,6 @@
 package visualeffects;
 
-import abilities.Ability;
+import abilities.ActiveAbility;
 import abilities.Aura;
 import abilities.PassiveAbility;
 import java.awt.*;
@@ -153,15 +153,16 @@ public class HUDgraphicsManager extends JComponent {
 
     graphics.setColor(Color.white);
 
-    for (Ability ability : mechHero.getListOfAbilities()
+    for (ActiveAbility activeAbility : mechHero.getListOfActiveAbilities()
     ) {
-      ability.draw(graphics);
-      if (ability.isActivated()) {
+      activeAbility.draw(graphics);
+      if (activeAbility.isActivated()) {
         graphics.setColor(Color.GREEN);
-        graphics.drawRect(ability.getPosX(), ability.getPosY(), 20, 20);
+        graphics.drawRect(activeAbility.getPosX(), activeAbility.getPosY(), 20, 20);
       }
       graphics.setColor(Color.WHITE);
-      graphics.drawString(String.valueOf(ability.getLevel()), ability.getPosX() - 3, ability.getPosY() + 7);
+      graphics.drawString("X", activeAbility.getPosX()+5, activeAbility.getPosY()+15);
+      graphics.drawString(String.valueOf(activeAbility.getLevel()), activeAbility.getPosX() - 3, activeAbility.getPosY() + 7);
     }
     for (PassiveAbility passiveAbility : mechHero.getListOfPassiveAbilities()
     ) {
@@ -171,6 +172,8 @@ public class HUDgraphicsManager extends JComponent {
         graphics.drawRect(passiveAbility.getPosX(), passiveAbility.getPosY(), 20, 20);
       }
       graphics.setColor(Color.WHITE);
+      graphics.drawString("X", passiveAbility.getPosX()+5, passiveAbility.getPosY()+15);
+
       graphics.drawString(String.valueOf(passiveAbility.getLevel()), getX(), getY());
       graphics.drawString(String.valueOf(passiveAbility.getLevel()), passiveAbility.getPosX() - 3, passiveAbility.getPosY() + 7);
 
@@ -183,9 +186,20 @@ public class HUDgraphicsManager extends JComponent {
         graphics.drawRect(aura.getPosX(), aura.getPosY(), 20, 20);
       }
       graphics.setColor(Color.WHITE);
+      graphics.drawString("X", aura.getPosX()+5, aura.getPosY()+15);
+
       graphics.drawString(String.valueOf(aura.getLevel()), getX(), getY());
       graphics.drawString(String.valueOf(aura.getLevel()), aura.getPosX() - 3, aura.getPosY() + 7);
-
     }
+    graphics.drawLine(440,670, 560,670);
+    graphics.drawLine(440,750, 560,750);
+    graphics.drawLine(440,695, 560,695);
+    graphics.drawLine(440,720, 560,720);
+    graphics.drawLine(440,750, 560,750);
+    graphics.drawLine(440,670, 440,750);
+    graphics.drawLine(560,670, 560,750);
+    graphics.drawLine(470,670, 470,750);
+    graphics.drawLine(500,670, 500,750);
+    graphics.drawLine(530,670, 530,750);
   }
 }

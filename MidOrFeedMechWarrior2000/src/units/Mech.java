@@ -1,6 +1,9 @@
 package units;
 
+import abilities.MechAbility;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public abstract class Mech extends Unit {
   //fields for fighting
@@ -64,6 +67,14 @@ public abstract class Mech extends Unit {
 
   public int getCritChance() {
     return critChance;
+  }
+
+  public List<MechAbility> getAllAbilities(){
+    List<MechAbility> completeListOfAbilities = new ArrayList<>();
+    completeListOfAbilities.addAll(getListOfActiveAbilities());
+    completeListOfAbilities.addAll(getListOfPassiveAbilities());
+    completeListOfAbilities.addAll(getListOfAuras());
+    return completeListOfAbilities;
   }
 
   public int getAvailableLevelUpPoints() {

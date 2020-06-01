@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 import units.Mech;
 import units.Unit;
 
-public class Invisibility extends Ability {
+public class Invisibility extends ActiveAbility {
 
   private String name = "Cloaking device";
   private String category = "defensive active";
@@ -26,7 +26,6 @@ public class Invisibility extends Ability {
       e.printStackTrace();
     }
   }
-
 
   @Override
   public String getCategory() {
@@ -53,11 +52,27 @@ public class Invisibility extends Ability {
     return super.getLastUsedInRound();
   }
 
+  public int getDuration() {
+    return duration;
+  }
+
+  public void setDuration(int duration) {
+    this.duration = duration;
+  }
+
   @Override
   public void useAbility(Mech mech, Unit unitTargeted, int roundCounter){
     mech.setEnergy(mech.getEnergy() - getEnergyCost());
     setCanBeUsedAgainInRound(roundCounter+getCoolDown());
     mech.setInvisible(true);
     mech.setInvisibleUntilRound(duration);
+  }
+
+  @Override
+  public void levelUpAbility(Mech mech) {
+    super.setLevel(super.getLevel()+1);
+    setCoolDown(getCoolDown() - super.getLevel() * 100);
+    setEnergyCost(getEnergyCost() - super.getLevel() * 5);
+    setDuration(getDuration() + super.getLevel() * 30);
   }
 }

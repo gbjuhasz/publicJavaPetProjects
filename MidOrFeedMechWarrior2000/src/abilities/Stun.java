@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 import units.Mech;
 import units.Unit;
 
-public class Stun extends Ability {
+public class Stun extends ActiveAbility {
   private String name = "EMP shock";
   private String category = "offensive targeted stun";
   private int energyCost = 100;
@@ -72,11 +72,6 @@ public class Stun extends Ability {
   }
 
   @Override
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  @Override
   public void setLastUsedInRound(int lastUsedInRound) {
     this.lastUsedInRound = lastUsedInRound;
   }
@@ -98,6 +93,14 @@ public class Stun extends Ability {
 
   public void setStunnedForRounds(int stunnedForRounds) {
     this.stunnedForRounds = stunnedForRounds;
+  }
+
+  @Override
+  public void levelUpAbility(Mech mech) {
+    super.setLevel(super.getLevel()+1);
+    setCoolDown(getCoolDown() - super.getLevel() * 50);
+    setEnergyCost(getEnergyCost() - super.getLevel() * 10);
+    setStunnedForRounds(getStunnedForRounds() + super.getLevel() * 30);
   }
 
   @Override

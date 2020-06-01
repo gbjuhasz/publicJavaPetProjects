@@ -1,11 +1,9 @@
 package units;
 
-import abilities.Ability;
+import abilities.ActiveAbility;
 import abilities.Aura;
 import abilities.PassiveAbility;
 import board.BoardComponent;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import visualeffects.Explosion;
@@ -17,7 +15,6 @@ public abstract class Unit extends BoardComponent {
   private int imageMiddleX;
   private int imageMiddleY;
   private String facingDirection;
-  private BufferedImage image;
   private boolean isHighlighted = false;
   private int switchFeetInRound = 10;
   private int switchFeetEveryXRound = 10;
@@ -27,8 +24,8 @@ public abstract class Unit extends BoardComponent {
   private boolean rightClickAttackedThisRound = false;
   private int rightClickVisibleForRounds = 50;
   private String lastAttackResult;
-  private HashMap<String,Integer> xCoordinatesForRightClickEffectInEveryDirection = new HashMap<>();
-  private HashMap<String,Integer> yCoordinatesForRightClickEffectInEveryDirection = new HashMap<>();
+  private HashMap<String, Integer> xCoordinatesForRightClickEffectInEveryDirection = new HashMap<>();
+  private HashMap<String, Integer> yCoordinatesForRightClickEffectInEveryDirection = new HashMap<>();
   private Explosion rightClickEffect = new Explosion();
   //fields for fighting
   private int respawnHealthPoints;
@@ -47,7 +44,7 @@ public abstract class Unit extends BoardComponent {
   private int missChance;
   private int evasionChance;
   private int lifeLeechPercentage;
-  private ArrayList<Ability> listOfAbilities = new ArrayList();
+  private ArrayList<ActiveAbility> listOfActiveAbilities = new ArrayList();
   private ArrayList<PassiveAbility> listOfPassiveAbilities = new ArrayList();
   private ArrayList<Aura> listOfAuras = new ArrayList();
   private boolean isInvisible;
@@ -76,10 +73,6 @@ public abstract class Unit extends BoardComponent {
 
   public boolean isThreatToHeroUnit() {
     return isThreatToHeroUnit;
-  }
-
-  public BufferedImage getImage() {
-    return image;
   }
 
   public int getArmorRating() {
@@ -226,8 +219,8 @@ public abstract class Unit extends BoardComponent {
     return rightClickEffect;
   }
 
-  public ArrayList<Ability> getListOfAbilities() {
-    return listOfAbilities;
+  public ArrayList<ActiveAbility> getListOfActiveAbilities() {
+    return listOfActiveAbilities;
   }
 
   public ArrayList<PassiveAbility> getListOfPassiveAbilities() {
@@ -328,10 +321,6 @@ public abstract class Unit extends BoardComponent {
 
   public void setThreatToHeroUnit(boolean threatToHeroUnit) {
     this.isThreatToHeroUnit = threatToHeroUnit;
-  }
-
-  public void setImage(BufferedImage image) {
-    this.image = image;
   }
 
   public void setTargetDirection(String targetDirection) {
@@ -438,22 +427,10 @@ public abstract class Unit extends BoardComponent {
     this.lifeLeechPercentage = lifeLeechPercentage;
   }
 
-  public void draw(Graphics graphics) {
-    if (image != null) {
-      graphics.drawImage(image, super.getPosX(), super.getPosY(), null);
-    }
-  }
 
   public void calculateImageCenterCoordinates() {
     setImageMiddleX(getPosX() + 36);
     setImageMiddleY(getPosY() + 36);
-  }
-
-  public double calculateDistanceBetweenUnits(BoardComponent boardComponent) {
-    int a = Math.abs(getPosX() - boardComponent.getPosX());
-    int b = Math.abs(getPosY() - boardComponent.getPosY());
-    double distance = Math.sqrt(a * a + b * b);
-    return distance;
   }
 
   public void calculateTargetDirection(BoardComponent boardComponent) {
@@ -479,11 +456,11 @@ public abstract class Unit extends BoardComponent {
     }
   }
 
-  public ArrayList<Unit> findUnitsWithinRangeOfAreaEffectAroundUnit(Unit unitTargeted, ArrayList<Unit> listOfUnits, int rangeAOE){
+  public ArrayList<Unit> findUnitsWithinRangeOfAreaEffectAroundUnit(Unit unitTargeted, ArrayList<Unit> listOfUnits, int rangeAOE) {
     ArrayList<Unit> unitsInAoe = new ArrayList<>();
-    for (Unit unitAroundTarget: listOfUnits
-         ) {
-      if(unitTargeted.calculateDistanceBetweenUnits(unitAroundTarget) <= rangeAOE){
+    for (Unit unitAroundTarget : listOfUnits
+    ) {
+      if (unitTargeted.calculateDistanceBetweenUnits(unitAroundTarget) <= rangeAOE) {
         unitsInAoe.add(unitAroundTarget);
       }
     }

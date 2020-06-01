@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 import units.Mech;
 import units.Unit;
 
-public class SingleTargetNuke extends Ability {
+public class SingleTargetNuke extends ActiveAbility {
 
   private String name = "Ultimate: Drone Strike";
   private String category = "offensive targeted nuke";
@@ -64,9 +64,8 @@ public class SingleTargetNuke extends Ability {
     return category;
   }
 
-  @Override
-  public void setName(String name) {
-    this.name = name;
+  public void setDamage(int damage) {
+    this.damage = damage;
   }
 
   @Override
@@ -95,5 +94,11 @@ public class SingleTargetNuke extends Ability {
     setCanBeUsedAgainInRound(roundCounter + getCoolDown());
     unitTargeted.setHealthPoints(unitTargeted.getHealthPoints() - damage);
     manageDeathByAbility(mech,unitTargeted,roundCounter);
+  }
+
+  @Override
+  public void levelUpAbility(Mech mech) {
+    super.setLevel(super.getLevel()+1);
+    setDamage(getDamage() + super.getLevel() * 200);
   }
 }

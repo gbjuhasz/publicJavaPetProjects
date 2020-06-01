@@ -1,11 +1,11 @@
 package mechherocontrol;
 
-import abilities.Ability;
+import abilities.ActiveAbility;
+import abilities.MechAbility;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import units.MechHero;
-import units.PositionedImage;
 import units.Unit;
 
 public class MechHeroMouseClickReactionManager {
@@ -17,15 +17,14 @@ public class MechHeroMouseClickReactionManager {
     ) {
       unit.setHighlighted(false);
     }
-    levelUpAbilities(mechHero,e);
-    for (int i = 0; i < mechHero.getListOfAbilities().size(); i++) {
-      if (mechHero.getAvailableLevelUpPoints() > 0) {
-        if (calculateDistanceBetweenAbilityIconAndClick(mechHero.getListOfAbilities().get(i), e) < 30) {
-          mechHero.getListOfAbilities().get(i).setLevel(mechHero.getListOfAbilities().get(i).getLevel() + 1);
-          mechHero.setAvailableLevelUpPoints(mechHero.getAvailableLevelUpPoints() - 1);
-        }
-      }
+    if (mechHero.getAvailableLevelUpPoints() > 0 &&
+            e.getX() >= 440 &&
+            e.getY() - 24 >= 670 &&
+            e.getX() <= 570 &&
+            e.getY() - 24 <= 750) {
+      levelUpAbilities(mechHero, e);
     }
+
     if (findActivatedAbility(mechHero) != null &&
             identifyClickedUnit(listOfAllUnits, e) != null) {
       ArrayList<Unit> listOfPossibleAbilityTargets = new ArrayList<>();
@@ -113,44 +112,72 @@ public class MechHeroMouseClickReactionManager {
 
   private double calculateDistanceBetweenClickAndUnits(MouseEvent e, Unit unit) {
     int a = Math.abs(e.getX() - unit.getImageMiddleX());
-    int b = Math.abs(e.getY() - unit.getImageMiddleY());
+    int b = Math.abs(e.getY() - 24 - unit.getImageMiddleY());
     return Math.sqrt(a * a + b * b);
   }
 
-  private Ability findActivatedAbility(MechHero mechHero) {
-    for (Ability ability : mechHero.getListOfAbilities()
+  private ActiveAbility findActivatedAbility(MechHero mechHero) {
+    for (ActiveAbility activeAbility : mechHero.getListOfActiveAbilities()
     ) {
-      if (ability.isActivated()) {
-        return ability;
+      if (activeAbility.isActivated()) {
+        return activeAbility;
       }
     }
     return null;
   }
 
-  public double calculateDistanceBetweenAbilityIconAndClick(PositionedImage abilityOrAura, MouseEvent e) {
-    int a = Math.abs(abilityOrAura.getPosX() + 10 - e.getX());
-    int b = Math.abs(abilityOrAura.getPosY() + 10 - e.getY());
-    double distance = Math.sqrt(a * a + b * b);
-    return distance;
-  }
-
-  public void levelUpAbilities(MechHero mechHero, MouseEvent e) {
-    if (mechHero.getAvailableLevelUpPoints() > 0) {
-      for (int i = 0; i < 4; i++) {
-        if (calculateDistanceBetweenAbilityIconAndClick(mechHero.getListOfAbilities().get(i), e) < 30) {
-          mechHero.getListOfAbilities().get(i).setLevel(mechHero.getListOfAbilities().get(i).getLevel() + 1);
-          mechHero.setAvailableLevelUpPoints(mechHero.getAvailableLevelUpPoints() - 1);
-        }
-        if (calculateDistanceBetweenAbilityIconAndClick(mechHero.getListOfPassiveAbilities().get(i), e) < 30) {
-          mechHero.getListOfPassiveAbilities().get(i).setLevel(mechHero.getListOfPassiveAbilities().get(i).getLevel() + 1);
-          mechHero.setAvailableLevelUpPoints(mechHero.getAvailableLevelUpPoints() - 1);
-        }
-        if (calculateDistanceBetweenAbilityIconAndClick(mechHero.getListOfAuras().get(i), e) < 30) {
-          mechHero.getListOfAuras().get(i).setLevel(mechHero.getListOfAuras().get(i).getLevel() + 1);
-          mechHero.setAvailableLevelUpPoints(mechHero.getAvailableLevelUpPoints() - 1);
-        }
+  private MechAbility findClosestAbilityIconToClick(List<MechAbility> mechAbilityList, MouseEvent e) {
+    if (e.getY() - 24 >= 670 &&
+            e.getY() - 24 < 695) {
+      if (e.getX() >= 440 &&
+              e.getX() < 470) {
+        return mechAbilityList.get(0);
+      } else if (e.getX() >= 470 &&
+              e.getX() < 500) {
+        return mechAbilityList.get(1);
+      } else if (e.getX() >= 500 &&
+              e.getX() < 530) {
+        return mechAbilityList.get(2);
+      } else if (e.getX() >= 530) {
+        return mechAbilityList.get(3);
       }
     }
+    if (e.getY() - 24 >= 695 &&
+            e.getY() - 24 < 720) {
+      if (e.getX() >= 440 &&
+              e.getX() < 470) {
+        return mechAbilityList.get(4);
+      } else if (e.getX() >= 470 &&
+              e.getX() < 500) {
+        return mechAbilityList.get(5);
+      } else if (e.getX() >= 500 &&
+              e.getX() < 530) {
+        return mechAbilityList.get(6);
+      } else if (e.getX() >= 530) {
+        return mechAbilityList.get(7);
+      }
+    }
+    if (e.getY() - 24 >= 720 &&
+            e.getY() - 24 < 750) {
+      if (e.getX() >= 440 &&
+              e.getX() < 470) {
+        return mechAbilityList.get(8);
+      } else if (e.getX() >= 470 &&
+              e.getX() < 500) {
+        return mechAbilityList.get(9);
+      } else if (e.getX() >= 500 &&
+              e.getX() < 530) {
+        return mechAbilityList.get(10);
+      } else if (e.getX() >= 530) {
+        return mechAbilityList.get(11);
+      }
+    }
+    return null;
+  }
+
+  private void levelUpAbilities(MechHero mechHero, MouseEvent e) {
+    findClosestAbilityIconToClick(mechHero.getAllAbilities(), e).levelUpAbility(mechHero);
+    mechHero.setAvailableLevelUpPoints(mechHero.getAvailableLevelUpPoints() - 1);
   }
 }
 

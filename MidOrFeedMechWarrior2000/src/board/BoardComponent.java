@@ -1,10 +1,15 @@
 package board;
 
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import units.Unit;
+
 public abstract class BoardComponent {
   private Integer posX;
   private Integer posY;
   private String unitType;
-
+  BufferedImage image;
 
   public void setPosY(int posY) {
     this.posY = posY;
@@ -28,5 +33,26 @@ public abstract class BoardComponent {
 
   public void setUnitType(String unitType) {
     this.unitType = unitType;
+  }
+
+  public void draw(Graphics graphics) {
+    if (image != null) {
+      graphics.drawImage(image, posX, posY, null);
+    }
+  }
+
+  public void setImage(BufferedImage image) {
+    this.image = image;
+  }
+
+  public BufferedImage getImage() {
+    return image;
+  }
+
+  public double calculateDistanceBetweenUnits(BoardComponent boardComponent) {
+    int a = Math.abs(getPosX() - boardComponent.getPosX());
+    int b = Math.abs(getPosY() - boardComponent.getPosY());
+    double distance = Math.sqrt(a * a + b * b);
+    return distance;
   }
 }

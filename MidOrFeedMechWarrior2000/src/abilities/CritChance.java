@@ -25,4 +25,14 @@ public class CritChance extends PassiveAbility {
     super.setLevel(super.getLevel()+1);
     mech.setCritChance(getLevel());
   }
+
+  @Override
+  public String getName() {
+    return name;
+  }
+
+  @Override
+  public String getCategory() {
+    return category;
+  }
 }
