@@ -30,6 +30,8 @@ public class TargetingAura extends Aura {
 
   @Override
   public void levelUpAbility(Mech mech) {
-    super.setLevel(super.getLevel()+1);
+    if(mech.getLevel() == 6) {
+      super.setLevel(super.getLevel() + 1);
+    }
   }
 }

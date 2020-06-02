@@ -99,7 +99,7 @@ public class MechHeroMouseClickReactionManager {
         }
       }
 
-      if (closestUnitDistance <= 72 &&
+      if (closestUnitDistance <= 36 &&
               closestUnit.isAlive()) {
         return closestUnit;
       } else {

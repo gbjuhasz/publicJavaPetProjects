@@ -25,8 +25,8 @@ public class Board extends JComponent implements KeyListener, MouseListener {
   BuildingDepthEffectManager buildingDepthEffectManager = new BuildingDepthEffectManager();
   RightClickVisualEffectManager rightClickVisualEffectManager = new RightClickVisualEffectManager();
   int roundCounter = 0;
-  String ePosX= "0";
-  String ePosY= "0";
+  String ePosX = "0";
+  String ePosY = "0";
 
   public Board() {
 
@@ -84,8 +84,8 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     int posYForCoordinates = 40;
     graphics.fillRect(720, 0, 400, 720);
     graphics.setColor(Color.WHITE);
-    graphics.drawRect(360,140,1,1);
-    graphics.drawRect(360,600,1,1);
+    graphics.drawRect(360, 140, 1, 1);
+    graphics.drawRect(360, 600, 1, 1);
     graphics.drawString(ePosX, 360, 70);
     graphics.drawString(ePosY, 360, 100);
 //    graphics.drawString("X", 360, 140);
@@ -100,8 +100,8 @@ public class Board extends JComponent implements KeyListener, MouseListener {
             unitLayout.getMechEnemy().getImageMiddleX() - 2,
             unitLayout.getMechEnemy().getImageMiddleY() + 2);
 
-    if (unitLayout.getMechHero().getUnitTargeted() != null) {
-      graphics.drawString(String.valueOf(unitLayout.getMechHero().getUnitTargeted().isInvisible()), 72, 160);
+    if (unitLayout.getMechHero().getLastAttackResult() != null) {
+      graphics.drawString(String.valueOf(unitLayout.getMechHero().getLastAttackResult()), 72, 160);
     }
   /*  graphics.drawString(String.valueOf(unitLayout.getMechHero().getAvailableLevelUpPoints()), 72, 200);
     graphics.drawString(String.valueOf(unitLayout.getMechHero().getSwitchFeetInRound()), 720, 240);
@@ -204,7 +204,8 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     }
 
     if (e.getKeyCode() == KeyEvent.VK_Q) {
-      if (unitLayout.getMechHero().getEnergy() > unitLayout.getMechHero().getListOfActiveAbilities().get(0).getEnergyCost() &&
+      if (unitLayout.getMechHero().getListOfActiveAbilities().get(0).getLevel() != 0 &&
+              unitLayout.getMechHero().getEnergy() > unitLayout.getMechHero().getListOfActiveAbilities().get(0).getEnergyCost() &&
               unitLayout.getMechHero().getListOfActiveAbilities().get(0).getCanBeusedAgainInRound() <= roundCounter) {
         unitLayout.getMechHero().getListOfActiveAbilities().get(0).setActivated(true);
         unitLayout.getMechHero().getListOfActiveAbilities().get(1).setActivated(false);
@@ -215,7 +216,8 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     }
 
     if (e.getKeyCode() == KeyEvent.VK_W) {
-      if (unitLayout.getMechHero().getEnergy() > unitLayout.getMechHero().getListOfActiveAbilities().get(1).getEnergyCost() &&
+      if (unitLayout.getMechHero().getListOfActiveAbilities().get(1).getLevel() != 0 &&
+              unitLayout.getMechHero().getEnergy() > unitLayout.getMechHero().getListOfActiveAbilities().get(1).getEnergyCost() &&
               unitLayout.getMechHero().getListOfActiveAbilities().get(1).getCanBeusedAgainInRound() <= roundCounter) {
         unitLayout.getMechHero().getListOfActiveAbilities().get(0).setActivated(false);
         unitLayout.getMechHero().getListOfActiveAbilities().get(1).setActivated(true);
@@ -225,7 +227,8 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     }
 
     if (e.getKeyCode() == KeyEvent.VK_E) {
-      if (unitLayout.getMechHero().getEnergy() > unitLayout.getMechHero().getListOfActiveAbilities().get(2).getEnergyCost() &&
+      if (unitLayout.getMechHero().getListOfActiveAbilities().get(2).getLevel() != 0 &&
+              unitLayout.getMechHero().getEnergy() > unitLayout.getMechHero().getListOfActiveAbilities().get(2).getEnergyCost() &&
               unitLayout.getMechHero().getListOfActiveAbilities().get(2).getCanBeusedAgainInRound() <= roundCounter) {
         unitLayout.getMechHero().getListOfActiveAbilities().get(0).setActivated(false);
         unitLayout.getMechHero().getListOfActiveAbilities().get(1).setActivated(false);
@@ -234,12 +237,32 @@ public class Board extends JComponent implements KeyListener, MouseListener {
       }
     }
     if (e.getKeyCode() == KeyEvent.VK_R) {
-      if (unitLayout.getMechHero().getEnergy() > unitLayout.getMechHero().getListOfActiveAbilities().get(3).getEnergyCost() &&
-              unitLayout.getMechHero().getListOfActiveAbilities().get(3).getCanBeusedAgainInRound() <= roundCounter) {
-        unitLayout.getMechHero().getListOfActiveAbilities().get(0).setActivated(false);
-        unitLayout.getMechHero().getListOfActiveAbilities().get(1).setActivated(false);
-        unitLayout.getMechHero().getListOfActiveAbilities().get(2).setActivated(false);
-        unitLayout.getMechHero().getListOfActiveAbilities().get(3).setActivated(true);
+      if (unitLayout.getMechHero().getListOfActiveAbilities().get(3).getLevel() != 0) {
+        if (unitLayout.getMechHero().getEnergy() > unitLayout.getMechHero().getListOfActiveAbilities().get(3).getEnergyCost() &&
+                unitLayout.getMechHero().getListOfActiveAbilities().get(3).getCanBeusedAgainInRound() <= roundCounter) {
+          unitLayout.getMechHero().getListOfActiveAbilities().get(0).setActivated(false);
+          unitLayout.getMechHero().getListOfActiveAbilities().get(1).setActivated(false);
+          unitLayout.getMechHero().getListOfActiveAbilities().get(2).setActivated(false);
+          unitLayout.getMechHero().getListOfActiveAbilities().get(3).setActivated(true);
+        } else if (unitLayout.getMechHero().getListOfPassiveAbilities().get(3).getLevel() != 0) {
+          if (!unitLayout.getMechHero().getListOfPassiveAbilities().get(3).isTurnedOn()) {
+            unitLayout.getMechHero().getListOfPassiveAbilities().get(3).setTurnedOn(true);
+          } else {
+            unitLayout.getMechHero().getListOfPassiveAbilities().get(3).setTurnedOn(false);
+          }
+          unitLayout.getMechHero().getListOfActiveAbilities().get(0).setActivated(false);
+          unitLayout.getMechHero().getListOfActiveAbilities().get(1).setActivated(false);
+          unitLayout.getMechHero().getListOfActiveAbilities().get(2).setActivated(false);
+        } else if (unitLayout.getMechHero().getListOfAuras().get(3).getLevel() != 0) {
+          if (!unitLayout.getMechHero().getListOfPassiveAbilities().get(3).isTurnedOn()) {
+            unitLayout.getMechHero().getListOfPassiveAbilities().get(3).setTurnedOn(true);
+          } else {
+            unitLayout.getMechHero().getListOfPassiveAbilities().get(3).setTurnedOn(false);
+            unitLayout.getMechHero().getListOfActiveAbilities().get(0).setActivated(false);
+            unitLayout.getMechHero().getListOfActiveAbilities().get(1).setActivated(false);
+            unitLayout.getMechHero().getListOfActiveAbilities().get(2).setActivated(false);
+          }
+        }
       }
     }
   }

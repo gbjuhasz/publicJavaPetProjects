@@ -19,12 +19,17 @@ public class AttackManager {
       }
       unitAttacking.setRoundAttackedLastTime(roundCounter);
       unitAttacking.setRoundAttackNextTime(unitAttacking.getRoundAttackedLastTime() + unitAttacking.getRoundsPerAttack());
-      if (attackHit(unitAttacking)) {
+      if (attackHit(unitAttacking, unitTargeted)) {
         int unitTargetedHP = unitTargeted.getHealthPoints();
         int unitTargetedArmor = unitTargeted.getArmorRating();
         int unitAttackingDamage = unitAttacking.getAttackDamage();
-        unitTargeted.setHealthPoints(unitTargetedHP - unitAttackingDamage + unitTargetedArmor);
-        unitAttacking.setLastAttackResult("Did"+(unitAttackingDamage + unitTargetedArmor)+"damage!");
+        if(isCriticalHit(unitAttacking)) {
+          unitTargeted.setHealthPoints(unitTargetedHP - unitAttackingDamage * 2 + unitTargetedArmor);
+          unitAttacking.setLastAttackResult((unitAttackingDamage * 2 + unitTargetedArmor)+"CRITICAL damage!");
+        } else {
+          unitTargeted.setHealthPoints(unitTargetedHP - unitAttackingDamage + unitTargetedArmor);
+          unitAttacking.setLastAttackResult("Did"+(unitAttackingDamage + unitTargetedArmor)+"damage!");
+        }
         unitAttacking.setUnitTargeted(unitTargeted);
         unitAttacking.setRightClickAttackedThisRound(true);
         if (unitTargeted.getHealthPoints() <= 0) {
@@ -42,9 +47,27 @@ public class AttackManager {
     }
   }
 
-  public Boolean attackHit(Unit unitAttacking) {
+  public Boolean attackHit(Unit unitAttacking, Unit unitAttacked) {
     int randomNumber = random.nextInt(10);
-    return randomNumber > unitAttacking.getMissChance();
+    return randomNumber > unitAttacking.getMissChance() + unitAttacked.getEvasionChance();
+  }
+
+  public Boolean isCriticalHit(Unit unitAttacking){
+    int randomNumber = random.nextInt(10);
+    return randomNumber > unitAttacking.getCritChance();
+  }
+
+  public void stealHealth(Mech mech, int damage){
+    if(mech.getHealthPoints() < mech.getRespawnHealthPoints()) {
+      int lifeLeech = mech.getLifeLeechPercentage();
+      double lifeLeechPercentage = lifeLeech / 10.0;
+      long healthStolen = Math.round(damage * lifeLeechPercentage);
+      if(mech.getHealthPoints() + (int) healthStolen <= mech.getRespawnHealthPoints()) {
+        mech.setHealthPoints(mech.getHealthPoints() + (int) healthStolen);
+      } else {
+        mech.setHealthPoints(mech.getRespawnHealthPoints());
+      }
+    }
   }
 
   public void setImageForAttacks(Unit unitAttacking, Integer roundCounter) {

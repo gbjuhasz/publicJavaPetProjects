@@ -16,7 +16,6 @@ public abstract class Mech extends Unit {
   private int armorRating = 1;
   private int missChance = 1;
   private int roundsToRespawn = 1000;
-  private int critChance = 0;
   private int availableLevelUpPoints = 2;
   //fields for levelling
   private HashMap<Integer, Integer> xpBounty = new HashMap() {{
@@ -65,10 +64,6 @@ public abstract class Mech extends Unit {
     return this.roundsToRespawn;
   }
 
-  public int getCritChance() {
-    return critChance;
-  }
-
   public List<MechAbility> getAllAbilities(){
     List<MechAbility> completeListOfAbilities = new ArrayList<>();
     completeListOfAbilities.addAll(getListOfActiveAbilities());
@@ -83,10 +78,6 @@ public abstract class Mech extends Unit {
 
   public void setAvailableLevelUpPoints(int availableLevelUpPoints) {
     this.availableLevelUpPoints = availableLevelUpPoints;
-  }
-
-  public void setCritChance(int critChance) {
-    this.critChance = critChance;
   }
 
   @Override

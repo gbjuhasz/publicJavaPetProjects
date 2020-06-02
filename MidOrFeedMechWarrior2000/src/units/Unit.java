@@ -42,6 +42,7 @@ public abstract class Unit extends BoardComponent {
   private boolean isStunned;
   private int stunOverInRound;
   private int missChance;
+  private int critChance = 0;
   private int evasionChance;
   private int lifeLeechPercentage;
   private ArrayList<ActiveAbility> listOfActiveAbilities = new ArrayList();
@@ -255,6 +256,11 @@ public abstract class Unit extends BoardComponent {
     return lifeLeechPercentage;
   }
 
+  public int getCritChance() {
+    return critChance;
+  }
+
+
   public boolean isInvisible() {
     return isInvisible;
   }
@@ -265,6 +271,10 @@ public abstract class Unit extends BoardComponent {
 
   public boolean isRightClickAttackedThisRound() {
     return rightClickAttackedThisRound;
+  }
+
+  public void setCritChance(int critChance) {
+    this.critChance = critChance;
   }
 
   public void setStunned(boolean stunned) {

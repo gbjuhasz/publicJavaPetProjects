@@ -21,12 +21,23 @@ public class MechHeroAttackManager extends AttackManager {
       mechHero.setRoundAttackedLastTime(roundCounter);
       mechHero.setRoundAttackNextTime(mechHero.getRoundAttackedLastTime() + mechHero.getRoundsPerAttack());
       if (mechHero.calculateDistanceBetweenUnits(unitTargeted) < mechHero.getAttackRange()) {
-        if (attackHit(mechHero)) {
+        if (attackHit(mechHero, unitTargeted)) {
           int unitTargetedHP = unitTargeted.getHealthPoints();
           int unitTargetedArmor = unitTargeted.getArmorRating();
           int unitAttackingDamage = mechHero.getAttackDamage();
-          unitTargeted.setHealthPoints(unitTargetedHP - unitAttackingDamage + unitTargetedArmor);
-          mechHero.setLastAttackResult("Did" + (unitAttackingDamage + unitTargetedArmor) + "damage!");
+          if(isCriticalHit(mechHero)) {
+            unitTargeted.setHealthPoints(unitTargetedHP - unitAttackingDamage * 2 + unitTargetedArmor);
+            if(mechHero.getLifeLeechPercentage() != 0){
+              stealHealth(mechHero, unitAttackingDamage*2-unitTargetedArmor);
+            }
+            mechHero.setLastAttackResult((unitAttackingDamage * 2 + unitTargetedArmor)+"CRITICAL damage!");
+          } else {
+            unitTargeted.setHealthPoints(unitTargetedHP - unitAttackingDamage + unitTargetedArmor);
+            if(mechHero.getLifeLeechPercentage() != 0){
+              stealHealth(mechHero, unitAttackingDamage - unitTargetedArmor);
+            }
+            mechHero.setLastAttackResult("Did"+(unitAttackingDamage + unitTargetedArmor)+"damage!");
+          }
           mechHero.setRightClickAttackedThisRound(true);
           findImageFileLocation(mechHero.getFacingDirection(), isRoundNumberEven(roundCounter));
           BufferedImage newImage = pickImage(findImageFileLocation(mechHero.getFacingDirection(),
@@ -68,6 +79,8 @@ public class MechHeroAttackManager extends AttackManager {
       return "Odd";
     }
   }
+
+
 
   public BufferedImage pickImage(String fileLocation) {
 

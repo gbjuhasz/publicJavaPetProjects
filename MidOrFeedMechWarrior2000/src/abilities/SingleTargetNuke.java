@@ -98,7 +98,9 @@ public class SingleTargetNuke extends ActiveAbility {
 
   @Override
   public void levelUpAbility(Mech mech) {
-    super.setLevel(super.getLevel()+1);
-    setDamage(getDamage() + super.getLevel() * 200);
+    if (mech.getLevel() == 6) {
+      super.setLevel(super.getLevel() + 1);
+      setDamage(getDamage() + super.getLevel() * 200);
+    }
   }
 }

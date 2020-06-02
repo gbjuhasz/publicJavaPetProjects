@@ -136,7 +136,7 @@ public class HUDgraphicsManager extends JComponent {
       if (mechHero.getExperiencePoints() == 0) {
       } else if (mechHero.getLevel() == 1) {
         graphics2d.drawLine(139, 679, 139 + calculateLengthOfBar(mechHero.getExperiencePoints(), 200, mechHero.getXpNeededForLevelUp().get(mechHero.getLevel() + 1)), 679);
-      } else {
+      } else if (mechHero.getLevel() < 6 ) {
         graphics2d.drawLine(139, 679, 139 + calculateLengthOfBar(mechHero.getExperiencePoints() - mechHero.getXpNeededForLevelUp().get(mechHero.getLevel()), 200, mechHero.getXpNeededForLevelUp().get(mechHero.getLevel() + 1)), 679);
       }
       graphics2d.setColor(Color.BLACK);
