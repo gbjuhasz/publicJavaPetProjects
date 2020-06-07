@@ -104,23 +104,5 @@ public abstract class BotMovementManager extends MovementManager {
   private void checkCreepsForCollision(Unit unitMakingMove,
                                        List<Unit> listOfAllUnits,
                                        String targetDirection) {
-
- /*   int currentX = unitMakingMove.getPosX();
-    int currentY = unitMakingMove.getPosY();
-
-    List<Unit> listOfAllUnitsWithoutUnitMakingMove = new ArrayList<>();
-
-    for (Unit unit : listOfAllUnits
-    ) {
-      if (unitMakingMove.getPosX() != unit.getPosX() &&
-              unitMakingMove.getPosY() != unit.getPosY()) {
-        listOfAllUnitsWithoutUnitMakingMove.add(unit);
-      }
-    }
-    if (illegalMoveCreepCollisionManager.isMoveLegalForCreeps(currentX, currentY, listOfAllUnitsWithoutUnitMakingMove)) {
-      unitMakingMove.setPosX(unitMakingMove.getPreviousX());
-      unitMakingMove.setPosY(unitMakingMove.getPreviousY());
-    }
-  }*/
   }
 }

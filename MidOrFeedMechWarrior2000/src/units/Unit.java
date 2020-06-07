@@ -35,6 +35,8 @@ public abstract class Unit extends BoardComponent {
   private int armorRating;
   private int attackRange;
   private int attackDamage;
+  private boolean isUnderDamageAuraEffect;
+  private boolean isUnderArmorAuraEffect;
   private int roundsPerAttack = 100;
   private int roundAttackedLastTime = -100;
   private int roundAttackNextTime;
@@ -67,14 +69,13 @@ public abstract class Unit extends BoardComponent {
   private int respawnX;
   private int respawnY;
   //field for decision making
-  private boolean isThreatToHeroUnit;
+  private int aggroPriority = 1;
+  private int aggroChangedInRound;
+  private int roundsToAggroReset = 250;
   private int powerScore;
   private String targetDirection;
   private int detectionRange;
 
-  public boolean isThreatToHeroUnit() {
-    return isThreatToHeroUnit;
-  }
 
   public int getArmorRating() {
     return armorRating;
@@ -260,6 +261,25 @@ public abstract class Unit extends BoardComponent {
     return critChance;
   }
 
+  public int getAggroPriority() {
+    return aggroPriority;
+  }
+
+  public int getRoundsToAggroReset() {
+    return roundsToAggroReset;
+  }
+
+  public int getAggroChangedInRound() {
+    return aggroChangedInRound;
+  }
+
+  public boolean isUnderArmorAuraEffect() {
+    return isUnderArmorAuraEffect;
+  }
+
+  public boolean isUnderDamageAuraEffect() {
+    return isUnderDamageAuraEffect;
+  }
 
   public boolean isInvisible() {
     return isInvisible;
@@ -327,10 +347,6 @@ public abstract class Unit extends BoardComponent {
 
   public void setPreviousY(int previousY) {
     this.previousY = previousY;
-  }
-
-  public void setThreatToHeroUnit(boolean threatToHeroUnit) {
-    this.isThreatToHeroUnit = threatToHeroUnit;
   }
 
   public void setTargetDirection(String targetDirection) {
@@ -437,6 +453,21 @@ public abstract class Unit extends BoardComponent {
     this.lifeLeechPercentage = lifeLeechPercentage;
   }
 
+  public void setAggroPriority(int aggroPriority) {
+    this.aggroPriority = aggroPriority;
+  }
+
+  public void setAggroChangedInRound(int aggroChangedInRound) {
+    this.aggroChangedInRound = aggroChangedInRound;
+  }
+
+  public void setUnderArmorAuraEffect(boolean underArmorAuraEffect) {
+    isUnderArmorAuraEffect = underArmorAuraEffect;
+  }
+
+  public void setUnderDamageAuraEffect(boolean underDamageAuraEffect) {
+    isUnderDamageAuraEffect = underDamageAuraEffect;
+  }
 
   public void calculateImageCenterCoordinates() {
     setImageMiddleX(getPosX() + 36);

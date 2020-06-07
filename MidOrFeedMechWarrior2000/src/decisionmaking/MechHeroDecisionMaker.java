@@ -19,6 +19,8 @@ public class MechHeroDecisionMaker extends DecisionMaker {
 
     isItTimeToSwitchFeet(mechHero, roundCounter);
     checkIfStillHasTarget(mechHero);
+    placeDamageAndArmorAuraEffectsOnUnit(mechHero,mechHero);
+    placeEnergyRestorationAuraEffectOnMechs(mechHero,listOfCreeps);
 
     if (mechHero.getUnitTargeted() != null) {
       if (mechHero.calculateDistanceBetweenUnits(mechHero.getUnitTargeted()) <= mechHero.getAttackRange()) {
@@ -35,5 +37,6 @@ public class MechHeroDecisionMaker extends DecisionMaker {
         mechHero.setMouseEventMarkingLocation(null);
       }
     }
+    removeAuraEffects(mechHero,mechHero);
   }
 }

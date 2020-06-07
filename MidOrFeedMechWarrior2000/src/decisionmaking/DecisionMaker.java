@@ -1,17 +1,22 @@
 package decisionmaking;
 
+import abilities.Aura;
 import board.BoardComponent;
 import fighting.AttackManager;
 import java.util.ArrayList;
 import java.util.List;
-import units.*;
+import units.Creep;
+import units.Mech;
+import units.Turret;
+import units.Unit;
 
 public abstract class DecisionMaker {
 
   AttackManager attackManager = new AttackManager();
 
   public void reactToPlayerMovement(Unit unitMakingDecision,
-                                    Mech mech,
+                                    Mech mechAllied,
+                                    Mech mechHostile,
                                     ArrayList<Creep> listOfCreeps,
                                     Turret turret,
                                     List<Unit> listOfAllUnits,
@@ -21,73 +26,58 @@ public abstract class DecisionMaker {
     isItTimeToSwitchFeet(unitMakingDecision, roundCounter);
     checkIfStillHasTarget(unitMakingDecision);
 
-    if (findTargetInAttackRange(unitMakingDecision, mech, listOfCreeps, turret) != null) {
-      attackTarget(unitMakingDecision, findTargetInAttackRange(unitMakingDecision, mech, listOfCreeps, turret),listOfMechs, roundCounter);
-    } else if (findTargetInDetectionRange(unitMakingDecision, mech, listOfCreeps, turret) != null) {
-      moveTowardsTargetUnit(unitMakingDecision, findTargetInDetectionRange(unitMakingDecision, mech, listOfCreeps, turret), listOfAllUnits, roundCounter);
-    } else {
-      moveTowardsTargetUnit(unitMakingDecision, turret, listOfAllUnits, roundCounter);
+    if (findTargetInRange(unitMakingDecision, mechHostile, listOfCreeps, turret, unitMakingDecision.getAttackRange()) != null) {
+      attackTarget(unitMakingDecision, findTargetInRange(unitMakingDecision, mechHostile, listOfCreeps, turret, unitMakingDecision.getAttackRange()), listOfMechs, roundCounter);
+    } else if (findTargetInRange(unitMakingDecision, mechHostile, listOfCreeps, turret, unitMakingDecision.getDetectionRange()) != null) {
+      moveTowardsTargetUnit(unitMakingDecision, findTargetInRange(unitMakingDecision, mechHostile, listOfCreeps, turret, unitMakingDecision.getDetectionRange()), listOfAllUnits, roundCounter);
     }
   }
 
-  public Unit findTargetInAttackRange(Unit unitMakingDecision,
+  public Unit findTargetInRange(Unit unitMakingDecision,
                                       Mech mech,
                                       ArrayList<Creep> listOfCreeps,
-                                      Turret turret) {
+                                      Turret turret, int range) {
 
-    int attackRange = unitMakingDecision.getAttackRange();
+    List<Unit> unitsInRange = new ArrayList<>();
 
-    if (mech.isThreatToHeroUnit() &&
-            mech.isAlive() &&
+    if (mech.isAlive() &&
             !mech.isInvisible() &&
-            unitMakingDecision.calculateDistanceBetweenUnits(mech) <= attackRange) {
-      return mech;
+            unitMakingDecision.calculateDistanceBetweenUnits(mech) <= range) {
+      unitsInRange.add(mech);
     }
     for (Creep creep : listOfCreeps) {
-      if (unitMakingDecision.calculateDistanceBetweenUnits(creep) <= attackRange &&
+      if (unitMakingDecision.calculateDistanceBetweenUnits(creep) <= range &&
               creep.isAlive()) {
-        return creep;
+        unitsInRange.add(creep);
       }
     }
-    if (!mech.isThreatToHeroUnit() &&
-            mech.isAlive() &&
-            !mech.isInvisible() &&
-            unitMakingDecision.calculateDistanceBetweenUnits(mech) <= attackRange) {
-      return mech;
-    } else if (unitMakingDecision.calculateDistanceBetweenUnits(turret) <= attackRange) {
-      return turret;
+
+    if (unitMakingDecision.calculateDistanceBetweenUnits(turret) <= range) {
+      unitsInRange.add(turret);
     }
-    return null;
-  }
 
-  public Unit findTargetInDetectionRange(Unit unitMakingDecision,
-                                         Mech mech,
-                                         ArrayList<Creep> listOfCreeps,
-                                         Turret turret) {
-
-    int detectionRange = unitMakingDecision.getDetectionRange();
-
-    if (mech.isThreatToHeroUnit() &&
-            !mech.isInvisible() &&
-            mech.isAlive() &&
-            unitMakingDecision.calculateDistanceBetweenUnits(mech) <= detectionRange) {
-      return mech;
-    }
-    for (Creep creep : listOfCreeps) {
-      if (unitMakingDecision.calculateDistanceBetweenUnits(creep) <= detectionRange &&
-              creep.isAlive()) {
-        return creep;
+    if(unitsInRange.size() == 0) {
+      return null;
+    } else {
+      Unit unitToReturn = unitsInRange.get(0);
+      double unitToReturnDistance = unitMakingDecision.calculateDistanceBetweenUnits(unitsInRange.get(0));
+      int unitToReturnAggroPriority = unitsInRange.get(0).getAggroPriority();
+      for (Unit unit: unitsInRange
+           ) {
+        if(unit.getAggroPriority() > unitToReturnAggroPriority){
+          unitToReturn = unit;
+          unitToReturnDistance = unit.calculateDistanceBetweenUnits(unitMakingDecision);
+          unitToReturnAggroPriority = unit.getAggroPriority();
+        } else if (unit.getAggroPriority() == unitToReturnAggroPriority){
+          if(unit.calculateDistanceBetweenUnits(unitMakingDecision) < unitToReturnDistance){
+            unitToReturn = unit;
+            unitToReturnDistance = unit.calculateDistanceBetweenUnits(unitMakingDecision);
+            unitToReturnAggroPriority = unit.getAggroPriority();
+          }
+        }
       }
+      return unitToReturn;
     }
-    if (!mech.isThreatToHeroUnit()
-            && unitMakingDecision.calculateDistanceBetweenUnits(mech) <= detectionRange &&
-            mech.isAlive() &&
-            !mech.isInvisible()) {
-      return mech;
-    } else if (unitMakingDecision.calculateDistanceBetweenUnits(turret) <= detectionRange) {
-      return turret;
-    }
-    return null;
   }
 
   public void moveTowardsTargetUnit(Unit unitMakingMove, BoardComponent boardComponent, List<Unit> listOfAllUnit, int roundCounter) {
@@ -97,8 +87,7 @@ public abstract class DecisionMaker {
     attackManager.attackTargetUnit(unitAttacking, unitTarget, listOfMechs, roundCounter);
   }
 
-  public String isItTimeToSwitchFeet(Unit unitMoving, int roundCounter) {
-
+  public void isItTimeToSwitchFeet(Unit unitMoving, int roundCounter) {
 
     if (unitMoving.getSwitchFeetInRound() == roundCounter) {
       if (unitMoving.getFeetForward().equals("ODD")) {
@@ -109,17 +98,68 @@ public abstract class DecisionMaker {
         unitMoving.setSwitchFeetInRound(roundCounter + unitMoving.getSwitchFeetEveryXRound());
       }
     }
-    return unitMoving.getFeetForward();
   }
 
   public BoardComponent followWaypoints(Creep creep) {
     return creep.getListOfWaypointsToFollow().get(creep.getHeadingTowardsWaypoint());
   }
 
-  public void checkIfStillHasTarget(Unit unitMakingDecision){
-    if(unitMakingDecision.getUnitTargeted() != null &&
-            !unitMakingDecision.getUnitTargeted().isAlive()){
+  public void checkIfStillHasTarget(Unit unitMakingDecision) {
+    if (unitMakingDecision.getUnitTargeted() != null &&
+            !unitMakingDecision.getUnitTargeted().isAlive()) {
       unitMakingDecision.setUnitTargeted(null);
+    }
+  }
+
+  public void placeDamageAndArmorAuraEffectsOnUnit(Unit unit, Mech mech) {
+    Aura extraDamageAura = mech.getListOfAuras().get(0);
+    Aura extraArmorAura = mech.getListOfAuras().get(1);
+    double distanceBetweenUnitAndMech = unit.calculateDistanceBetweenUnits(mech);
+    if (extraDamageAura.getLevel() > 0 &&
+            distanceBetweenUnitAndMech <= extraDamageAura.getRange() &&
+    !unit.isUnderDamageAuraEffect()) {
+      unit.setAttackDamage(unit.getAttackDamage() + extraDamageAura.getBonus());
+      unit.setUnderDamageAuraEffect(true);
+    }
+    if (extraArmorAura.getLevel() > 0 &&
+            unit.calculateDistanceBetweenUnits(mech) <= extraArmorAura.getRange() &&
+    !unit.isUnderArmorAuraEffect()) {
+      unit.setArmorRating(unit.getArmorRating() + extraArmorAura.getBonus());
+      unit.setUnderArmorAuraEffect(true);
+    }
+  }
+
+  public void removeAuraEffects(Unit unit,Mech mech){
+    Aura extraDamageAura = mech.getListOfAuras().get(0);
+    Aura extraArmorAura = mech.getListOfAuras().get(1);
+    double distanceBetweenUnitAndMech = unit.calculateDistanceBetweenUnits(mech);
+    if(unit.isUnderDamageAuraEffect() &&
+            distanceBetweenUnitAndMech > extraDamageAura.getRange()){
+      unit.setAttackDamage(unit.getAttackDamage()-extraDamageAura.getBonus());
+      unit.setUnderDamageAuraEffect(false);
+    }
+    if(unit.isUnderArmorAuraEffect() &&
+    distanceBetweenUnitAndMech > extraArmorAura.getRange()){
+      unit.setArmorRating(unit.getArmorRating()-extraArmorAura.getBonus());
+      unit.setUnderArmorAuraEffect(false);
+    }
+  }
+
+  public void placeEnergyRestorationAuraEffectOnMechs(Mech mech, List<Creep> listOfCreeps){
+    int energyRestored = 0;
+    Aura energyRestorationAura = mech.getListOfAuras().get(2);
+    if(energyRestorationAura.getLevel() > 0){
+      energyRestored = energyRestored + energyRestorationAura.getBonus();
+    }
+    for (Creep creep: listOfCreeps) {
+      if(creep.calculateDistanceBetweenUnits(mech) < energyRestorationAura.getRange()){
+        energyRestored = energyRestored + energyRestorationAura.getBonus();
+      }
+    }
+    if(mech.getEnergy() + energyRestored > mech.getRespawnEnergy()){
+      mech.setEnergy(mech.getRespawnEnergy());
+    } else {
+      mech.setEnergy(mech.getEnergy() + energyRestored);
     }
   }
 }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import units.Mech;
+import units.Unit;
 
 public class TargetingAura extends Aura {
   private boolean activated;
@@ -26,6 +27,11 @@ public class TargetingAura extends Aura {
 
   public void setActivated(boolean activated) {
     this.activated = activated;
+  }
+
+  @Override
+  public void useTargetingAura(Unit unit){
+    unit.setAggroPriority(6);
   }
 
   @Override

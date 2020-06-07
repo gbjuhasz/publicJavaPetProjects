@@ -35,6 +35,7 @@ public class MechHero extends Mech {
     super.setRespawnY(y);
     super.calculateImageCenterCoordinates();
     super.setUnitType("mechHero");
+    super.setFacingDirection("DOWN");
     Random random = new Random();
     super.setFeetForward(super.getFeetImageNames()[random.nextInt(2)]);
     super.getListOfActiveAbilities().add(new Stun());

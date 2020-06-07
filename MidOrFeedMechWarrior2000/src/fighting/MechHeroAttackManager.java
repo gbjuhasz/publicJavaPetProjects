@@ -19,6 +19,7 @@ public class MechHeroAttackManager extends AttackManager {
         mechHero.setInvisible(false);
       }
       mechHero.setRoundAttackedLastTime(roundCounter);
+      changeAggroPriorityAccordingToTarget(mechHero,unitTargeted,roundCounter);
       mechHero.setRoundAttackNextTime(mechHero.getRoundAttackedLastTime() + mechHero.getRoundsPerAttack());
       if (mechHero.calculateDistanceBetweenUnits(unitTargeted) < mechHero.getAttackRange()) {
         if (attackHit(mechHero, unitTargeted)) {

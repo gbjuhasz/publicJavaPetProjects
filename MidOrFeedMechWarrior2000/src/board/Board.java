@@ -56,7 +56,21 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     rightClickVisualEffectManager.drawUpRightClicks(unitLayout.getAllUnits(), roundCounter, graphics);
     //hud
     hudLayout.getHud().draw(graphics);
-    //Information
+
+    //HUDgraphicsManager display
+    HUDgraphicsManager.drawXPBar(unitLayout.getMechHero(), graphics);
+    hudLayout.placeHud();
+    HUDgraphicsManager.drawRectangle(unitLayout.getMechHero(), unitLayout.getListOfEnemyUnits(), graphics);
+    HUDgraphicsManager.drawUnitImageForHighlightedUnit(unitLayout.getAllUnits(), hudLayout.getHud(), graphics);
+    HUDgraphicsManager.drawAbilityIcons(unitLayout.getMechHero(), roundCounter, graphics);
+    HUDgraphicsManager.drawInfoBars(unitLayout.getAllUnits(), graphics);
+    HUDgraphicsManager.drawInfoOfHighlightedUnit(unitLayout.getAllUnits(), graphics);
+
+    //Building depth effects
+    buildingDepthEffectManager.getBuildingBottomRightSide().draw(graphics);
+    buildingDepthEffectManager.getBuildingLeftSide().draw(graphics);
+
+    //DEBUGGING DRAWINGS
     graphics.setColor(Color.WHITE);
     graphics.drawString(String.valueOf(roundCounter), 72, 120);
 
@@ -66,39 +80,32 @@ public class Board extends JComponent implements KeyListener, MouseListener {
     graphics.drawString("Y:" + unitLayout.getMechHero().getPosY(),
             72,
             80);
+    graphics.drawString(String.valueOf(unitLayout.getMechEnemy().getIdealBehaviorBasedOnPowerScores()),72,320);
+    graphics.drawString(String.valueOf(unitLayout.getMechHero().getPowerScore()),72,240);
+    graphics.setColor(Color.RED);
+    graphics.drawString("MechHero PowerScore:" + unitLayout.getMechHero().getPowerScore(),320,120);
+    graphics.drawString("MechEnemy PowerScore:"+unitLayout.getMechEnemy().getPowerScore(),320,160);
+    graphics.drawString("PowerScore difference:"+ (unitLayout.getMechHero().getPowerScore()-unitLayout.getMechEnemy().getPowerScore()),320,200);
 
-    //HUDgraphicsManager display
-    HUDgraphicsManager.drawXPBar(unitLayout.getMechHero(), graphics);
-    hudLayout.placeHud();
-    HUDgraphicsManager.drawRectangle(unitLayout.getMechHero(), unitLayout.getListOfEnemyUnits(), graphics);
-    HUDgraphicsManager.drawUnitImageForHighlightedUnit(unitLayout.getAllUnits(), hudLayout.getHud(), graphics);
-    HUDgraphicsManager.drawAbilityIcons(unitLayout.getMechHero(), graphics);
-    HUDgraphicsManager.drawInfoBars(unitLayout.getAllUnits(), graphics);
-    HUDgraphicsManager.drawInfoOfHighlightedUnit(unitLayout.getAllUnits(), graphics);
-
-    //Building depth effects
-    buildingDepthEffectManager.getBuildingBottomRightSide().draw(graphics);
-    buildingDepthEffectManager.getBuildingLeftSide().draw(graphics);
-    //DEBUGGING DRAWINGS
     graphics.setColor(Color.BLACK);
     int posYForCoordinates = 40;
     graphics.fillRect(720, 0, 400, 720);
     graphics.setColor(Color.WHITE);
-    graphics.drawRect(360, 140, 1, 1);
-    graphics.drawRect(360, 600, 1, 1);
-    graphics.drawString(ePosX, 360, 70);
-    graphics.drawString(ePosY, 360, 100);
+  //  graphics.drawRect(360, 140, 1, 1);
+   // graphics.drawRect(360, 600, 1, 1);
+//    graphics.drawString(ePosX, 360, 70);
+  //  graphics.drawString(ePosY, 360, 100);
 //    graphics.drawString("X", 360, 140);
     graphics.setColor(Color.RED);
     graphics.setColor(Color.WHITE);
-    graphics.drawLine(unitLayout.getMechEnemy().getImageMiddleX() - 2,
+/*    graphics.drawLine(unitLayout.getMechEnemy().getImageMiddleX() - 2,
             unitLayout.getMechEnemy().getImageMiddleY() - 2,
             unitLayout.getMechEnemy().getImageMiddleX() + 2,
             unitLayout.getMechEnemy().getImageMiddleY() + 2);
     graphics.drawLine(unitLayout.getMechEnemy().getImageMiddleX() + 2,
             unitLayout.getMechEnemy().getImageMiddleY() - 2,
             unitLayout.getMechEnemy().getImageMiddleX() - 2,
-            unitLayout.getMechEnemy().getImageMiddleY() + 2);
+            unitLayout.getMechEnemy().getImageMiddleY() + 2);*/
 
     if (unitLayout.getMechHero().getLastAttackResult() != null) {
       graphics.drawString(String.valueOf(unitLayout.getMechHero().getLastAttackResult()), 72, 160);

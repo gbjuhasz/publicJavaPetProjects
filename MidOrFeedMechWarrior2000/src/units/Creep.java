@@ -126,4 +126,14 @@ public abstract class Creep extends Unit {
   public void setEnergy(int energy) {
     this.energy = energy;
   }
+
+  @Override
+  public void setAttackDamage(int attackDamage) {
+    this.attackDamage = attackDamage;
+  }
+
+  @Override
+  public void setArmorRating(int armorRating) {
+    this.armorRating = armorRating;
+  }
 }

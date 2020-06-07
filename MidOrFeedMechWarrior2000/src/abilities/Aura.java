@@ -1,5 +1,7 @@
 package abilities;
 
+import units.Unit;
+
 public abstract class Aura extends MechAbility {
 
   private int range;
@@ -17,4 +19,14 @@ public abstract class Aura extends MechAbility {
     isTurnedOn = turnedOn;
   }
 
+  public int getRange() {
+    return range;
+  }
+
+  public int getBonus() {
+    return bonus;
+  }
+
+  public void useTargetingAura(Unit unit) {
+  }
 }

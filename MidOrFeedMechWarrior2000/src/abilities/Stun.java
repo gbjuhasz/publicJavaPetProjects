@@ -11,7 +11,7 @@ public class Stun extends ActiveAbility {
   private String category = "offensive targeted stun";
   private int energyCost = 100;
   private int coolDown = 1000;
-  private int stunnedForRounds = 300;
+  private int stunnedForRounds = 0;
   private int range = 216;
   private int lastUsedInRound;
   private int canBeusedAgainInRound;
@@ -100,7 +100,7 @@ public class Stun extends ActiveAbility {
     super.setLevel(super.getLevel()+1);
     setCoolDown(getCoolDown() - super.getLevel() * 50);
     setEnergyCost(getEnergyCost() - super.getLevel() * 10);
-    setStunnedForRounds(getStunnedForRounds() + super.getLevel() * 30);
+    setStunnedForRounds(super.getLevel() * 100);
   }
 
   @Override

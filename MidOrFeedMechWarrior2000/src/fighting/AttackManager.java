@@ -14,21 +14,22 @@ public class AttackManager {
   public void attackTargetUnit(Unit unitAttacking, Unit unitTargeted, List<Mech> listOfMechs, int roundCounter) {
     setFacingDirection(unitAttacking, unitTargeted);
     if (unitAttacking.getRoundAttackNextTime() <= roundCounter) {
-      if(unitAttacking.isInvisible()){
+      if (unitAttacking.isInvisible()) {
         unitAttacking.setInvisible(false);
       }
       unitAttacking.setRoundAttackedLastTime(roundCounter);
+      changeAggroPriorityAccordingToTarget(unitAttacking, unitTargeted, roundCounter);
       unitAttacking.setRoundAttackNextTime(unitAttacking.getRoundAttackedLastTime() + unitAttacking.getRoundsPerAttack());
       if (attackHit(unitAttacking, unitTargeted)) {
         int unitTargetedHP = unitTargeted.getHealthPoints();
         int unitTargetedArmor = unitTargeted.getArmorRating();
         int unitAttackingDamage = unitAttacking.getAttackDamage();
-        if(isCriticalHit(unitAttacking)) {
+        if (isCriticalHit(unitAttacking)) {
           unitTargeted.setHealthPoints(unitTargetedHP - unitAttackingDamage * 2 + unitTargetedArmor);
-          unitAttacking.setLastAttackResult((unitAttackingDamage * 2 + unitTargetedArmor)+"CRITICAL damage!");
+          unitAttacking.setLastAttackResult((unitAttackingDamage * 2 + unitTargetedArmor) + "CRITICAL damage!");
         } else {
           unitTargeted.setHealthPoints(unitTargetedHP - unitAttackingDamage + unitTargetedArmor);
-          unitAttacking.setLastAttackResult("Did"+(unitAttackingDamage + unitTargetedArmor)+"damage!");
+          unitAttacking.setLastAttackResult("Did" + (unitAttackingDamage + unitTargetedArmor) + "damage!");
         }
         unitAttacking.setUnitTargeted(unitTargeted);
         unitAttacking.setRightClickAttackedThisRound(true);
@@ -52,17 +53,17 @@ public class AttackManager {
     return randomNumber > unitAttacking.getMissChance() + unitAttacked.getEvasionChance();
   }
 
-  public Boolean isCriticalHit(Unit unitAttacking){
+  public Boolean isCriticalHit(Unit unitAttacking) {
     int randomNumber = random.nextInt(10);
     return randomNumber > unitAttacking.getCritChance();
   }
 
-  public void stealHealth(Mech mech, int damage){
-    if(mech.getHealthPoints() < mech.getRespawnHealthPoints()) {
+  public void stealHealth(Mech mech, int damage) {
+    if (mech.getHealthPoints() < mech.getRespawnHealthPoints()) {
       int lifeLeech = mech.getLifeLeechPercentage();
       double lifeLeechPercentage = lifeLeech / 10.0;
       long healthStolen = Math.round(damage * lifeLeechPercentage);
-      if(mech.getHealthPoints() + (int) healthStolen <= mech.getRespawnHealthPoints()) {
+      if (mech.getHealthPoints() + (int) healthStolen <= mech.getRespawnHealthPoints()) {
         mech.setHealthPoints(mech.getHealthPoints() + (int) healthStolen);
       } else {
         mech.setHealthPoints(mech.getRespawnHealthPoints());
@@ -95,6 +96,16 @@ public class AttackManager {
       } else {
         unitAttacking.setFacingDirection("Up");
       }
+    }
+  }
+
+  public void changeAggroPriorityAccordingToTarget(Unit unitAttacking, Unit unitTargeted, int roundCounter) {
+    if (unitTargeted.getUnitType().contains("mech")) {
+      unitAttacking.setAggroPriority(3);
+      unitAttacking.setAggroChangedInRound(roundCounter);
+    } else if (unitTargeted.getUnitType().contains("turret")) {
+      unitAttacking.setAggroPriority(2);
+      unitAttacking.setAggroChangedInRound(roundCounter);
     }
   }
 }

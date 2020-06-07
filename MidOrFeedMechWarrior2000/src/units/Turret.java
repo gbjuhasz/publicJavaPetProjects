@@ -5,8 +5,10 @@ public abstract class Turret extends Unit {
 
   private int healthPoints = 1800;
   private int armorRating = 12;
-  private int attackRange = 90;
+  private int attackRange = 108;
   private int attackDamage = 180;
+  private int aggroPriority = 2;
+
 
   @Override
   public int getAttackRange() {
@@ -31,5 +33,10 @@ public abstract class Turret extends Unit {
   @Override
   public int getDetectionRange() {
     return super.getDetectionRange();
+  }
+
+  @Override
+  public int getAggroPriority() {
+    return aggroPriority;
   }
 }

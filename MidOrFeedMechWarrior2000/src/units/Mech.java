@@ -1,9 +1,10 @@
 package units;
 
-import abilities.MechAbility;
+import abilities.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public abstract class Mech extends Unit {
   //fields for fighting
@@ -16,7 +17,7 @@ public abstract class Mech extends Unit {
   private int armorRating = 1;
   private int missChance = 1;
   private int roundsToRespawn = 1000;
-  private int availableLevelUpPoints = 2;
+  private int availableLevelUpPoints = 1;
   //fields for levelling
   private HashMap<Integer, Integer> xpBounty = new HashMap() {{
     put(1, 70);
@@ -27,6 +28,7 @@ public abstract class Mech extends Unit {
     put(6, 427);
   }};
   //fields for decision making
+  private String idealBehaviorBasedOnPowerScores;
 
 
   @Override
@@ -100,6 +102,10 @@ public abstract class Mech extends Unit {
     return this.energy;
   }
 
+  public String getIdealBehaviorBasedOnPowerScores() {
+    return idealBehaviorBasedOnPowerScores;
+  }
+
   @Override
   public void setEnergy(int energy) {
     this.energy = energy;
@@ -132,6 +138,10 @@ public abstract class Mech extends Unit {
   @Override
   public void setMissChance(int missChance) {
     this.missChance = missChance;
+  }
+
+  public void setIdealBehaviorBasedOnPowerScores(String idealBehaviorBasedOnPowerScores) {
+    this.idealBehaviorBasedOnPowerScores = idealBehaviorBasedOnPowerScores;
   }
 
   public void levelUpMech() {

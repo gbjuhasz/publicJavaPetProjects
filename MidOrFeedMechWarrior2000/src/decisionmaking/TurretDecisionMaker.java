@@ -10,7 +10,6 @@ import units.Unit;
 public class TurretDecisionMaker extends DecisionMaker {
 
 
-  @Override
   public void reactToPlayerMovement(Unit unitMakingDecision,
                                     Mech mech,
                                     ArrayList<Creep> listOfCreeps,
@@ -19,35 +18,8 @@ public class TurretDecisionMaker extends DecisionMaker {
                                     List<Mech> listOfMechs,
                                     int roundCounter) {
 
-    if (findTargetInAttackRange(unitMakingDecision, mech, listOfCreeps, turret) != null) {
-      attackTarget(unitMakingDecision, findTargetInAttackRange(unitMakingDecision, mech, listOfCreeps, turret), listOfMechs, roundCounter);
+    if (findTargetInRange(unitMakingDecision, mech, listOfCreeps, turret, unitMakingDecision.getAttackRange()) != null) {
+      attackTarget(unitMakingDecision, findTargetInRange(unitMakingDecision, mech, listOfCreeps, turret, unitMakingDecision.getAttackRange()), listOfMechs, roundCounter);
     }
-  }
-
-  @Override
-  public Unit findTargetInAttackRange(Unit unitMakingDecision,
-                                      Mech mech,
-                                      ArrayList<Creep> listOfCreeps,
-                                      Turret turret) {
-
-    int attackRange = unitMakingDecision.getAttackRange();
-
-    if (mech.isThreatToHeroUnit() &&
-            mech.isAlive() &&
-            unitMakingDecision.calculateDistanceBetweenUnits(mech) <= attackRange) {
-      return mech;
-    }
-    for (Creep creep : listOfCreeps) {
-      if (unitMakingDecision.calculateDistanceBetweenUnits(creep) <= attackRange &&
-              creep.isAlive()) {
-        return creep;
-      }
-    }
-    if (!mech.isThreatToHeroUnit() &&
-            mech.isAlive() &&
-            unitMakingDecision.calculateDistanceBetweenUnits(mech) <= attackRange) {
-      return mech;
-    }
-    return null;
   }
 }

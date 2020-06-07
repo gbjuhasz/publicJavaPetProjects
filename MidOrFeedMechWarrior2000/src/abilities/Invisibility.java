@@ -1,5 +1,6 @@
 package abilities;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -8,7 +9,7 @@ import units.Unit;
 
 public class Invisibility extends ActiveAbility {
 
-  private String name = "Cloaking device";
+  private String name = "Cloaking Device";
   private String category = "defensive active";
   private int energyCost = 50;
   private int coolDown = 1000;
@@ -65,7 +66,16 @@ public class Invisibility extends ActiveAbility {
     mech.setEnergy(mech.getEnergy() - getEnergyCost());
     setCanBeUsedAgainInRound(roundCounter+getCoolDown());
     mech.setInvisible(true);
-    mech.setInvisibleUntilRound(duration);
+    mech.setInvisibleUntilRound(roundCounter+ duration);
+    mech.setUnitTargeted(null);
+    mech.setAggroPriority(0);
+    BufferedImage imageInvisible = null;
+    try {
+      imageInvisible = ImageIO.read(new File("images/mechhero/MechHero"+mech.getFacingDirection()+mech.getFeetForward()+"Invisible.png"));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    mech.setImage(imageInvisible);
   }
 
   @Override

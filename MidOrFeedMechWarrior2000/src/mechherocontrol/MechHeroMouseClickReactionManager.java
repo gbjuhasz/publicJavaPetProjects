@@ -35,6 +35,10 @@ public class MechHeroMouseClickReactionManager {
           listOfPossibleAbilityTargets.add(listOfAllUnit);
         }
       }
+      if (mechHero.getListOfAuras().get(3).isTurnedOn()) {
+        mechHero.getListOfAuras().get(3).useTargetingAura(identifyClickedUnit(listOfPossibleAbilityTargets, e));
+      }
+
       identifyClickedUnit(listOfAllUnits, e).setHighlighted(true);
       if (findActivatedAbility(mechHero).getCategory().contains("aoe")) {
         findActivatedAbility(mechHero).useAOEAbility(mechHero, identifyClickedUnit(listOfAllUnits, e), listOfPossibleAbilityTargets, roundCounter);
@@ -74,6 +78,9 @@ public class MechHeroMouseClickReactionManager {
       mechHero.setHighlighted(true);
     } else {
       mechHero.setUnitTargeted(identifyClickedUnit(listOfAllRightClickableUnits, mouseEvent));
+      mechHero.calculateTargetDirection(mechHero.getUnitTargeted());
+      mechHero.setFacingDirection(mechHero.getTargetDirection());
+
       for (Unit unit : listOfAllUnits
       ) {
         if (unit.isHighlighted()) {
@@ -90,7 +97,7 @@ public class MechHeroMouseClickReactionManager {
       Unit closestUnit = listOfUnits.get(0);
       for (Unit unit : listOfUnits) {
         unit.setHighlighted(false);
-        if (unit.isAlive() == true) {
+        if (unit.isAlive()) {
           double distance = calculateDistanceBetweenClickAndUnits(e, unit);
           if (distance < closestUnitDistance) {
             closestUnitDistance = distance;

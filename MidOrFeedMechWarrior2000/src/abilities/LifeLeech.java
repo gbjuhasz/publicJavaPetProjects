@@ -7,7 +7,7 @@ import units.Mech;
 
 public class LifeLeech extends PassiveAbility {
 
-  private String name = "Health siphon";
+  private String name = "Health Siphon";
   private String category = "defensive passive";
 
   public LifeLeech(){

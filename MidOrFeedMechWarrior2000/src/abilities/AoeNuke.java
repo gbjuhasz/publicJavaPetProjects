@@ -9,10 +9,10 @@ import units.Mech;
 import units.Unit;
 
 public class AoeNuke extends ActiveAbility {
-  private String name = "Cluster bomb";
+  private String name = "Cluster Bomb";
   private String category = "offensive active targeted aoe";
   private int energyCost = 100;
-  private int coolDown = 800;
+  private int coolDown = 1000;
   private int area = 108;
   private int damage = 80;
   private int lastUsedInRound;

@@ -124,4 +124,28 @@ public class UnitLayout {
     }
     return listOfAllUnitsOrderedByYCoordinate;
   }
+
+  public List<Unit> getAllUnitsUnderDamageAuraEffect(){
+    List<Unit> listToReturn = new ArrayList<>();
+    List<Unit> allUnits = getAllUnits();
+    for (Unit unit: allUnits
+    ) {
+      if(unit.isUnderDamageAuraEffect()){
+        listToReturn.add(unit);
+      }
+    }
+    return listToReturn;
+  }
+
+  public List<Unit> getAllUnitsUnderArmorAuraEffect(){
+    List<Unit> listToReturn = new ArrayList<>();
+    List<Unit> allUnits = getAllUnits();
+    for (Unit unit: allUnits
+    ) {
+      if(unit.isUnderArmorAuraEffect()){
+        listToReturn.add(unit);
+      }
+    }
+    return listToReturn;
+  }
 }

@@ -1,8 +1,12 @@
 package board;
 
 import decisionmaking.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.imageio.ImageIO;
 import units.*;
 
 public class OneRoundOfAction {
@@ -23,7 +27,8 @@ public class OneRoundOfAction {
                                       List<Mech> listOfMechs,
                                       int roundCounter) {
 
-    checkStunnedAndInvisibleUnits(listOfAllUnits,roundCounter);
+    checkStunnedAndInvisibleUnits(listOfAllUnits, roundCounter);
+    checkAggroChange(listOfAllUnits, roundCounter);
 
     if (mechHero.isAlive() &&
             !mechHero.isStunned()) {
@@ -39,6 +44,7 @@ public class OneRoundOfAction {
       if (creepAllied.isAlive() &&
               !creepAllied.isStunned()) {
         creepAlliedDecisionMaker.reactToPlayerMovement(creepAllied,
+                mechHero,
                 mechEnemy,
                 listOfCreepEnemy,
                 turretEnemy,
@@ -51,6 +57,7 @@ public class OneRoundOfAction {
       if (creepEnemy.isAlive() &&
               !creepEnemy.isStunned()) {
         creepEnemyDecisionMaker.reactToPlayerMovement(creepEnemy,
+                mechEnemy,
                 mechHero,
                 listOfCreepAllied,
                 turretAllied,
@@ -61,14 +68,10 @@ public class OneRoundOfAction {
     }
     if (mechEnemy.isAlive() &&
             !mechEnemy.isStunned()) {
-      mechEnemyDecisionMaker.reactToPlayerMovement(mechEnemy,
-              mechHero,
-              listOfCreepAllied,
-              turretAllied,
-              listOfAllUnits,
-              listOfMechs,
-              roundCounter);
+      mechEnemyDecisionMaker.reactToPlayerMovementMechEnemy(mechEnemy,mechHero,listOfCreepEnemy,listOfCreepAllied,turretEnemy,turretAllied,listOfAllUnits,listOfMechs,roundCounter);
     }
+
+
     turretDecisionMaker.reactToPlayerMovement(turretAllied,
             mechEnemy,
             listOfCreepEnemy,
@@ -93,9 +96,38 @@ public class OneRoundOfAction {
               unit.getStunOverInRound() == roundCounter) {
         unit.setStunned(false);
       }
-      if(unit.isInvisible() &&
-      unit.getInvisibleUntilRound() == roundCounter){
+      if (unit.isInvisible() &&
+              unit.getInvisibleUntilRound() == roundCounter) {
         unit.setInvisible(false);
+        BufferedImage imageInvisible = null;
+        try {
+          imageInvisible = ImageIO.read(new File("images/mechhero/MechHero" + unit.getFacingDirection() + unit.getFeetForward() + ".png"));
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+        unit.setImage(imageInvisible);
+      }
+    }
+  }
+
+  /*
+  private void checkAuraEffect(Mech mech, List<Creep> creeps){
+  /*  if(mech.getListOfAuras().get(0).getLevel() > 0{
+      for (Creep creep: creeps
+           ) {
+        if (mech.calculateDistanceBetweenUnits(creep) <= mech.getListOfAuras().get(0).getRange()){
+          creep.
+        }
+      }
+    }
+  }*/
+  private void checkAggroChange(List<Unit> listOfAllUnits, int roundCounter) {
+    for (Unit unit : listOfAllUnits
+    ) {
+      if (unit.getAggroPriority() != 1 &&
+              !unit.getUnitType().contains("turret") &&
+              unit.getRoundsToAggroReset() + unit.getAggroChangedInRound() == roundCounter) {
+        unit.setAggroPriority(1);
       }
     }
   }

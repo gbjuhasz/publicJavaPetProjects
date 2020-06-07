@@ -14,7 +14,8 @@ public class CreepEnemyDecisionMaker extends DecisionMaker {
   CreepEnemyMovementManager creepEnemyMovementManager = new CreepEnemyMovementManager();
 
   public void reactToPlayerMovement(Creep unitMakingDecision,
-                                    Mech mech,
+                                    Mech mechAllied,
+                                    Mech mechHostile,
                                     ArrayList<Creep> listOfCreeps,
                                     Turret turret,
                                     List<Unit> listOfAllUnits,
@@ -23,13 +24,13 @@ public class CreepEnemyDecisionMaker extends DecisionMaker {
 
     isItTimeToSwitchFeet(unitMakingDecision, roundCounter);
     checkIfStillHasTarget(unitMakingDecision);
+    placeDamageAndArmorAuraEffectsOnUnit(unitMakingDecision, mechAllied);
 
 
-    if (findTargetInAttackRange(unitMakingDecision, mech, listOfCreeps, turret) != null) {
-      attackTarget(unitMakingDecision, findTargetInAttackRange(unitMakingDecision, mech, listOfCreeps, turret),listOfMechs,
-              roundCounter);
-    } else if (findTargetInDetectionRange(unitMakingDecision, mech, listOfCreeps, turret) != null) {
-      moveTowardsTargetUnit(unitMakingDecision, findTargetInDetectionRange(unitMakingDecision, mech, listOfCreeps, turret), listOfAllUnits, roundCounter);
+    if (findTargetInRange(unitMakingDecision, mechHostile, listOfCreeps, turret, unitMakingDecision.getAttackRange()) != null) {
+      attackTarget(unitMakingDecision, findTargetInRange(unitMakingDecision, mechHostile, listOfCreeps, turret, unitMakingDecision.getAttackRange()), listOfMechs,  roundCounter);
+    } else if (findTargetInRange(unitMakingDecision, mechHostile, listOfCreeps, turret, unitMakingDecision.getDetectionRange()) != null) {
+      moveTowardsTargetUnit(unitMakingDecision, findTargetInRange(unitMakingDecision, mechHostile, listOfCreeps, turret, unitMakingDecision.getDetectionRange()), listOfAllUnits, roundCounter);
     } else {
       moveTowardsTargetUnit(unitMakingDecision, followWaypoints(unitMakingDecision), listOfAllUnits, roundCounter);
       if (unitMakingDecision.calculateDistanceBetweenUnits(followWaypoints(unitMakingDecision)) < 18
@@ -37,6 +38,7 @@ public class CreepEnemyDecisionMaker extends DecisionMaker {
         unitMakingDecision.setHeadingTowardsWaypoint(unitMakingDecision.getHeadingTowardsWaypoint() + 1);
       }
     }
+    removeAuraEffects(unitMakingDecision, mechAllied);
   }
 
   @Override

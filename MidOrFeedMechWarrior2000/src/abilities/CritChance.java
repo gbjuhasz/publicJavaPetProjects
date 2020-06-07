@@ -7,7 +7,7 @@ import units.Mech;
 
 public class CritChance extends PassiveAbility {
 
-  private String name = "Aiming system";
+  private String name = "Aiming System";
   private String category = "offensive passive";
 
   public CritChance(){

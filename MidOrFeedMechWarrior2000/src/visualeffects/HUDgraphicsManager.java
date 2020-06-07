@@ -149,7 +149,7 @@ public class HUDgraphicsManager extends JComponent {
     }
   }
 
-  public void drawAbilityIcons(Mech mechHero, Graphics graphics) {
+  public void drawAbilityIcons(Mech mechHero, int roundCounter, Graphics graphics) {
 
     graphics.setColor(Color.white);
 
@@ -201,5 +201,9 @@ public class HUDgraphicsManager extends JComponent {
     graphics.drawLine(470,670, 470,750);
     graphics.drawLine(500,670, 500,750);
     graphics.drawLine(530,670, 530,750);
+  }
+
+  public void drawUpStatusEffects(List<Unit> listOfAllUnits){
+
   }
 }
